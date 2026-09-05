@@ -39,8 +39,7 @@ export function installFidelity(g) {
   let sequenceToken = 0, introStarted = false, startupShown = false, startupPlaying = false, idleAt = 0;
   const stopStartup = () => {
     if (!startupPlaying) return;
-    const overlay = document.querySelector("#overlay");
-    overlay.querySelector("video")?.pause(); overlay.replaceChildren(); overlay.hidden = true; startupPlaying = false;
+    g.cancelMovie?.(); startupPlaying = false;
   };
   const flashes = new Map();
   const wait = source => !source || source.ended ? Promise.resolve() : new Promise(resolve => source.addEventListener("ended", resolve, { once: true }));

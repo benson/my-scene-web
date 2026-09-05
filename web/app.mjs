@@ -295,7 +295,7 @@ export class Game {
         this.lastInput = performance.now();
         this.sound.activate().then(() => {
           const video = $("#overlay video");
-          if (video) { video.muted = this.sound.muted; video.play().catch(() => {}); }
+          if (video) { video.muted = this.sound.muted; if (!video.controls) video.play().catch(() => {}); }
         }).catch(() => {});
       },
       { passive: true },
@@ -732,7 +732,9 @@ export class Game {
     this.currentRender = (t, dt) => {
       const cursorX = this.pointerPosition?.x ?? 400;
       const cursorSide = cursorX < this.p.x - (this.cameraX || 0) ? "L" : "R";
-      this.e.canvas.style.cursor = this.e.cursor(cursorX < 40 || cursorX > 760 ? `AniStBigArrow${cursorSide}` : `AniStSmallArrow${cursorSide}`, "Highlight");
+      const cursorY = this.pointerPosition?.y ?? 0;
+      this.e.canvas.style.cursor = cursorY > 350 && cursorY < 552
+        ? this.e.cursor(cursorX < 40 || cursorX > 760 ? `AniStBigArrow${cursorSide}` : `AniStSmallArrow${cursorSide}`, "Highlight") : "default";
       if (this.keys.has("ArrowLeft"))
         this.target = Math.max(50, this.p.x - 130);
       if (this.keys.has("ArrowRight"))

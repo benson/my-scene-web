@@ -69,6 +69,23 @@ feature inventory. The developer-mode restoration is based on the disc itself.
 
 ## Verification
 
+### Interface follow-up
+
+Cutscenes hide native video controls by default. Pointer movement reveals a
+temporary Skip button; Escape skips, and Options can enable native playback
+controls. Autoplay rejection offers Play. Background controls are inert during
+movies, and replacing or cancelling a movie releases its handlers.
+
+Removed the port's generic white mouse-hover rectangles; keyboard focus remains
+visible. Walking arrows now use the same pavement region as walking clicks.
+The original native vertical cutoff has not been established.
+
+Phone icons retain their original dimensions. Their horizontal positions use
+four equal slots to avoid the recovered Calls/Close rectangle overlap. This is
+a usability adjustment, not a verified reproduction of native runtime placement.
+`tools/check_interface.js` checks playback, skipping/completion, autoplay recovery,
+the playback-control option, phone targets and pavement cursor behavior.
+
 - `tools/check_fidelity.js`: authored actor scheduling and speed, proximity
   encounter phases, real tile dragging, all 28 puzzles through letter input,
   all 12 puzzle saves and board geometry, seven help contexts, and real

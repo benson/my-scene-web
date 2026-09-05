@@ -1,42 +1,9 @@
 import { rows, pad, esc, plain } from "./engine.mjs";
+import { installCutscenes } from "./cutscenes.mjs";
 
 export function installExtras(g) {
   const e = g.e;
-  g.movie = (name, done, options = {}) => {
-    const map = {
-      intro: "VidStGameIntro",
-      "subway-bar": "SubwayTranBar",
-      "subway-che": "SubwayTranChel",
-      "subway-mad": "SubwayTranMad",
-    };
-    const file = map[name] || name.replace(/Smk$/, "");
-    const overlay = document.querySelector("#overlay");
-    overlay.replaceChildren();
-    overlay.hidden = false;
-    const video = document.createElement("video");
-    video.src = `assets/movies/${file}.mp4`;
-    video.controls = true;
-    video.playsInline = true;
-    video.autoplay = true;
-    video.muted = g.sound.muted || g.sound.context?.state !== "running";
-    overlay.append(video);
-    let ended = false;
-    const finish = (skipped = false) => {
-      if (ended) return;
-      ended = true;
-      video.pause();
-      overlay.hidden = true;
-      overlay.replaceChildren();
-      if (skipped && options.onSkip) options.onSkip(); else done?.();
-    };
-    g.btn("Skip / close", () => finish(true), overlay, "video-close");
-    video.onended = () => finish();
-    video.onerror = () => {
-      g.text("This movie could not load. You can carry on playing.");
-      finish();
-    };
-    video.play().catch(() => {});
-  };
+  installCutscenes(g);
 
   g.phone = () => {
     const w = g.week,

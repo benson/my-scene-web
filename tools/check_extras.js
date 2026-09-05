@@ -117,9 +117,7 @@ async (page) => {
     await page.waitForFunction(
       () => document.querySelector("#overlay video")?.readyState >= 2,
     );
-    await page
-      .getByRole("button", { name: "Skip / close", exact: true })
-      .click();
+    await page.keyboard.press("Escape");
     await page.waitForFunction(
       (a) => myScene.p.area === a && document.querySelector("#loading").hidden,
       area,
@@ -250,7 +248,7 @@ async (page) => {
   await page.waitForFunction(
     () => document.querySelector("#overlay video")?.currentTime > 0,
   );
-  await page.getByRole("button", { name: "Skip / close", exact: true }).click();
+  await page.keyboard.press("Escape");
   await page.getByRole("button", { name: "Mute sound", exact: true }).click();
   assert(
     await page.evaluate(
@@ -271,9 +269,8 @@ async (page) => {
     .getByRole("textbox", { name: "Your name", exact: true })
     .fill("Touch QA");
   await mobile.getByRole("button", { name: "New game", exact: true }).click();
-  await mobile
-    .getByRole("button", { name: "Skip / close", exact: true })
-    .click();
+  await mobile.locator("#overlay video").tap();
+  await mobile.getByRole("button", { name: "Skip cutscene", exact: true }).tap();
   await mobile
     .getByRole("button", { name: "Close dialog", exact: true })
     .click();

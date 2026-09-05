@@ -117,10 +117,15 @@ export function installNativeUI(g) {
       if (selected !== null) e.draw("AniZzDisplayScreen");
       e.text(title, 400, 190, { size: 19, align: "center", color: "#192299" });
       e.hit("phone-back", "Back to phone list", { x: 330, y: 188, w: 144, h: 28 }, () => g.phone(tab));
-      e.button("BtnZzTask", "To-do list", () => g.phone("tasks"));
-      e.button("BtnZzMessage", "Messages", () => g.phone("messages"));
-      e.button("BtnZzCellPhone", "Calls", () => g.phone("calls"));
-      e.button("BtnZzExitPhone", "Close phone", () => g.close());
+      // Keep the original icon pixels, but give each a separate screen slot.
+      // The recovered frame positions overlap the Calls and Close rectangles.
+      [["BtnZzTask", "To-do list", "tasks"], ["BtnZzMessage", "Messages", "messages"],
+        ["BtnZzCellPhone", "Calls", "calls"], ["BtnZzExitPhone", "Close phone", null]].forEach(([sprite, label, target], i) => {
+        const fx = e.hover === sprite ? "Highlight" : target === tab ? "Down" : "Up";
+        const b = e.bounds(sprite, fx), x = 330 + i * 36;
+        e.draw(sprite, fx, { dx: x + (36 - b.w) / 2 - b.x });
+        e.hit(sprite, label, { x, y: 342, w: 36, h: 36 }, () => target ? g.phone(target) : g.close());
+      });
       if (tab === "calls" && selected !== null && calls[selected]?.image)
         e.draw(calls[selected].image, undefined, { fit: [350, 248, 100, 92] });
     });
@@ -136,7 +141,7 @@ export function installNativeUI(g) {
         const row = textSprite(`TxtZzTaskShort${pad(i + 1)}`, item.title, "button");
         row.onclick = () => g.phone(tab, i);
       });
-      if (!items.length) field("No new messages yet.", 346, 225, 124, 124, 14);
+      if (!items.length) field(tab === "calls" ? "No new calls yet." : "No new messages yet.", 346, 225, 124, 124, 14);
     }
   };
 
@@ -374,14 +379,17 @@ export function installNativeUI(g) {
   };
 
   const oldOptions = g.options.bind(g);
+  const movieOption = refresh => g.btn(`Video playback controls: ${g.movieControls ? "shown" : "hidden"}`, () => { g.movieControls = !g.movieControls; refresh(); }, body);
   g.options = () => {
     oldOptions();
+    movieOption(() => g.options());
     g.btn(g.sound.muted ? "Sound on" : "Sound off", () => { document.querySelector("#sound").click(); g.options(); }, body);
     g.btn("Full screen", () => { g.close(); document.querySelector("#fullscreen").click(); }, body);
     g.btn("Keyboard / accessible controls", () => { g.close(); document.body.classList.toggle("show-controls"); }, body);
   };
   g.signinOptions = () => {
     const p = g.modal("Options");
+    movieOption(() => g.signinOptions());
     g.btn("Import a saved game", () => g.importSave(), p);
     g.btn("Watch the introduction", () => { g.close(); g.movie("intro"); }, p);
     g.btn("Credits", () => g.credits(), p);
