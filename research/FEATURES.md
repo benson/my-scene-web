@@ -67,8 +67,8 @@ Check an item only after implementation and a focused verification. This list is
 - [x] All creative activities exercised, including saving and revisiting.
 - [x] Responsive display, mouse/touch/keyboard access, sound activation.
 - [x] Reload/save/import/export checked; loading and failure states work.
-- [ ] Publish to a dedicated GitHub repository + GitHub Pages.
-- [ ] Verify the live shareable URL.
+- [x] Publish to a dedicated GitHub repository + GitHub Pages.
+- [x] Verify the live shareable URL.
 
 ## Known source quirks
 
@@ -88,5 +88,6 @@ Check an item only after implementation and a focused verification. This list is
 - `tools/check_extras.js`: 28 jumbles, 36 quiz outcomes, 52 calls, city travel/doors/subway, incidental characters and birds, camera/download/printing contract, biographies, credits, video/mute, 390-pixel touch viewport, startup failure and recovery. Printing was checked at the browser handoff, without sending paper to a printer.
 - `tools/check_revisions.js`: the four-guess limit and retry, changing a correct shopping selection invalidates it, reopening and editing a saved design, and the PNG file signature.
 - Visual inspection: sign-in, apartment, street, clothes design, window dressing, saved storefront, music mixer, and mobile layout.
+- Live delivery: [bensonperry.com/my-scene-web/](https://bensonperry.com/my-scene-web/) returns HTTP 200. The published game starts a fresh profile, plays its introduction, opens the apartment and city, and resumes that city save after reload, with no browser exceptions or failed resource responses. [GitHub Pages deployment passed](https://github.com/benson/my-scene-web/actions/runs/33981820413).
 
 Browser controls and some animations/timing are reconstructed. The original native handlers are not running, so this is verified functional coverage of the recovered game content, not a claim of exact binary or visual parity.
