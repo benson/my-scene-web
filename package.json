@@ -1,0 +1,9 @@
+{
+  "name": "my-scene-web",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "check": "node tools/check_data.mjs"
+  }
+}

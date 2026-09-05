@@ -1,0 +1,624 @@
+import { rows, pad, esc, plain } from "./engine.mjs";
+
+export function installShops(g) {
+  const e = g.e;
+  function controls(title, scene, copy) {
+    g.ui.help = copy;
+    const p = g.panel(title, `<p>${esc(copy)}</p>`, "Shopping · $10");
+    const ts = g.taskFor(scene);
+    for (const t of ts) {
+      const n = document.createElement("p");
+      n.className = "paper";
+      n.textContent = `${g.progress.done.includes(t.index) ? "✓ " : ""}${plain(t.SHORT_TXT)}\n${plain(t.EXPANDED)}`;
+      p.append(n);
+    }
+    return p;
+  }
+  function leave(p) {
+    g.btn("Done · back outside", () => g.street(g.p.area), g.group(p));
+  }
+
+  async function accessories(makeup = false) {
+    const scene = makeup ? "ScMuMakeUp" : "ScAcAccess",
+      code = makeup ? "Mu" : "Ac";
+    const params = g.d(`Dct${makeup ? "MakeUp" : "Access"}Params${g.pre}`),
+      categories = makeup
+        ? ["Lipstick", "Eye shadow"]
+        : ["Earrings", "Hair clips", "Necklaces", "Sunglasses"];
+    const tasks = g.taskFor(scene),
+      state = g.activity(scene, {
+        category:
+          tasks.find((t) => !g.progress.done.includes(t.index))?.DATA || 0,
+        selected: {},
+        rounds: {},
+        pose: "Still",
+      });
+    state.poseAt = e.clock;
+    const cat = state.category,
+      dictName = rows(params).find((r) => r.CONTTYPE === cat)?.CONTDICT,
+      dict = g.d(dictName);
+    let items = rows(dict).map((r) => ({ ...r }));
+    if (makeup)
+      items = items.map((r) => ({
+        ...r,
+        SPRITE: r.SPRITE.replace("AniMuM", `AniMu${g.character[0]}`),
+        ONDOLL: r.ONDOLL.replace("AniMuM", `AniMu${g.character[0]}`),
+      }));
+    // The second necklace rack contains alternate forms of the same attributes.
+    if (!makeup && cat === 2 && items.length === 9)
+      items.push(
+        ...items.map((r, i) => ({
+          ...r,
+          SPRITE: `AniAcNecklace${pad(i + 10)}`,
+          ONDOLL: `AniAc${g.character[0]}Neck${pad(i + 10)}`,
+        })),
+      );
+    const round = (state.rounds[cat] ||= {
+      target: Math.floor(Math.random() * items.length),
+      attempts: [],
+      solved: false,
+    });
+    const chosen = () => items.find((i) => i.SPRITE === state.selected[cat]);
+    await g.prepare([
+      g.background(scene),
+      params.DOLL_SP,
+      params.DOLL_SP_NOEYE,
+      params.DEFAULT_EYE,
+      params.DEFAULT_LIPS,
+      ...items.flatMap((i) => [i.SPRITE, i.ONDOLL]),
+      `Ani${code}Chance`,
+      `Btn${code}Guess`,
+      `Btn${code}Buy`,
+      `Btn${code}Done`,
+    ]);
+    const select = (item) => {
+      state.selected[cat] = item.SPRITE;
+      round.solved = round.solutionSprite === item.SPRITE;
+      state.pose = "Still";
+      g.save();
+      panel();
+    };
+    const guess = () => {
+      if (round.attempts.length >= 4 && !round.solved)
+        return g.text('Choose Try again for four fresh guesses.');
+      const item = chosen();
+      if (!item) return g.text("Try something on first.");
+      const answer = items[round.target],
+        matches =
+          Number(item.ATTRIB1 === answer.ATTRIB1) +
+          Number(item.ATTRIB2 === answer.ATTRIB2);
+      round.attempts.push({ item: item.SPRITE, matches });
+      round.solved = matches === 2;
+      if (round.solved) round.solutionSprite = item.SPRITE;
+      state.pose = matches === 2 ? "Pos01" : matches === 1 ? "SoSo01" : "Neg01";
+      state.poseAt = e.clock;
+      g.voice(
+        params.DOLL_VO,
+        matches === 2 ? "Correct01" : matches === 1 ? "SoSo01" : "Wrong01",
+      );
+      g.text(
+        matches === 2
+          ? "That’s the one! Ready to buy."
+          : matches === 1
+            ? "One feature is right. Try changing the other."
+            : "Neither feature matches. Try another style.",
+      );
+      g.save();
+      panel();
+    };
+    const buy = async () => {
+      const item = chosen();
+      if (!item) return g.text("Choose an item first.");
+      const t = tasks.find(
+        (t) => t.DATA === cat && !g.progress.done.includes(t.index),
+      );
+      if (t && !round.solved)
+        return g.text("Use Guess to find the right look before you buy it.");
+      if (await g.purchase(scene, item.SPRITE, t?.index)) {
+        state.bought ||= {};
+        state.bought[cat] = item.SPRITE;
+        panel();
+      }
+    };
+    g.currentRender = (t) => {
+      e.background(g.background(scene));
+      const pose = state.pose === "Still" ? "Still" : state.pose;
+      const elapsed = t - (state.poseAt || 0);
+      e.draw(
+        !makeup && cat === 3 ? params.DOLL_SP_NOEYE : params.DOLL_SP,
+        pose,
+        { time: elapsed, loop: false },
+      );
+      if (makeup) {
+        e.draw(params.DEFAULT_EYE, "Still");
+        e.draw(params.DEFAULT_LIPS, "Still");
+      }
+      for (const [category, sprite] of Object.entries(state.selected)) {
+        let row;
+        if (+category === cat) row = items.find((i) => i.SPRITE === sprite);
+        else {
+          const key = rows(params).find(
+            (r) => r.CONTTYPE === +category,
+          )?.CONTDICT;
+          row = rows(g.d(key)).find(
+            (r) =>
+              r.SPRITE === sprite ||
+              r.SPRITE.replace("AniMuM", `AniMu${g.character[0]}`) === sprite,
+          );
+          if (row && makeup)
+            row = {
+              ...row,
+              ONDOLL: row.ONDOLL.replace("AniMuM", `AniMu${g.character[0]}`),
+            };
+        }
+        if (!row && !makeup && /^AniAcNecklace\d+$/.test(sprite))
+          row = { ONDOLL: `AniAc${g.character[0]}Neck${sprite.match(/\d+$/)[0]}` };
+        if (row) e.draw(row.ONDOLL);
+      }
+      items.forEach((item, i) =>
+        e.draw(item.SPRITE, "Still", {
+          fit: [
+            30 + (i % 3) * 103,
+            45 +
+              Math.floor(i / 3) *
+                Math.min(150, 450 / Math.ceil(items.length / 3)),
+            92,
+            Math.min(140, 440 / Math.ceil(items.length / 3)),
+          ],
+          action: () => select(item),
+          label: `Try ${categories[cat]} ${i + 1}`,
+          id: `shelf-${i}`,
+        }),
+      );
+      e.draw(
+        `Ani${code}Chance`,
+        round.attempts.length
+          ? `Chance${pad(Math.min(round.attempts.length, 4))}`
+          : "Still",
+      );
+      e.button(`Btn${code}Guess`, "Guess", guess);
+      e.button(`Btn${code}Buy`, "Buy", buy);
+      e.button(`Btn${code}Done`, "Done", () => g.street(g.p.area));
+    };
+    function panel() {
+      const p = controls(
+        makeup ? "The Glamour Shop" : "Angel Accessories",
+        scene,
+        "Try a look, then guess. The girls will tell you whether zero, one, or both features match the look they want.",
+      );
+      const tabs = g.group(p, "tabs");
+      categories.forEach((label, i) =>
+        g.btn(
+          label,
+          () => {
+            state.category = i;
+            g.save();
+            accessories(makeup);
+          },
+          tabs,
+          i === cat ? "selected" : "",
+        ),
+      );
+      const actions = g.group(p, "row");
+      g.btn("Guess", guess, actions);
+      g.btn("Buy · $10", buy, actions, "primary");
+      if (round.attempts.length >= 4 && !round.solved)
+        g.btn(
+          "Try again",
+          () => {
+            round.attempts = [];
+            g.save();
+            panel();
+          },
+          actions,
+        );
+      if (round.attempts.length) {
+        const a = document.createElement("p");
+        a.className = "hint";
+        a.textContent = round.attempts
+          .map((a, i) => `Try ${i + 1}: ${a.matches}/2 features matched`)
+          .join(" · ");
+        p.append(a);
+      }
+      g.grid(
+        items.map((i, n) => ({
+          sprite: i.SPRITE,
+          label: `${categories[cat]} ${n + 1}`,
+        })),
+        (_, i) => select(items[i]),
+        p,
+        state.selected[cat],
+      );
+      leave(p);
+    }
+    panel();
+    g.voice(params.AMBIENT_SND, undefined, {
+      loop: true,
+      channel: "ambient",
+      gain: 0.2,
+    });
+    g.save();
+  }
+
+  async function clothing(scene) {
+    const suffix = {
+        ScClClothesDt: "Downtown",
+        ScClClothesUe: "UpperEast",
+        ScClClothesVil: "Village",
+      }[scene],
+      params = g.d(`DctClParams${suffix}`),
+      doll = g.d(`DctClParams${g.pre}`),
+      items = g.r(params.CLOTHING_DICT),
+      locations = [g.r(params.LOC_DICT_BOTTOM), g.r(params.LOC_DICT)];
+    const state = g.activity(scene, {
+        top: null,
+        bottom: null,
+        pose: "Still",
+        at: 0,
+      }),
+      bg = g.blob(params.BG_BLOB);
+    state.at = e.clock;
+    const select = (item) => {
+      const type = item.CLOTH_TYPE ? "top" : "bottom";
+      state[type] = state[type] === item.SPRITE ? null : item.SPRITE;
+      state.pose =
+        state.top && state.bottom
+          ? "HeadlessBoth"
+          : state.top
+            ? "HeadlessTop"
+            : state.bottom
+              ? "HeadlessBottom"
+              : "Still";
+      state.at = e.clock;
+      const correct =
+        item.SPRITE === g.week.CLOTHING_TOP ||
+        item.SPRITE === g.week.CLOTHING_BOTTOM;
+      g.voice(
+        doll.VO_SP,
+        correct
+          ? "Perfect"
+          : g.r("DctClVOFeedback").find((r) => r.SPRITE === item.SPRITE)?.[
+              `Week${g.p.week}`
+            ] || "LookAtClues",
+      );
+      g.save();
+      panel();
+    };
+    const model = () => {
+      state.pose =
+        state.top && state.bottom
+          ? "ModelTopBottom"
+          : state.top
+            ? "ModelTop"
+            : state.bottom
+              ? "ModelBottom"
+              : "Idle01";
+      state.at = e.clock;
+      g.save();
+    };
+    const buy = async () => {
+      const selected = [state.top, state.bottom].filter(Boolean);
+      if (!selected.length)
+        return g.text("Pick something from the racks first.");
+      const tasks = g.taskFor(scene);
+      for (const item of selected) {
+        const t = tasks.find(
+          (t) =>
+            !g.progress.done.includes(t.index) &&
+            (item === g.week.CLOTHING_TOP || item === g.week.CLOTHING_BOTTOM),
+        );
+        if (tasks.some((t) => !g.progress.done.includes(t.index)) && !t) {
+          g.text("That doesn’t match this weekend’s clues. Try another item.");
+          g.voice(doll.VO_SP, "LookAtClues");
+          continue;
+        }
+        await g.purchase(scene, item, t?.index);
+      }
+      panel();
+    };
+    await g.prepare([
+      bg,
+      doll.DOLL_SP,
+      doll.DOLL_MOUTH,
+      ...items.map((i) => i.SPRITE),
+      "BtnClBuy",
+      "BtnClDone",
+    ]);
+    g.currentRender = (t) => {
+      e.background(bg);
+      const count = [0, 0];
+      for (const item of items) {
+        const point = locations[item.CLOTH_TYPE][count[item.CLOTH_TYPE]++];
+        if (point)
+          e.draw(item.SPRITE, "Hanger", {
+            dx: point.XLOC,
+            dy: point.YLOC,
+            action: () => select(item),
+            label: `Try ${g.itemLabel(item.SPRITE)}`,
+            id: item.SPRITE,
+          });
+      }
+      e.draw(doll.DOLL_SP, state.pose, { time: t - state.at, loop: false });
+      g.drawSpeaking(doll.DOLL_MOUTH);
+      const hand = g.d(doll.HAND_DICT),
+        fx = state.pose;
+      for (const [type, sprite] of [
+        ["Top", state.top],
+        ["Bottom", state.bottom],
+      ]) {
+        if (!sprite) continue;
+        const sub =
+          state.top && state.bottom ? (type === "Top" ? "Top" : "Bot") : "";
+        const coord = hand[fx + sub] || hand[`Headless${type}`];
+        if (coord) {
+          const f = e.effect(doll.DOLL_SP, fx),
+            index = Math.min(
+              Math.floor((t - state.at) / Math.max(f?.delay || 100, 16)),
+              coord.length / 2 - 1,
+            );
+          const x = coord[Math.max(0, index) * 2],
+            y = coord[Math.max(0, index) * 2 + 1];
+          if (x || y) e.draw(sprite, "Still", { dx: x, dy: y });
+        }
+      }
+      e.button("BtnClBuy", "Buy clothes", buy);
+      e.button("BtnClDone", "Done", () => g.street(g.p.area));
+    };
+    function panel() {
+      const p = controls(
+        { Downtown: "Digs", UpperEast: "Très Chic", Village: "Urban Threads" }[
+          suffix
+        ],
+        scene,
+        "Browse the racks and hold clothes up to see how they look. Your to-do list, messages and Zine have the fashion clues.",
+      );
+      const a = g.group(p, "row");
+      g.btn("Model this look", model, a);
+      g.btn("Buy · $10 each", buy, a, "primary");
+      g.grid(
+        items.map((i) => ({
+          sprite: i.SPRITE,
+          fx: "Hanger",
+          label: g.itemLabel(i.SPRITE),
+        })),
+        (_, i) => select(items[i]),
+        p,
+      );
+      leave(p);
+    }
+    panel();
+    g.voice(params.AMBIENT_SND, undefined, {
+      loop: true,
+      channel: "ambient",
+      gain: 0.2,
+    });
+    g.voice(doll.VO_SP, params.INTRO_FX);
+    g.save();
+  }
+
+  async function selectionShop(food = false) {
+    const code = food ? "Fd" : "Gt",
+      scene = food ? "ScFdFood" : "ScGtGift",
+      params = g.d(`Dct${code}Params`),
+      doll = g.d(`Dct${code}Params${g.pre}`),
+      task = g.taskFor(scene)[0],
+      contentName = g.r(params.CONTENT_IDX)[task?.DATA || 0]?.DICT,
+      content = g.d(contentName),
+      items = g.r(params.OBJECT_DICT);
+    const state = g.activity(scene, {
+      selected: [],
+      questions: [],
+      answer: null,
+      round: 0,
+    });
+    const choose = (item) => {
+      state.selected.includes(item.SPRITE)
+        ? state.selected.splice(state.selected.indexOf(item.SPRITE), 1)
+        : state.selected.length < 3
+          ? state.selected.push(item.SPRITE)
+          : g.text(
+              "Your three spaces are full. Remove an item to choose another.",
+            );
+      g.voice(params.STOREKEEPER_VO, item.SND);
+      g.save();
+      panel();
+    };
+    const buy = async () => {
+      if (state.selected.length !== 3)
+        return g.text("Choose three items for the bag.");
+      const matches = state.selected.filter((n) =>
+        content.ANSWERS?.includes(n),
+      ).length;
+      if (matches < 3 && task && !g.progress.done.includes(task.index)) {
+        g.voice(`Ani${code}${g.character}VO`, "KickOut01");
+        g.text(
+          `${matches} of your three choices fit the clues. Ask some more questions and try again.`,
+        );
+        return;
+      }
+      if (await g.purchase(scene, state.selected.join(","), task?.index)) {
+        g.voice(`Ani${code}${g.character}VO`, "Correct01");
+        panel();
+      }
+    };
+    await g.prepare([
+      g.background(scene),
+      doll.DOLL_SP,
+      doll.DOLL_MOUTH,
+      ...items.map((i) => i.SPRITE),
+      `Btn${code}Buy`,
+      ...g.r(`Dct${code}Params`).map((i) => i.BOX),
+    ]);
+    g.currentRender = (t) => {
+      e.background(g.background(scene));
+      e.draw(doll.DOLL_SP, "Still", { time: t });
+      g.drawSpeaking(doll.DOLL_MOUTH);
+      g.r(`Dct${code}Params`).forEach((b, i) => {
+        e.draw(b.BOX);
+        const s = state.selected[i];
+        if (s)
+          e.draw(s, "Still", {
+            fit: [b.XLOC - 73, b.YLOC - 65, 140, 135],
+            action: () => choose(items.find((it) => it.SPRITE === s)),
+            label: `Remove item ${i + 1}`,
+            id: `bag-${i}`,
+          });
+      });
+      e.panel(354, 92, 412, 430, "#fff9e4ed");
+      e.text(
+        state.answer || "Ask questions, then choose three items for the bag.",
+        380,
+        113,
+        { size: 19, maxWidth: 350 },
+      );
+      e.button(`Btn${code}Buy`, "Buy selection", buy);
+    };
+    function panel() {
+      const p = controls(
+        food ? "Village Depot" : "Tiff’s",
+        scene,
+        "Ask questions to work out which three items fit the occasion. Click a selected item to put it back.",
+      );
+      const qs = g.group(p);
+      for (const [i, q] of rows(content).entries())
+        g.btn(
+          q.QUESTION,
+          () => {
+            state.answer = q.ANSWER;
+            if (!state.questions.includes(i)) state.questions.push(i);
+            g.text(q.ANSWER);
+            g.save();
+          },
+          qs,
+          "quiz-answer",
+        );
+      g.btn("Buy selection · $10", buy, p, "primary");
+      g.grid(
+        items.map((it, i) => ({
+          sprite: it.SPRITE,
+          label: `${food ? "Food" : "Gift"} ${i + 1}${state.selected.includes(it.SPRITE) ? " · selected" : ""}`,
+        })),
+        (_, i) => choose(items[i]),
+        p,
+      );
+      leave(p);
+    }
+    panel();
+    g.voice(`Snd${code}Ambient`, undefined, {
+      loop: true,
+      channel: "ambient",
+      gain: 0.2,
+    });
+    g.voice(params.STOREKEEPER_VO, content.INTROFX);
+    g.save();
+  }
+
+  async function cds() {
+    const scene = "ScCsCDShop",
+      doll = g.d(`DctCsParams${g.pre}`),
+      hums = g.r("DctCsHums"),
+      sprites = g.r("DctCsCDs").map((r) => r.SPRITE),
+      locs = g.r("DctCsCDLocations");
+    const state = g.activity(scene, {
+      target: hums
+        .map((h, i) => ({ h, i }))
+        .filter(({ h }) => g.sound.key(`AniCs${g.character}VO`, h.HUM))[
+        Math.floor(Math.random() * 6)
+      ].i,
+      tracks: [],
+      selected: null,
+    });
+    if (!state.tracks.length)
+      state.tracks = [
+        state.target,
+        ...hums
+          .map((_, i) => i)
+          .filter((i) => i !== state.target)
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 8),
+      ].sort(() => Math.random() - 0.5);
+    const select = (i) => {
+      state.selected = i;
+      g.voice(hums[state.tracks[i]].MUSIC, undefined, { channel: "sample" });
+      g.save();
+      panel();
+    };
+    const clue = () => g.voice(`AniCs${g.character}VO`, hums[state.target].HUM);
+    const buy = async () => {
+      if (state.selected === null)
+        return g.text("Listen to a CD and select it first.");
+      const task = g.taskFor(scene)[0];
+      if (
+        task &&
+        !g.progress.done.includes(task.index) &&
+        state.tracks[state.selected] !== state.target
+      ) {
+        g.text("That’s not the tune. Listen to the humming clue again.");
+        g.voice(doll.DOLL_MOUTH, "Wrong01");
+        return;
+      }
+      if (
+        await g.purchase(
+          scene,
+          hums[state.tracks[state.selected]].MUSIC,
+          task?.index,
+        )
+      )
+        panel();
+    };
+    await g.prepare([
+      g.background(scene),
+      doll.DOLL_SP,
+      doll.DOLL_MOUTH,
+      ...sprites,
+      "BtnCsBuy",
+      "BtnCsDone",
+    ]);
+    g.currentRender = (t) => {
+      e.background(g.background(scene));
+      e.draw(doll.DOLL_SP, "Still", { time: t });
+      g.drawSpeaking(doll.DOLL_MOUTH);
+      sprites.forEach((s, i) =>
+        e.draw(s, state.selected === i ? "Down" : "Still", {
+          dx: locs[i].XLOC,
+          dy: locs[i].YLOC,
+          action: () => select(i),
+          label: `Listen to CD ${i + 1}`,
+          id: s,
+        }),
+      );
+      e.button("BtnCsBuy", "Buy CD", buy);
+      e.button("BtnCsDone", "Done", () => g.street(g.p.area));
+    };
+    function panel() {
+      const p = controls(
+        "CD Store",
+        scene,
+        "Listen to the tune your friend hums, then find the matching CD. Each case plays a sample.",
+      );
+      const a = g.group(p, "row");
+      g.btn("Hear humming clue", clue, a);
+      g.btn("Buy · $10", buy, a, "primary");
+      g.grid(
+        sprites.map((s, i) => ({ sprite: s, label: `CD ${i + 1}` })),
+        (_, i) => select(i),
+        p,
+      );
+      leave(p);
+    }
+    panel();
+    g.voice("SndCsAmbient", undefined, {
+      loop: true,
+      channel: "ambient",
+      gain: 0.2,
+    });
+    g.save();
+  }
+  g.handlers.ScAcAccess = () => accessories(false);
+  g.handlers.ScMuMakeUp = () => accessories(true);
+  for (const s of ["ScClClothesDt", "ScClClothesUe", "ScClClothesVil"])
+    g.handlers[s] = () => clothing(s);
+  g.handlers.ScGtGift = () => selectionShop(false);
+  g.handlers.ScFdFood = () => selectionShop(true);
+  g.handlers.ScCsCDShop = cds;
+}
