@@ -152,9 +152,9 @@ export class Engine {
     if (im) this.ctx.drawImage(im, 0, 0, 800, 600);
     else if (key) this.image(key).catch(() => {});
   }
-  hit(id, label, rect, action) {
+  hit(id, label, rect, action, cursor = "") {
     if (rect && rect.w > 0 && rect.h > 0)
-      this.hits.push({ id, label, rect, action });
+      this.hits.push({ id, label, rect, action, cursor });
   }
   button(name, label, action, o = {}) {
     const fx = this.hover === (o.id || name) ? "Highlight" : "Up";
@@ -267,6 +267,7 @@ export class Engine {
       b.setAttribute("aria-label", h.label);
       b.title = h.label;
       b.onclick = h.action;
+      b.style.cursor = h.cursor;
       b.style.left = `${h.rect.x / 8}%`;
       b.style.top = `${h.rect.y / 6}%`;
       b.style.width = `${h.rect.w / 8}%`;

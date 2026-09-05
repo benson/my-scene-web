@@ -705,7 +705,10 @@ export class Game {
       ...actors.map((a) => a.ACTOR),
       "AniStBirdFlying",
       "AniStCurHeart",
+      "AniStSmallArrowIn",
     ]);
+    const doorArrow = await this.e.thumbnail("AniStSmallArrowIn", "Highlight", 34, 35);
+    const doorCursor = `url("${doorArrow.toDataURL()}") 17 17, pointer`;
     this.voice(world.BG_MUSIC, undefined, {
       loop: true,
       channel: "ambient",
@@ -793,6 +796,7 @@ export class Game {
           label,
           { x: x - 44, y: it.YLOC - 148, w: 88, h: 148 },
           () => this.destination(it.DATYPE, area),
+          doorCursor,
         );
       }
       for (const a of actors) {
