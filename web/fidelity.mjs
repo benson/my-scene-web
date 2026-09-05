@@ -146,8 +146,12 @@ export function helpContext(g, idle = false) {
     ScCsCDShop: [`DctCs${done ? "Bought" : "Game"}${kind}`, `AniCs${g.character}VO`],
     ScGtGift: [`DctGt${kind}`, "AniGtStoreKeeperVO"],
     ScFdFood: [`DctFd${kind}`, "AniFdStoreKeeperVO"],
-    ScMmMusMix: [`DctMm${kind}${g.sound.sources.length ? "Mix" : ""}`, "VocMmJezVO"],
-    ScBaBarApt: [`DctBa${kind}${g.pre === "Che" ? "Che" : ""}`, `VocBa${pre}VO`],
+    ScMmMusMix: [`DctMm${kind}${state.mode === "effects" ? "Mix" : ""}`, "VocMmJezVO"],
   };
+  if (g.scene === "ScBaBarApt") {
+    const person = g.p.apartment || g.character;
+    const apartment = g.d({Barbie:"DctBarApt",Chelsea:"DctChrApt",Madison:"DctMadApt"}[person]);
+    return [apartment[idle ? "IDLE_DICT" : "HELP_DICT"], `VocBa${{Barbie:"Bar",Chelsea:"Chel",Madison:"Mad"}[person]}VO`];
+  }
   return choices[g.scene];
 }

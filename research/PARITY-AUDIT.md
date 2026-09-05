@@ -5,6 +5,11 @@ not a carbon copy of the original.** Earlier campaign tests proved completion
 under the port's rules; they did not prove those rules match the native game.
 This audit adds evidence and a repair checklist. It does not change gameplay.
 
+**Repair update:** the 18 confirmed items below are now implemented. See
+[PARITY-FIXES.md](PARITY-FIXES.md) for native branch evidence, implementation
+details, corrections to the audit's initial assumptions, and verification.
+The table is retained as the original baseline finding list.
+
 ## Method and evidence
 
 - Read the recovered ISO resource dictionaries, sprites, sound effects and cues.
@@ -42,7 +47,8 @@ methods. Do not run them in a player's session.
 ## Confirmed repair checklist
 
 P1 changes game rules or removes original interaction/narrative sequences.
-P2 changes presentation, feedback or context routing. Each item below is open.
+P2 changes presentation, feedback or context routing. Each item below was open
+at the audit baseline and is addressed by the repair update above.
 
 | ID | Priority | Difference and evidence | Acceptance criterion |
 | --- | --- | --- | --- |
@@ -69,10 +75,13 @@ P2 changes presentation, feedback or context routing. Each item below is open.
 
 These are risks or incomplete comparisons, not additional proven defects.
 
-- **Gift/food correct candidate:** native candidate-box setup is located around
+- **Resolved in the repair:** gift/food candidate zero is correct; screen
+  placement is shuffled independently. See the new native branch evidence.
+  The original question was: native candidate-box setup is located around
   `0x1003c582`; the answer ordering/randomization and correctness branch are not
   yet decoded. Do not assume `ANSWERS[0]` is correct from the field name alone.
-- **Accessory/makeup failure:** the port offers an in-place “Try again” after
+- **Resolved in the repair:** the four-failure sequence exits; the in-place
+  “Try again” has been removed. The original question was: the port offers it after
   four wrong guesses. The transcript at 2:38:46–2:38:52 suggests an original
   closing-for-lunch exit and re-entry. Confirm the visual transition and native
   attempt/reset branch before implementing it. The four-guess counter alone is

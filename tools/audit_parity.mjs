@@ -2,6 +2,7 @@
 // Does not claim that a present asset is reachable or that an unreferenced asset
 // was used by the original release. Run: node tools/audit_parity.mjs
 import fs from "node:fs";
+import { execFileSync } from "node:child_process";
 import { Sound, rows } from "../web/engine.mjs";
 import { helpContext } from "../web/fidelity.mjs";
 
@@ -66,7 +67,9 @@ for (const [name,s] of Object.entries(data.sprites)) for (const [fx,f] of Object
   }
 }
 const output={
-  sourceCommit:"23c220d",scope:"Static resolution, not native reachability or complete runtime parity",
+  sourceCommit:execFileSync("git",["rev-parse","HEAD"],{encoding:"utf8"}).trim(),
+  workingTreeChanges:execFileSync("git",["diff","--name-only","--","web"],{encoding:"utf8"}).trim().split(/\r?\n/).filter(Boolean),
+  scope:"Static resolution, not native reachability or complete runtime parity",
   counts:{images:Object.keys(data.images).length,audioFiles:Object.keys(data.audio).length,sprites:Object.keys(data.sprites).length,scenes:Object.keys(data.scenes).length,dictionaries:Object.keys(data.dictionaries).length,voicedEffects:voiceInventory.length,soundChecks:records.length,unresolvedChecks:unresolved.length},
   weeks,unresolved,
   originalSceneNames:Object.keys(data.scenes),

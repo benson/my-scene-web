@@ -1,9 +1,11 @@
 import { Engine, esc, pad, plain, rows } from "./engine.mjs";
+import { firstVisit, speakSequence } from "./narration.mjs";
 
 // The original game is an 800 × 600 composition. Keep its artwork, text boxes,
 // and hit regions in that coordinate system, including modal screens.
 export function installNativeUI(g) {
   const dialog = document.querySelector("#dialog"), body = document.querySelector("#dialog-body");
+  dialog.addEventListener("close",()=>g.sound.stopVoice());
   const canvas = document.createElement("canvas"), hits = document.createElement("div");
   canvas.id = "dialog-stage"; canvas.width = 800; canvas.height = 600;
   hits.id = "dialog-hotspots";
@@ -32,8 +34,8 @@ export function installNativeUI(g) {
   };
   const ink = (engine, label, x, y, w, h, action, options = {}) => {
     const id = options.id || label;
-    engine.text(label, x, y + 3, { size: options.size || 16, color: engine.hover === id ? "#a32988" : options.color || "#233c79", maxWidth: w, bold: options.bold });
-    engine.hit(id, options.label || label, { x, y, w, h }, action);
+    engine.text(label, x, y + 3, { size: options.size || 16, color: engine.hover === id ? options.hoverColor || "#a32988" : options.color || "#233c79", maxWidth: w, bold: options.bold });
+    if (action) engine.hit(id, options.label || label, { x, y, w, h }, action);
   };
   const field = (text, x, y, w, h, size = 16, tag = "div") => {
     const el = document.createElement(tag); el.className = "native-text";
@@ -158,6 +160,7 @@ export function installNativeUI(g) {
   };
 
   g.zine = (week = g.p.week) => {
+    if (firstVisit(g,"zine")) g.voice(g.doll.STREET_VO,"PickUpZine");
     const w = g.d(`DctTaskWk${pad(week)}`), answers = (g.p.jumbles[week] ||= []);
     const tiles = [];
     const check = () => {
@@ -307,6 +310,8 @@ export function installNativeUI(g) {
     if (picture.voice) g.voice("SndSbVO", picture.voice);
   };
   g.scrapbook = async (tab = "photos", week = g.p.completedWeeks.at(-1) || 1, page = 0, person = g.pre === "Che" ? "Chel" : g.pre) => {
+    const wasOpen = dialog.open && dialog.getAttribute("aria-label") === "My scrapbook";
+    const first = firstVisit(g,"scrapbook");
     const param = g.d("DctScrapbookParam"), frames = rows(param);
     let pictures = tab === "designs" ? g.p.designs.filter(d => d.src) : tab === "camera" ? g.p.photos : tab === "boys" ? g.p.boys.map(n => ({sprite:n.replace("AniStBoy", "AniSbGuyPicture"), caption:g.actorName(n)}))
       : g.p.completedWeeks.includes(week) ? g.eventPictures(week) : [];
@@ -339,11 +344,16 @@ export function installNativeUI(g) {
     if (tab === "about") {
       const sprite = `TxtSbAboutMe${person}`;
       textSprite(sprite, g.data.sprites[sprite].effects.Text.properties.TEXT.replace(/\\r\\n/g,"\n")).tabIndex = 0;
-      g.voice(`VocBa${person}VO`, "AboutMe");
     } else {
       visible.forEach((picture,i)=>textSprite(frames[i].TEXTSP,picture.caption));
       if (!visible.length) field(tab === "photos" ? "Your weekend photos will go here. Finish your plans and enjoy the event!" : tab === "boys" ? "Say hello to the boys around the city to collect their pictures." : "Your saved creations will go here.",110,55,230,145,18);
     }
+    const voice = `VocBa${person}VO`;
+    const fx = {photos:"ClickPhotoTab",designs:"ClickDesTab",about:"AboutMe"}[tab];
+    const clips = first ? [[voice,"ScrpBkIntro"]] : [];
+    if (fx && (!first || tab !== "photos")) clips.push([voice,fx]);
+    if (!first && !wasOpen && !fx) clips.push([voice,"ScrpBkIntro"]);
+    speakSequence(g,clips,()=>dialog.open && dialog.getAttribute("aria-label") === "My scrapbook");
   };
   const lastDialogue = new Map();
   const dialogue = (key, choices) => {

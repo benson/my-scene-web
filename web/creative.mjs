@@ -1,5 +1,6 @@
 import { rows, pad, esc, plain } from "./engine.mjs";
 import { waitForVoice } from "./story.mjs";
+import { firstVisit, speakSequence, leaveAfterVoice, oneOf } from "./narration.mjs";
 
 const canvas = () => {
   const c = document.createElement("canvas");
@@ -191,14 +192,14 @@ export function installCreative(g) {
       const d = g.d(state.design);
       regions = rows(d).map((r) => r.MATTESP);
       overlay = d.OVERLAY;
-      await g.prepare([
+      if (!await g.prepare([
         g.background(scene),
         ...(window ? [] : [overlay, ...regions]),
         ...Object.values(inventories).flatMap((a) =>
           a.flatMap((i) => [i.icon, i.sprite]),
         ),
-      ]);
-      if (token !== generation) return;
+      ])) return false;
+      if (token !== generation) return false;
       masks.clear();
       for (const part of window ? [] : regions) {
         const mask = canvas();
@@ -207,6 +208,7 @@ export function installCreative(g) {
       }
       buildLayer();
       panel();
+      return true;
     }
     function buildLayer() {
       const c = layer.getContext("2d");
@@ -688,12 +690,20 @@ export function installCreative(g) {
       g.btn("Print design", () => g.printImage(exportImage()), action);
       g.btn("Back outside", () => g.street(g.p.area), action);
     }
-    await setup();
+    if (!await setup()) return;
     g.voice(window ? "SndWdAmbient" : "SndCdAmbient", undefined, {
       loop: true,
       channel: "ambient",
       gain: 0.2,
     });
+    const voice = window ? "VocWdVO" : "VocCdVO";
+    const first = firstVisit(g, scene);
+    const previous = (g.p.lessonBriefs ||= {}), current = briefs[state.brief % briefs.length];
+    const comment = `Comment${g.pre === "Che" ? "Chel" : g.pre}`;
+    const newBrief = previous[scene] && previous[scene] !== current;
+    const intro = first ? "Intro" : newBrief && g.sound.key(voice,comment) ? comment : window ? "RtnIntroWork" : "ReturnIntro";
+    previous[scene] = current;
+    speakSequence(g, [[voice,intro]]);
     g.save();
   }
 
@@ -814,16 +824,22 @@ export function installCreative(g) {
       }, 60000);
       panel();
     };
-    const submit = () => {
+    let submitting = false;
+    const submit = async () => {
+      if (submitting) return;
       if (state.mode === "effects") {
+        submitting = true;
+        const profile = g.p;
         stop();
+        await leaveAfterVoice(g, [["VocMmJezVO","PosFeedback01"]]);
+        if (g.p !== profile) return;
         state.brief = (state.brief + 1) % briefs.length;
         state.mode = "mix"; state.recording = null; state.savedMix = null;
-        g.save(); g.street(g.p.area); return;
+        g.save(); return;
       }
       const correct = validateMusic(brief, state.selections);
       if (!correct.every(Boolean)) {
-        g.voice("VocMmJezVO", "Wrong02");
+        speakSequence(g, [[`VocMmVO${g.pre === "Che" ? "Chel" : g.pre}`,oneOf(["NegFeedback01","NegFeedback02","NegFeedback03"])],["VocMmJezVO", "Wrong02"]]);
         return g.text(
           `${correct.filter(Boolean).length}/4 instruments match. Listen to the reference and audition the other choices.`,
         );
@@ -852,19 +868,17 @@ export function installCreative(g) {
       }
       g.save();
       state.mode = "effects";
-      const profile = g.p;
-      waitForVoice(g.voice("VocMmJezVO", "Correct01")).then(() => {
-        if (g.p === profile && g.scene === scene && state.mode === "effects") g.voice("VocMmJezVO", "Pt02MixIntro");
-      });
+      speakSequence(g, [[`VocMmVO${g.pre === "Che" ? "Chel" : g.pre}`,oneOf(["PosFeedback01","PosFeedback02","PosFeedback03"])],
+        ["VocMmJezVO","Correct01"],["VocMmJezVO","Pt02MixIntro"]],()=>state.mode === "effects");
       g.save();
       panel();
     };
-    await g.prepare([
+    if (!await g.prepare([
       g.background(scene),
       g.blob("BlobMmMusicMix01"),
       g.blob("BlobMmMusicMix02"),
       ...g.data.scenes[scene].SPRITES.filter((n) => !n.startsWith("Snd")),
-    ]);
+    ])) return;
     g.currentRender = (t) => {
       const effects = state.mode === "effects";
       e.background(g.blob(effects ? "BlobMmMusicMix02" : "BlobMmMusicMix01"));
@@ -899,6 +913,7 @@ export function installCreative(g) {
             () => g.voice(tracks()[i], undefined, { channel: "sample" }),
           );
           e.draw(g.d("DctMmButtons").GREEN_LIGHT[i], playing ? "On" : "Off");
+          e.draw(g.d("DctMmButtons").RED_LIGHT[i], "Off");
         }
       }
       for (const [name, label, fn] of [
@@ -1004,7 +1019,10 @@ export function installCreative(g) {
       );
     }
     panel();
-    g.voice("VocMmJezVO", "Pt01Intro");
+    const first = firstVisit(g, scene);
+    speakSequence(g, state.mode === "effects"
+      ? [[`VocMmVO${g.pre === "Che" ? "Chel" : g.pre}`,"Pt02Intro01"]]
+      : [["VocMmJezVO",first ? "Pt01Intro" : "ReturnIntro01"]]);
     g.save();
   }
   g.renderRecording = async (recording) => {

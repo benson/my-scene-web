@@ -6,6 +6,7 @@ import { installNativeUI } from "./native-ui.mjs";
 import { helpContext, installFidelity } from "./fidelity.mjs";
 import { installSignIn } from "./signin.mjs";
 import { installStory } from "./story.mjs";
+import { leaveAfterVoice } from "./narration.mjs";
 
 export const names = {
   ScBaBarApt: "Apartment",
@@ -134,9 +135,13 @@ export class Game {
         ? name.replace("VocCl", "AniCl").replace("VO", "Talk01")
         : name;
       const source = await this.sound.play(resolved, fx, opts);
+      if (source && opts?.priceTag) this.shopPriceTag = {source,sprite:opts.priceTag};
       const cues = this.data.sprites[resolved]?.effects[fx]?.properties.CUELIST || [];
       for (let i = 0; source && i < cues.length; i += 3) {
-        const cue = String(cues[i+2]).match(/^(.+)_(Highlight|Flash|Down)_(\d+)_(\w+)$/);
+        const label = String(cues[i+2]);
+        const cue = label.match(/^(.+)_(Highlight|Flash|Down|On)_(\d+)_(\w+)$/)
+          || label.match(/^(.+)_(\d+)_(\w+)$/);
+        if (cue?.length === 4) cue.splice(2,0,"Highlight");
         if (cue && this.data.sprites[cue[1]]?.effects[cue[2]])
           this.e.cues?.set(cue[1], {source,fx:cue[2],start:source.context.currentTime + cues[i+1]/1000,duration:+cue[3]/1000});
       }
@@ -515,6 +520,8 @@ export class Game {
   }
   toolbar() {
     const e = this.e;
+    if (this.shopPriceTag?.source && !this.shopPriceTag.source.ended)
+      e.draw(this.shopPriceTag.sprite);
     e.draw("AniZzToolbar");
     for (const [n, label, fn] of [
       ["BtnZzExit", "Leave", () => this.scene === "ScStStreet" ? this.options() : this.street(this.p.area)],
@@ -530,6 +537,7 @@ export class Game {
     e.text(`$${this.p.money}`, 140, 571, {size: 17, align: "center", color: "#2a4735", bold: true});
   }
   async go(scene, options = {}) {
+    this.currentRender = () => {};
     this.e.canvas.style.cursor = "default";
     this.ui.brief = null;
     this.close();
@@ -588,6 +596,7 @@ export class Game {
     this.text("This destination could not be opened.");
   }
   async apartment(which = this.character) {
+    this.currentRender = () => {};
     this.ui.brief = null;
     this.ui.help =
       "Click the scrapbook to look through your memories, try the music player, or click the door to go outside.";
@@ -603,13 +612,13 @@ export class Game {
     );
     const bg = this.blob(dict.APT_BG),
       door = dict.DOOR_SPOT;
-    await this.prepare([
+    if (!await this.prepare([
       bg,
       dict.DOLL,
       door,
       dict.BTN_SCRAPBOOK,
       dict.MUSIC_SP,
-    ]);
+    ])) return;
     this.currentRender = (t) => {
       this.e.background(bg);
       if (this.apartmentIntro) {
@@ -701,6 +710,7 @@ export class Game {
   }
 
   async street(area = 3) {
+    this.currentRender = () => {};
     this.sound.stopVoice(); this.actorTalking = null;
     this.ui.brief = null;
     this.close();
@@ -730,15 +740,17 @@ export class Game {
         paused: false,
       }));
     this.actors = actors;
-    await this.prepare([
+    if (!await this.prepare([
       ...items.map((i) => i.SPRITE),
       this.doll.DOLL_SP,
       ...actors.map((a) => a.ACTOR),
       "AniStBirdFlying",
       "AniStCurHeart",
       "AniStSmallArrowIn",
-    ]);
+    ])) return;
+    const load = this.loadToken;
     const doorArrow = await this.e.thumbnail("AniStSmallArrowIn", "Highlight", 34, 35);
+    if (this.loadToken !== load || this.scene !== "ScStStreet") return;
     const doorCursor = `url("${doorArrow.toDataURL()}") 17 17, pointer`;
     this.voice(world.BG_MUSIC, undefined, {
       loop: true,
@@ -1104,13 +1116,28 @@ export class Game {
         );
       }
   }
+  purchaseCost(scene) {
+    return scene.startsWith("ScClClothes") ? 40 : this.r("DctStoreCost").find(r=>r.SCENE===scene)?.COST || 10;
+  }
+  async canAfford(scene) {
+    if (this.p.money >= this.purchaseCost(scene)) return true;
+    let name;
+    if (scene.startsWith("ScClClothes")) name = "VocClStoreKeeperVO";
+    else if (/^Sc(Ac|Mu)/.test(scene)) name = `Voc${scene === "ScAcAccess" ? "Ac" : "Mu"}${this.character}VO`;
+    else {
+      const code = {ScGtGift:"Gt",ScFdFood:"Fd",ScCsCDShop:"Cs"}[scene];
+      name = this.d(`Dct${code}Params${this.pre}`).DOLL_MOUTH;
+    }
+    const tag = scene.startsWith("ScClClothes") ? "Cl" : {ScGtGift:"Gt",ScFdFood:"Fd",ScCsCDShop:"Cs",ScAcAccess:"Ac",ScMuMakeUp:"Mu"}[scene];
+    await leaveAfterVoice(this, [[name, "NoMon",{priceTag:`Ani${tag}PriceTag`}]]);
+    return false;
+  }
   async purchase(scene, item, taskIndex) {
-    const cost =
-      scene.startsWith("ScClClothes") ? 40 : this.r("DctStoreCost").find((r) => r.SCENE === scene)?.COST || 10;
+    const cost = this.purchaseCost(scene);
     const key = scene + ":" + item;
     if (!this.progress.bought.includes(key)) {
       if (this.p.money < cost) {
-        this.wallet("A creative job pays $40. Clothing costs $40 per item; other purchases cost $10.");
+        await this.canAfford(scene);
         return false;
       }
       this.p.money -= cost;

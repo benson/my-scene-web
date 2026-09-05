@@ -162,7 +162,6 @@ async (page) => {
           task.SCENE,
         );
         await button(categories[task.DATA] + " " + (target + 1)).click();
-        await button("Guess").click();
         await button("Buy · $10").click();
       } else if (task.SCENE.startsWith("ScClClothes")) {
         const correct = await page.evaluate((scene) => {
@@ -193,10 +192,9 @@ async (page) => {
             { scene: task.SCENE, food },
           );
         const questions = panel.locator(".quiz-answer");
-        for (let i = 0; i < (await questions.count()); i++)
+        for (let i = 0; i < Math.min(3, await questions.count()); i++)
           await questions.nth(i).click();
-        for (const answer of answers)
-          await button((food ? "Food " : "Gift ") + answer).click();
+        await button((food ? "Food " : "Gift ") + answers[0]).click();
         await button("Buy selection · $10").click();
       } else if (task.SCENE === "ScCsCDShop") {
         const answer = await page.evaluate(() => {
@@ -207,6 +205,7 @@ async (page) => {
         await button("CD " + (answer + 1)).click();
         await button("Buy · $10").click();
       } else throw new Error("Uncovered task scene " + task.SCENE);
+      await page.waitForFunction(i=>myScene.progress.done.includes(i),taskIndex);
       const completed = await page.evaluate(
         (i) => myScene.progress.done.includes(i),
         taskIndex,

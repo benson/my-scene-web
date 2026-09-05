@@ -17,28 +17,9 @@ async (page) => {
     g.p.name = "Revisions QA";
     g.p.weeks = {};
     g.p.money = 100;
-    delete g.p.activities["1:ScAcAccess"];
-    await g.go("ScAcAccess");
   });
-  const choice = await page.evaluate(() => {
-    const g = myScene, s = g.activity("ScAcAccess", {}),
-      d = g.r("DctAccessParams" + g.pre).find(r => r.CONTTYPE === s.category),
-      items = g.r(d.CONTDICT), target = s.rounds[s.category].target,
-      answer = items[target], wrong = items.findIndex(x => x.ATTRIB1 !== answer.ATTRIB1 || x.ATTRIB2 !== answer.ATTRIB2);
-    return { target, wrong, category: ["Earrings", "Hair clips", "Necklaces", "Sunglasses"][s.category], cat: s.category };
-  });
-  await button(choice.category + " " + (choice.wrong + 1)).click();
-  for (let i = 0; i < 5; i++) await button("Guess").click();
-  assert(await page.evaluate(cat => myScene.activity("ScAcAccess", {}).rounds[cat].attempts.length === 4, choice.cat), "Guess limit failed");
-  await button("Try again").click();
-  await button(choice.category + " " + (choice.target + 1)).click();
-  await button("Guess").click();
-  await button(choice.category + " " + (choice.wrong + 1)).click();
-  await button("Buy · $10").click();
-  assert(await page.evaluate(() => myScene.p.money === 100), "Wrong selection could be bought after correct guess");
-  await button(choice.category + " " + (choice.target + 1)).click();
-  await button("Buy · $10").click();
-  assert(await page.evaluate(() => myScene.p.money === 90), "Correct selection could not be purchased after retry");
+  // Native four-chance Buy/exit/re-entry checks are in check_parity.js. The
+  // earlier separate Guess, then Buy, then in-place retry flow was incorrect.
   await page.evaluate(async () => {
     const g = myScene;
     await g.photo(g.p.designs.find(d => d.type === "clothes" && d.state));
