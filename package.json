@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "check": "node tools/check_data.mjs"
+    "check": "node tools/check_data.mjs",
+    "build": "node tools/build_site.mjs"
   }
 }

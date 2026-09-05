@@ -27,10 +27,12 @@ jobs:
           node-version: '22'
       - name: Validate campaign and assets
         run: npm run check
+      - name: Build browser release
+        run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v4
         with:
-          path: web
+          path: dist
       - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4

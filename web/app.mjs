@@ -2,6 +2,7 @@ import { Engine, Sound, rows, pad, plain, esc } from "./engine.mjs";
 import { installShops } from "./shops.mjs";
 import { installCreative } from "./creative.mjs";
 import { installExtras } from "./extras.mjs";
+import { installNativeUI } from "./native-ui.mjs";
 
 export const names = {
   ScBaBarApt: "Apartment",
@@ -117,6 +118,8 @@ export class Game {
   }
   text(message) {
     $("#status").textContent = plain(message);
+    clearTimeout(this.statusTimer);
+    this.statusTimer = setTimeout(() => { $("#status").textContent = ""; }, 6500);
   }
   async voice(name, fx, opts) {
     try {
@@ -264,6 +267,7 @@ export class Game {
     installShops(this);
     installCreative(this);
     installExtras(this);
+    installNativeUI(this);
     $("#dialog-close").onclick = () => this.close();
     $("#sound").onclick = () => {
       this.sound.mute(!this.sound.muted);
@@ -290,10 +294,11 @@ export class Game {
     document.addEventListener("keydown", (ev) => {
       this.lastInput = performance.now();
       if (["INPUT", "TEXTAREA", "SELECT"].includes(ev.target.tagName)) return;
+      if ($("#dialog").open) return;
       this.keys.add(ev.key);
       if (["ArrowLeft", "ArrowRight"].includes(ev.key)) ev.preventDefault();
       if (ev.key === "Escape" && !$("#dialog").open && this.p)
-        this.street(this.p.area);
+        this.options();
     });
     document.addEventListener("keyup", (ev) => this.keys.delete(ev.key));
     window.addEventListener("pagehide", () => this.flush());
@@ -327,15 +332,14 @@ export class Game {
     const profiles = await this.saves.all();
     await this.prepare([
       "SignInMS:1",
-      "AniSiNewGame",
       "BtnSiNewGame",
       "BtnSiContinueGame",
       "BtnSiHelp",
       "BtnSiDeleteName",
+      "BtnSiExit",
     ]);
     this.currentRender = () => {
       this.e.background("SignInMS:1");
-      this.e.draw("AniSiNewGame", "Up");
       this.e.button("BtnSiNewGame", "Start a new game", () => {
         const f = document.querySelector("#new-profile");
         f.requestSubmit();
@@ -348,6 +352,7 @@ export class Game {
       this.e.button("BtnSiHelp", "Sign-in help", () =>
         this.voice("VocSiSignInBox"),
       );
+      this.e.button("BtnSiExit", "Options", () => this.signinOptions());
       this.e.text("my scene", 320, 137, {
         size: 33,
         color: "#9f2591",
@@ -360,7 +365,11 @@ export class Game {
         { size: 19, maxWidth: 210 },
       );
       profiles.slice(0, 5).forEach((p, i) => {
-        this.e.text(p.name, 302, 239 + i * 29, { size: 18, maxWidth: 215 });
+        this.e.text(p.name, 302, 239 + i * 29, {
+          size: 18,
+          maxWidth: 215,
+          singleLine: true,
+        });
         this.e.hit(
           `profile-${i}`,
           `Continue ${p.name}`,
@@ -368,18 +377,23 @@ export class Game {
           () => this.load(p),
         );
       });
-      this.e.text(
-        document.querySelector("#new-profile input")?.value ||
-          "Enter your name →",
-        300,
-        430,
-        { size: 17, color: "#ffff55", maxWidth: 200 },
-      );
     };
     const p = this.panel(
       "Make it your scene",
       `<p>Meet the girls. Explore the city. Make some weekend memories.</p><form id="new-profile" class="signin"><label class="field">Your name<input name="name" maxlength="30" autocomplete="off" required placeholder="Sign in here"></label><button class="primary">New game</button></form>`,
     );
+    const phoneName = $("#signin-name"),
+      sidebarName = p.querySelector("#new-profile input");
+    phoneName.value = "";
+    phoneName.hidden = false;
+    phoneName.oninput = () => { sidebarName.value = phoneName.value; };
+    sidebarName.oninput = () => { phoneName.value = sidebarName.value; };
+    phoneName.onkeydown = (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        p.querySelector("form").requestSubmit();
+      }
+    };
     p.querySelector("form").onsubmit = async (ev) => {
       ev.preventDefault();
       const name = new FormData(ev.target).get("name").trim();
@@ -447,6 +461,7 @@ export class Game {
     this.btn("Credits", () => this.credits(), more);
   }
   async load(profile, isNew = false) {
+    $("#signin-name").hidden = true;
     this.p = structuredClone(profile);
     this.header();
     this.quick();
@@ -476,16 +491,18 @@ export class Game {
     const e = this.e;
     e.draw("AniZzToolbar");
     for (const [n, label, fn] of [
-      ["BtnZzExit", "Leave", () => this.street(this.p.area)],
+      ["BtnZzExit", "Leave", () => this.scene === "ScStStreet" ? this.options() : this.street(this.p.area)],
       ["BtnZzHelp", "Help", () => this.help()],
       ["BtnZzMap", "City map", () => this.map()],
       ["BtnZzPhone", "Phone", () => this.phone()],
-      ["BtnZzPostIt", "To-do list", () => this.todo()],
+      ["BtnZzPostIt", this.ui.brief ? "Job brief" : "To-do list", () => this.ui.brief ? this.ui.brief() : this.todo()],
       ["BtnZzWallet", `Wallet: $${this.p.money}`, () => this.wallet()],
     ])
       e.button(n, label, fn);
+    e.text(`$${this.p.money}`, 140, 571, {size: 17, align: "center", color: "#2a4735", bold: true});
   }
   async go(scene, options = {}) {
+    this.ui.brief = null;
     this.close();
     this.pointer = null;
     this.designCleanup?.();
@@ -542,6 +559,7 @@ export class Game {
     this.text("This destination could not be opened.");
   }
   async apartment(which = this.character) {
+    this.ui.brief = null;
     this.ui.help =
       "Click the scrapbook to look through your memories, try the music player, or click the door to go outside.";
     this.scene = "ScBaBarApt";
@@ -654,6 +672,7 @@ export class Game {
   }
 
   async street(area = 3) {
+    this.ui.brief = null;
     this.close();
     this.designCleanup?.();
     this.musicCleanup?.();
@@ -1180,4 +1199,5 @@ try {
   $("#loading").hidden = true;
   $("#panel").innerHTML =
     `<h1>Let’s try that again</h1><p>${esc(error.message)}</p><button onclick="location.reload()">Reload game</button>`;
+  document.body.classList.add("load-error");
 }

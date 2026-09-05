@@ -10,6 +10,7 @@
   </head>
   <body>
     <main id="shell">
+      <button id="browser-options" aria-label="Game options" title="Game options">⋯</button>
       <header>
         <a id="brand" href="./" aria-label="My Scene home"
           >my<span>scene</span><i>✳</i></a
@@ -27,6 +28,14 @@
             aria-label="My Scene game world"
           ></canvas>
           <div id="hotspots"></div>
+          <input
+            id="signin-name"
+            aria-label="Your name on the phone"
+            maxlength="30"
+            autocomplete="off"
+            placeholder="Enter your name"
+            hidden
+          />
           <div id="overlay" hidden></div>
           <div id="loading">Opening your world…<progress></progress></div>
         </section>

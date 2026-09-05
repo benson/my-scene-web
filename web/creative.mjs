@@ -379,15 +379,31 @@ export function installCreative(g) {
     g.currentRender = () => {
       e.background(g.background(scene));
       e.ctx.drawImage(layer, 0, 0);
-      if (state.tool) {
-        e.panel(32, 45, 275, 75);
-        e.text(
-          `${state.erase ? "Eraser" : state.move ? "Move" : state.tab}: ${g.itemLabel(state.tool.icon)}`,
-          47,
-          60,
-          { size: 17, maxWidth: 243 },
-        );
-      }
+      const tabs = window ? { Clothes: "AniWdTab02", "Letters & stamps": "AniWdTab01", Trims: "AniWdTab03" }
+        : { Fabrics: "AniCdTab04", Fasteners: "AniCdTab01", Stamps: "AniCdTab02", Trims: "AniCdTab03" };
+      for (const [tab, sprite] of Object.entries(tabs)) e.draw(sprite, state.tab === tab ? "Down" : "Up", {
+        action: () => { state.tab = tab; state.tool = null; state.erase = false; state.move = false; state.uiPage = 0; g.save(); panel(); }, label: tab,
+      });
+      const inventory = inventories[state.tab], pages = Math.ceil(inventory.length / 12), page = Math.min(state.uiPage || 0, pages - 1);
+      inventory.slice(page * 12, page * 12 + 12).forEach((tool, i) => e.draw(tool.icon, "Still", {
+        fit: [14 + (i % 3) * (window ? 91 : 107), 88 + Math.floor(i / 3) * 88, window ? 80 : 94, 78],
+        action: () => { state.tool = tool; state.erase = false; state.move = false; g.save(); panel(); },
+        label: `${state.tab} ${page * 12 + i + 1}`, id: `inventory-${i}`,
+      }));
+      const code = window ? "Wd" : "Cd";
+      e.button(`Btn${code}ArrowL`, "Previous materials", () => { state.uiPage = (page + pages - 1) % pages; });
+      e.button(`Btn${code}ArrowR`, "Next materials", () => { state.uiPage = (page + 1) % pages; });
+      e.draw(`Btn${code}Eraser`, state.erase ? "Down" : "Up", { action: () => { state.erase = !state.erase; state.move = false; panel(); }, label: "Eraser" });
+      g.ink("undo", window ? 57 : 77, window ? 480 : 467, 58, 29, () => {
+        const last = state.undo.pop(); if (last) { Object.assign(state, JSON.parse(last)); g.save(); setup(); }
+      }, {size: 15});
+      g.ink("move", window ? 177 : 211, window ? 480 : 467, 60, 29, () => { state.move = !state.move; state.erase = false; panel(); }, {size: 15});
+      if (!window) e.button("BtnCdArrowDraw", "Next sketch", () => {
+        const all = g.r("DctScDesignIdx"), index = all.findIndex(d => d.DESIGNDICT === state.design);
+        remember(); state.design = all[(index + 1) % all.length].DESIGNDICT; state.fills = {}; state.marks = []; g.save(); setup();
+      });
+      if (window && state.tab === "Clothes") spots.forEach((spot, i) => e.hit(`window-spot-${i}`, `Spot ${i + 1}`,
+        {x:spot.LOCX - 50, y:spot.LOCY, w:100, h:100}, () => place(spot.LOCX, spot.LOCY + 45)));
       if (!window) {
         const bounds = e.bounds(overlay);
         if (bounds)
@@ -494,6 +510,12 @@ export function installCreative(g) {
       g.btn("Back to the city", () => g.street(g.p.area), p);
     }
     function panel() {
+      g.ui.brief = () => {
+        const p = g.note("Your design brief", brief.POST_TEXT);
+        g.btn("Save this design", () => saveCreation(), p);
+        g.btn("Print this design", () => g.printImage(exportImage(), "My Scene design"), p);
+        g.btn("Next brief", () => { state.brief = (state.brief + 1) % briefs.length; g.close(); design(window); }, p);
+      };
       const p = g.panel(
         window ? "Glassy Fashions" : "The Design Lab",
         `<p class="paper">${esc(plain(brief.POST_TEXT))}</p>`,
@@ -855,9 +877,22 @@ export function installCreative(g) {
         ["BtnMmDone", "Check mix", submit],
       ])
         e.button(name, label, fn);
+      g.ink(effects ? "instruments" : "effects", 205, 26, 125, 35, () => { state.mode = effects ? "mix" : "effects"; panel(); }, {size: 18});
+      g.ink("listen to CD", 355, 26, 144, 35, () => g.voice(brief.WAVE, undefined, {channel: "sample"}), {size: 18});
+      e.hit("reference-video", "Watch reference", {x: 662, y: 100, w: 120, h: 300}, () => g.movie(brief.SMACKER));
     };
 
     function panel() {
+      g.ui.brief = () => {
+        const p = g.note("Making Trax", brief.INSTRUCT);
+        g.btn("Listen to the reference", () => g.voice(brief.WAVE, undefined, {channel:"sample"}), p);
+        g.btn("Watch reference", () => {g.close(); g.movie(brief.SMACKER);}, p);
+        if (state.recording) {
+          g.btn("Play recording", () => g.playRecording(state.recording), p);
+          g.btn("Export WAV", () => g.exportRecording(state.recording), p);
+        }
+        g.btn("Next brief", () => {stop(); state.brief = (state.brief + 1) % briefs.length; g.close(); music();}, p);
+      };
       const p = g.panel(
         "Making Trax",
         `<p class="paper">${esc(plain(brief.INSTRUCT))}</p>`,

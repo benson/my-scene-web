@@ -78,6 +78,8 @@ export function installShops(g) {
       g.save();
       panel();
     };
+    const changeCategory = (index) => { state.category = index; g.save(); accessories(makeup); };
+    const retry = () => { round.attempts = []; g.save(); panel(); };
     const guess = () => {
       if (round.attempts.length >= 4 && !round.solved)
         return g.text('Choose Try again for four fresh guesses.');
@@ -153,17 +155,22 @@ export function installShops(g) {
         }
         if (!row && !makeup && /^AniAcNecklace\d+$/.test(sprite))
           row = { ONDOLL: `AniAc${g.character[0]}Neck${sprite.match(/\d+$/)[0]}` };
-        if (row) e.draw(row.ONDOLL);
+      if (row) e.draw(row.ONDOLL);
       }
+      rows(params).forEach((category, i) => {
+        let icon = g.r(category.CONTDICT)[0]?.SPRITE;
+        if (makeup) icon = icon?.replace("AniMuM", `AniMu${g.character[0]}`);
+        if (icon) e.draw(icon, "Still", { fit: [42 + i * 71, 7, 40, 34], action: () => changeCategory(i), label: categories[i], id: `category-${i}` });
+      });
       items.forEach((item, i) =>
         e.draw(item.SPRITE, "Still", {
           fit: [
             30 + (i % 3) * 103,
-            45 +
+            58 +
               Math.floor(i / 3) *
-                Math.min(150, 450 / Math.ceil(items.length / 3)),
+                Math.min(132, 400 / Math.ceil(items.length / 3)),
             92,
-            Math.min(140, 440 / Math.ceil(items.length / 3)),
+            Math.min(124, 380 / Math.ceil(items.length / 3)),
           ],
           action: () => select(item),
           label: `Try ${categories[cat]} ${i + 1}`,
@@ -176,9 +183,12 @@ export function installShops(g) {
           ? `Chance${pad(Math.min(round.attempts.length, 4))}`
           : "Still",
       );
-      e.button(`Btn${code}Guess`, "Guess", guess);
-      e.button(`Btn${code}Buy`, "Buy", buy);
-      e.button(`Btn${code}Done`, "Done", () => g.street(g.p.area));
+      if (state.bought?.[cat] === state.selected[cat] && state.selected[cat])
+        e.button(`Btn${code}Done`, "Done", () => g.street(g.p.area));
+      else if (round.solved) e.button(`Btn${code}Buy`, "Buy", buy);
+      else if (round.attempts.length >= 4)
+        e.button("BtnZzTryAgain", "Try again", retry, { fit: [230, 482, 110, 48] });
+      else e.button(`Btn${code}Guess`, "Guess", guess);
     };
     function panel() {
       const p = controls(
@@ -190,11 +200,7 @@ export function installShops(g) {
       categories.forEach((label, i) =>
         g.btn(
           label,
-          () => {
-            state.category = i;
-            g.save();
-            accessories(makeup);
-          },
+          () => changeCategory(i),
           tabs,
           i === cat ? "selected" : "",
         ),
@@ -205,11 +211,7 @@ export function installShops(g) {
       if (round.attempts.length >= 4 && !round.solved)
         g.btn(
           "Try again",
-          () => {
-            round.attempts = [];
-            g.save();
-            panel();
-          },
+          retry,
           actions,
         );
       if (round.attempts.length) {
@@ -338,7 +340,7 @@ export function installShops(g) {
             id: item.SPRITE,
           });
       }
-      e.draw(doll.DOLL_SP, state.pose, { time: t - state.at, loop: false });
+      e.draw(doll.DOLL_SP, state.pose, { time: t - state.at, loop: false, action: model, label: "Model this look", id: "model-look" });
       g.drawSpeaking(doll.DOLL_MOUTH);
       const hand = g.d(doll.HAND_DICT),
         fx = state.pose;
@@ -361,8 +363,10 @@ export function installShops(g) {
           if (x || y) e.draw(sprite, "Still", { dx: x, dy: y });
         }
       }
-      e.button("BtnClBuy", "Buy clothes", buy);
-      e.button("BtnClDone", "Done", () => g.street(g.p.area));
+      const selected = [state.top, state.bottom].filter(Boolean);
+      if (selected.length && selected.every(item => g.progress.bought.includes(scene + ":" + item)))
+        e.button("BtnClDone", "Done", () => g.street(g.p.area));
+      else e.button("BtnClBuy", "Buy clothes", buy);
     };
     function panel() {
       const p = controls(
@@ -424,7 +428,7 @@ export function installShops(g) {
       panel();
     };
     const buy = async () => {
-      if (state.selected.length !== 3)
+      if (state.selected.filter(Boolean).length !== 3)
         return g.text("Choose three items for the bag.");
       const matches = state.selected.filter((n) =>
         content.ANSWERS?.includes(n),
@@ -441,6 +445,26 @@ export function installShops(g) {
         panel();
       }
     };
+    const ask = (q, index) => {
+      state.answer = q.ANSWER;
+      if (!state.questions.includes(index)) state.questions.push(index);
+      g.save();
+    };
+    const pickSlot = (slot) => {
+      const ui = g.native;
+      ui.open(food ? "Choose food" : "Choose a gift", () => {
+        ui.e.draw("AniZzPostIt", "Still", { fit: [110, 20, 580, 530] });
+        items.forEach((item, i) => ui.e.draw(item.SPRITE, "Still", {
+          fit: [164 + (i % 4) * 117, 105 + Math.floor(i / 4) * 105, 92, 88],
+          label: `${food ? "Food" : "Gift"} ${i + 1}`, id: `choose-${i}`, action: () => {
+            if (state.selected.some((s, j) => s === item.SPRITE && j !== slot)) return g.text("Choose a different item for each space.");
+            state.selected[slot] = item.SPRITE;
+            g.voice(params.STOREKEEPER_VO, item.SND); g.save(); panel(); g.close();
+          }
+        }));
+        ui.closeButton("BtnZzPostItClose", {fit:[601,65,24,24]});
+      });
+    };
     await g.prepare([
       g.background(scene),
       doll.DOLL_SP,
@@ -454,22 +478,25 @@ export function installShops(g) {
       e.draw(doll.DOLL_SP, "Still", { time: t });
       g.drawSpeaking(doll.DOLL_MOUTH);
       g.r(`Dct${code}Params`).forEach((b, i) => {
-        e.draw(b.BOX);
+        e.draw(b.BOX, "Still", { action: () => pickSlot(i), label: `Choose item ${i + 1}`, id: `box-${i}` });
         const s = state.selected[i];
         if (s)
           e.draw(s, "Still", {
             fit: [b.XLOC - 73, b.YLOC - 65, 140, 135],
-            action: () => choose(items.find((it) => it.SPRITE === s)),
-            label: `Remove item ${i + 1}`,
+            action: () => pickSlot(i),
+            label: `Change item ${i + 1}`,
             id: `bag-${i}`,
           });
       });
-      e.panel(354, 92, 412, 430, "#fff9e4ed");
+      rows(content).forEach((q, i) => {
+        e.button(`Btn${code}Ques`, q.QUESTION, () => ask(q, i), {dy: i * 58, id: `question-marker-${i}`});
+        g.ink(q.QUESTION, 383, 168 + i * 58, 205, 53, () => ask(q, i), {size: 16, id: `question-${i}`});
+      });
       e.text(
-        state.answer || "Ask questions, then choose three items for the bag.",
-        380,
-        113,
-        { size: 19, maxWidth: 350 },
+        state.answer || "Click a space to choose an item.",
+        353,
+        445,
+        { size: 16, maxWidth: 264 },
       );
       e.button(`Btn${code}Buy`, "Buy selection", buy);
     };
@@ -483,12 +510,7 @@ export function installShops(g) {
       for (const [i, q] of rows(content).entries())
         g.btn(
           q.QUESTION,
-          () => {
-            state.answer = q.ANSWER;
-            if (!state.questions.includes(i)) state.questions.push(i);
-            g.text(q.ANSWER);
-            g.save();
-          },
+          () => ask(q, i),
           qs,
           "quiz-answer",
         );
@@ -576,7 +598,7 @@ export function installShops(g) {
     ]);
     g.currentRender = (t) => {
       e.background(g.background(scene));
-      e.draw(doll.DOLL_SP, "Still", { time: t });
+      e.draw(doll.DOLL_SP, "Still", { time: t, action: clue, label: "Hear humming clue", id: "humming-clue" });
       g.drawSpeaking(doll.DOLL_MOUTH);
       sprites.forEach((s, i) =>
         e.draw(s, state.selected === i ? "Down" : "Still", {
@@ -587,8 +609,9 @@ export function installShops(g) {
           id: s,
         }),
       );
-      e.button("BtnCsBuy", "Buy CD", buy);
-      e.button("BtnCsDone", "Done", () => g.street(g.p.area));
+      if (state.selected !== null && g.progress.bought.includes(scene + ":" + hums[state.tracks[state.selected]].MUSIC))
+        e.button("BtnCsDone", "Done", () => g.street(g.p.area));
+      else e.button("BtnCsBuy", "Buy CD", buy);
     };
     function panel() {
       const p = controls(

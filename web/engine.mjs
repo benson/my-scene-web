@@ -170,6 +170,7 @@ export class Engine {
       align = "left",
       maxWidth = 700,
       bold = false,
+      singleLine = false,
     } = {},
   ) {
     this.ctx.save();
@@ -177,6 +178,18 @@ export class Engine {
     this.ctx.font = `${bold ? "bold " : ""}${size}px Trebuchet MS, Arial`;
     this.ctx.textAlign = align;
     this.ctx.textBaseline = "top";
+    if (singleLine) {
+      let line = plain(text);
+      if (this.ctx.measureText(line).width > maxWidth) {
+        const characters = Array.from(line);
+        while (characters.length && this.ctx.measureText(characters.join("") + "…").width > maxWidth)
+          characters.pop();
+        line = characters.join("") + "…";
+      }
+      this.ctx.fillText(line, x, y);
+      this.ctx.restore();
+      return y + size * 1.3;
+    }
     let line = "",
       cy = y;
     for (const word of plain(text).split(/\s+/)) {
