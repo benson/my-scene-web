@@ -70,7 +70,19 @@ export function installNativeUI(g) {
   };
   g.note = (title, text) => g.modal(title, `<p>${esc(plain(text))}</p>`);
 
-  g.map = () => {
+  g.map = (debug = false) => {
+    if (debug && g.debugMode) {
+      open("City map", () => {
+        e.draw("AniStMapDebug");
+        for (const s of g.r("DctMapSpotsDebug")) e.hit(s.SPRITE, g.itemLabel(s.SPRITE).replace(/^SptSt/, ""), e.bounds(s.SPRITE), async () => {
+          g.close(); g.p.area = s.ID; g.p.x = s.HOME_CAM_X + s.HOME_X;
+          if (s.SCENE === "ScBaBarApt") await g.apartment({1:"Madison",2:"Chelsea",3:"Barbie"}[s.ID]);
+          else await g.go(s.SCENE);
+        });
+        closeButton("BtnStCloseMap");
+      });
+      return;
+    }
     const spots = g.r("DctMapSpots").filter(s => s.SCENE === "ScStStreet");
     open("City map", () => {
       e.draw("AniStMap");
@@ -96,8 +108,8 @@ export function installNativeUI(g) {
   };
   g.phone = (tab = "tasks", selected = null) => {
     const w = g.week, n = g.progress.done.length;
-    const messages = (w.PHONE_MSG_TEXT_LONG || []).map((text, i) => ({ text, title: w.PHONE_MSG_TEXT[i], trigger: w.PHONE_MSG_TRIGGER_TASK?.[i] || 0 })).filter(m => n >= m.trigger);
-    const calls = (w.PHONE_CALLS || []).map((fx, i) => ({ fx, title: w.PHONE_CALLS_TEXT[i], image: w.PHONE_CALLS_IMAGE[i], trigger: w.PHONE_CALLS_TRIGGER_TASK[i] })).filter(c => n >= c.trigger);
+    const messages = (w.PHONE_MSG_TEXT_LONG || []).map((text, i) => ({ text, i, title: w.PHONE_MSG_TEXT[i], trigger: w.PHONE_MSG_TRIGGER_TASK?.[i] || 0 })).filter(m => n >= m.trigger);
+    const calls = (w.PHONE_CALLS || []).map((fx, i) => ({ fx, i, title: w.PHONE_CALLS_TEXT[i], image: w.PHONE_CALLS_IMAGE[i], trigger: w.PHONE_CALLS_TRIGGER_TASK[i] })).filter(c => n >= c.trigger);
     const phone = "AniZzCellPhone" + (g.pre === "Che" ? "Chel" : g.pre);
     const title = { tasks: "To-do", messages: "Messages", calls: "Calls" }[tab];
     open("Your phone", () => {
@@ -116,19 +128,21 @@ export function installNativeUI(g) {
       const text = tab === "tasks" ? g.tasks[selected].EXPANDED : tab === "messages" ? messages[selected]?.text : calls[selected]?.title;
       const el = field(text, 345, 224, 124, tab === "calls" ? 26 : 119, tab === "calls" ? 12 : 14);
       el.tabIndex = 0;
-      if (tab === "calls") g.say(calls[selected].fx);
-      if (tab === "messages" && w.PHONE_MSG_VO?.[selected]) g.say(w.PHONE_MSG_VO[selected]);
+      if (tab === "calls") { g.say(calls[selected].fx); (g.progress.heardCalls ||= []); if (!g.progress.heardCalls.includes(calls[selected].i)) g.progress.heardCalls.push(calls[selected].i); g.save(); }
+      if (tab === "messages" && w.PHONE_MSG_VO?.[messages[selected]?.i]) g.say(w.PHONE_MSG_VO[messages[selected].i]);
     } else {
-      const list = field("", 343, 217, 129, 126, 14);
       const items = tab === "tasks" ? g.tasks.map((t, i) => ({ title: (g.progress.done.includes(i) ? "✓ " : "") + plain(t.SHORT_TXT) })) : tab === "messages" ? messages : calls;
-      items.forEach((item, i) => g.btn(plain(item.title), () => g.phone(tab, i), list, "phone-row"));
-      if (!items.length) list.textContent = "No new messages yet.";
-      if (tab === "messages") (w.PHONE_MSG_VO || []).forEach((fx, i) => g.btn(`▶ Voice message ${i + 1}`, () => g.say(fx), list, "phone-row"));
+      items.forEach((item, i) => {
+        const row = textSprite(`TxtZzTaskShort${pad(i + 1)}`, item.title, "button");
+        row.onclick = () => g.phone(tab, i);
+      });
+      if (!items.length) field("No new messages yet.", 346, 225, 124, 124, 14);
     }
   };
 
   g.zine = (week = g.p.week) => {
     const w = g.d(`DctTaskWk${pad(week)}`), answers = (g.p.jumbles[week] ||= []);
+    const tiles = [];
     const check = () => {
       const correct = answers.filter((a, i) => a.replace(/[^A-Z]/g, "") === w.PUZZLE_WORD[i * 3 + 1].replace(/[^A-Z]/g, "")).length;
       g.text(correct === w.PUZZLE_WORD.length / 3 ? "All solved! Use those fashion clues in the shops." : `${correct} words solved. Keep rearranging the letters!`);
@@ -136,6 +150,7 @@ export function installNativeUI(g) {
     };
     open(`The Zine · Issue ${week}`, () => {
       e.draw("AniStZine");
+      for (const tile of tiles) e.draw(tile.locked ? "AniStZineTileBlank" : "AniStZineTile", "Still", { dx: tile.x, dy: tile.y });
       closeButton("BtnStZineClose");
       e.button("BtnStZineArrowL", "Previous issue", () => g.zine(week > 1 ? week - 1 : g.p.week));
       e.button("BtnStZineArrowR", "Personality quiz", () => g.quiz(week));
@@ -145,14 +160,75 @@ export function installNativeUI(g) {
     textSprite("TxtStZineBody", w.ZINE_TEXT).tabIndex = 0;
     field(w.PUZZLE_TITLE, 234, 280, 356, 33, 14).style.color = "rgb(25, 34, 153)";
     for (let i = 0; i < w.PUZZLE_WORD.length / 3; i++) {
-      const [scramble, answer, mask] = w.PUZZLE_WORD.slice(i * 3, i * 3 + 3), y = [315, 385, 448][i];
-      field(`${plain(w.PUZZLE_STR[i])} ${scramble}`, 235, y, 355, 33, 14);
-      const input = field("", 235, y + 34, 355, 21, 14, "input");
-      input.setAttribute("aria-label", `Word jumble ${i + 1}`);
-      input.value = answers[i] || ""; input.maxLength = answer.length + 5; input.autocomplete = "off";
-      input.placeholder = [...answer].map((c, j) => mask[j] === "1" ? c : "_").join(" ");
-      input.oninput = () => { answers[i] = input.value.toUpperCase(); g.save(); };
-      input.onkeydown = ev => { if (ev.key === "Enter") check(); };
+      const [scramble, answer, mask] = w.PUZZLE_WORD.slice(i * 3, i * 3 + 3);
+      const [x, y] = w.PUZZLE_LOC.slice(i * 2, i * 2 + 2), width = g.d("DctZineParams").LETTERWIDTH;
+      field(w.PUZZLE_STR[i], x, y - 32, 355, 30, 14);
+      const [ax, ay] = w.PUZZLE_ANS_LOC?.slice(i * 2, i * 2 + 2) || [x + (answer.length + 1) * width, y];
+      const locked = [...answer].map((c, j) => mask[j] === "1" || c === " ");
+      const bank = [...scramble].map(c => c === " " ? "" : c);
+      const solution = [...answer].map((c, j) => locked[j] ? c : answers[i]?.[j]?.replace(/[^A-Z]/g, "") || "");
+      solution.forEach((c, j) => {
+        if (!c || c === " ") return;
+        const at = bank.indexOf(c);
+        if (at >= 0) bank[at] = ""; else if (!locked[j]) solution[j] = "";
+      });
+      const controls = [];
+      let from = null;
+      const values = [bank, solution];
+      const sync = () => {
+        answers[i] = solution.map(c => c || "_").join("");
+        for (const c of controls) { c.el.value = values[c.row][c.index]; c.el.draggable = !c.fixed && !!c.el.value; }
+        g.save();
+      };
+      const swap = (source, target) => {
+        if (!source || target.fixed || source.fixed || source === target) return;
+        const value = values[source.row][source.index];
+        if (!value || value === " ") return;
+        values[source.row][source.index] = values[target.row][target.index];
+        values[target.row][target.index] = value;
+        sync();
+      };
+      for (let row = 0; row < 2; row++) for (let j = 0; j < answer.length; j++) {
+        const tx = (row ? ax : x) + j * width, ty = row ? ay : y;
+        const input = field("", tx + 2, ty, width, 21, 18, "input");
+        const control = { el: input, row, index: j, fixed: row === 1 && locked[j] };
+        controls.push(control); tiles.push({ x: tx, y: ty, locked: row === 1 });
+        input.classList.add("jumble-letter");
+        input.setAttribute("aria-label", `Word jumble ${i + 1} ${row ? "answer" : "bank"} letter ${j + 1}${control.fixed ? " (given)" : ""}`);
+        input.value = values[row][j]; input.readOnly = row === 0 || control.fixed; input.autocomplete = "off";
+        input.draggable = !control.fixed && !!input.value;
+        input.ondragstart = ev => { from = control; ev.dataTransfer.setData("text/plain", input.value); };
+        input.ondragover = ev => ev.preventDefault();
+        input.ondrop = ev => { ev.preventDefault(); swap(from, control); from = null; };
+        input.onpointerdown = () => { from = control; };
+        input.onpointerup = ev => {
+          const to = controls.find(c => { const b = c.el.getBoundingClientRect(); return ev.clientX >= b.left && ev.clientX <= b.right && ev.clientY >= b.top && ev.clientY <= b.bottom; });
+          if (to) swap(from, to); from = null;
+        };
+        input.onfocus = () => input.select();
+        input.oninput = () => {
+          const typed = input.value.toUpperCase().slice(-1);
+          const other = controls.find(c => c !== control && !c.fixed && values[c.row][c.index] === typed);
+          if (other) swap(other, control); else input.value = values[row][j];
+        };
+        input.onpaste = ev => {
+          const value = ev.clipboardData.getData("text").toUpperCase();
+          ev.preventDefault();
+          if (value.length === answer.length && [...value].sort().join("") === [...scramble].sort().join("") && locked.every((fixed, at) => !fixed || value[at] === answer[at])) {
+            solution.splice(0, solution.length, ...value); bank.fill(""); sync();
+          }
+        };
+        input.onkeydown = ev => {
+          if (ev.key === "Enter") check();
+          if (ev.key === "Backspace" && row === 1 && !control.fixed) {
+            ev.preventDefault(); const empty = controls.find(c => c.row === 0 && !values[0][c.index]); if (empty) swap(control, empty);
+          }
+          if (ev.key === "ArrowRight" || ev.key === "ArrowLeft") {
+            ev.preventDefault(); const at = controls.indexOf(control); controls[(at + (ev.key === "ArrowRight" ? 1 : controls.length - 1)) % controls.length].el.focus();
+          }
+        };
+      }
+      answers[i] = solution.map(c => c || "_").join("");
     }
   };
   g.quiz = (week = g.p.week, index = 0) => {
@@ -257,17 +333,25 @@ export function installNativeUI(g) {
     lastDialogue.set(key, fx);
     return fx;
   };
-  g.chat = actor => {
+  g.chat = (actor, phase = "chat") => {
     actor.paused = true;
+    g.actorTalking = actor;
     const n = actor.ACTOR, isGirl = /Barbie|Chelsea|Madison/.test(n), target = {AniStBarbie:"Bar",AniStChelsea:"Chel",AniStMadison:"Mad"}[n];
     const triggers = g.d("DctActorTrigger");
     const choices = isGirl
-      ? [1, 2].map(i => `GenChat${g.pre === "Che" ? "Chel" : g.pre}${target}${pad(i)}`)
-      : triggers[`${n}_GREET`] || triggers.NON_MYSCENE_GREET;
+      ? phase === "greet" ? rows(triggers).map(r => r[n]).filter(Boolean)
+        : phase === "bye" ? ["Chat1", "Chat2"]
+        : [1, 2].map(i => `GenChat${g.pre === "Che" ? "Chel" : g.pre}${target}${pad(i)}`)
+      : triggers[`${n}_${phase === "bye" ? "BYE" : "GREET"}`] || triggers[phase === "bye" ? "NON_MYSCENE_BYE" : "NON_MYSCENE_GREET"];
     // One voice request per click: a second request cancels the first on this channel.
-    g.voice("VocStGreetVO", dialogue(n, choices));
-    if (!/Boy/.test(n)) {
-      setTimeout(()=>{actor.paused=false;},6500); return;
+    const release = () => { actor.paused = false; if (g.actorTalking === actor) g.actorTalking = null; };
+    const speaking = g.voice("VocStGreetVO", dialogue(`${n}:${phase}`, choices));
+    if (!/Boy/.test(n) || phase !== "chat") {
+      speaking.then(source => {
+        if (!source || source.ended) release();
+        else source.addEventListener("ended", release, { once: true });
+      });
+      return;
     }
     open(g.actorName(n),()=>{
       e.button("BtnStKiss","Flirt",()=>{
@@ -277,7 +361,7 @@ export function installNativeUI(g) {
       });
       e.button("BtnStDiss","Play it cool",()=>{g.voice("VocStGreetVO",`KissBoy${pad(6+Math.floor(Math.random()*5))}`);actor.paused=false;g.close();});
     });
-    dialog.addEventListener("close",()=>{actor.paused=false;},{once:true});
+    dialog.addEventListener("close",release,{once:true});
   };
   g.credits = () => {
     open("My Scene credits",()=>{

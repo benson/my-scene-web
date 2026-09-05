@@ -4,7 +4,7 @@
 
 A native browser restoration of the 2003 UK My Scene CD-ROM, made for a nostalgic surprise. It uses the supplied disc's artwork, animation data, voices, music, movies, puzzles, and twelve weekends of content, with new JavaScript gameplay. No Windows executable or emulator runs in the browser.
 
-Create a name to start. Explore by clicking the world, walking with the arrow keys, or using the map. The controls beside the game also work with touch and keyboard. Your phone and to-do list hold the weekend clues; creative jobs pay for shopping. Sound begins after your first interaction.
+Create a name to start. Explore by clicking the world, walking with the arrow keys, or using the map. Original in-game controls support mouse and touch; the ⋯ menu exposes additional browser controls. Your phone and to-do list hold the weekend clues; creative jobs pay for shopping. Sound begins after your first interaction.
 
 Games save automatically in this browser. **Save & options → Save file** makes a portable backup; **Import a saved game** restores one on another device. Pictures, designs, and music recordings can be saved and exported. Browser storage is local to the device and site, so export a backup before clearing it.
 
@@ -14,6 +14,8 @@ See the [completed feature checklist](research/FEATURES.md) for the implementati
 
 This is a reconstruction, not the original Windows engine. Controls, dialogs, drawing tools, and some motion/timing are adapted for browsers. The checklist records tested behavior; it does not claim pixel-perfect or instruction-for-instruction parity with the original binary.
 
+See the [fidelity notes and recovered developer-mode shortcuts](research/FIDELITY.md) for the latest original-behavior restoration.
+
 ## Run locally
 
 Serve `web/` over HTTP with any static server. For example, from this directory:
@@ -22,7 +24,7 @@ Serve `web/` over HTTP with any static server. For example, from this directory:
 python -m http.server 4173 --bind 127.0.0.1 --directory web
 ```
 
-Open `http://127.0.0.1:4173/`. There is no bundler or runtime dependency installation. GitHub Actions validates the data and deploys `web/` to GitHub Pages.
+Open `http://127.0.0.1:4173/`. There is no bundler or runtime dependency installation. GitHub Actions validates the data, builds a cache-versioned `dist/` release, and deploys it to GitHub Pages.
 
 ## Checks
 

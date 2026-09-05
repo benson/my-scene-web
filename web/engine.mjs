@@ -144,7 +144,7 @@ export class Engine {
       w: bound.w * scale,
       h: bound.h * scale,
     };
-    if (o.action) this.hit(o.id || name, o.label || name, hit, o.action);
+    if (o.action) this.hit(o.id || name, o.label || name, hit, o.action, o.cursor);
     return hit;
   }
   background(key) {
@@ -302,6 +302,19 @@ export class Engine {
     });
     return canvas;
   }
+  cursor(name, fx = "Up") {
+    if (!name || !this.data.sprites[name]) return "default";
+    this.cursors ||= new Map();
+    const key = `${name}:${fx}`;
+    if (!this.cursors.has(key)) {
+      this.cursors.set(key, "pointer");
+      const b = this.bounds(name, fx), scale = Math.min(1, 58 / Math.max(b.w, b.h));
+      const w = Math.ceil(b.w * scale) + 6, h = Math.ceil(b.h * scale) + 6;
+      this.thumbnail(name, fx, w, h).then(c => this.cursors.set(key,
+        `url("${c.toDataURL()}") ${Math.floor(w / 2)} ${Math.floor(h / 2)}, pointer`)).catch(() => this.cursors.delete(key));
+    }
+    return this.cursors.get(key);
+  }
 }
 
 export class Sound {
@@ -385,8 +398,13 @@ export class Sound {
       this.channels.set(channel, source);
     }
     if (channel === "voice") this.voice = source;
-    if (channel === "ambient") this.ambient = source;
+    if (channel === "ambient") {
+      this.ambient = source; this.ambientGain = volume; this.ambientBaseGain = gain;
+      volume.gain.value = gain * (this.musicVolume ?? 100) / 100;
+    }
     source.start();
+    source.ended = false;
+    source.addEventListener("ended", () => { source.ended = true; }, { once: true });
     return source;
   }
   async mix(names, { offset = 0 } = {}) {

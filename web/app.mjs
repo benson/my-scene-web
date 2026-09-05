@@ -3,6 +3,7 @@ import { installShops } from "./shops.mjs";
 import { installCreative } from "./creative.mjs";
 import { installExtras } from "./extras.mjs";
 import { installNativeUI } from "./native-ui.mjs";
+import { helpContext, installFidelity } from "./fidelity.mjs";
 
 export const names = {
   ScBaBarApt: "Apartment",
@@ -82,6 +83,10 @@ export class Game {
       this.currentRender(t, dt);
       if (this.p) this.toolbar();
     };
+    $("#stage-wrap").addEventListener("pointermove", ev => {
+      const box = $("#stage").getBoundingClientRect();
+      this.pointerPosition = { x: (ev.clientX - box.left) * 800 / box.width, y: (ev.clientY - box.top) * 600 / box.height };
+    });
   }
   d(name) {
     return this.data.dictionaries[name] || {};
@@ -93,7 +98,7 @@ export class Game {
     return this.d(`DctTaskWk${pad(this.p?.week || 1)}`);
   }
   get doll() {
-    return this.d(this.week.DOLL_DICT);
+    return this.d(this.debugDoll || this.week.DOLL_DICT);
   }
   get character() {
     return ["Barbie", "Chelsea", "Madison"][this.doll.DOLL_IDX || 0];
@@ -268,6 +273,7 @@ export class Game {
     installCreative(this);
     installExtras(this);
     installNativeUI(this);
+    installFidelity(this);
     $("#dialog-close").onclick = () => this.close();
     $("#sound").onclick = () => {
       this.sound.mute(!this.sound.muted);
@@ -287,12 +293,16 @@ export class Game {
       "pointerdown",
       () => {
         this.lastInput = performance.now();
-        this.sound.activate().catch(() => {});
+        this.sound.activate().then(() => {
+          const video = $("#overlay video");
+          if (video) { video.muted = this.sound.muted; video.play().catch(() => {}); }
+        }).catch(() => {});
       },
       { passive: true },
     );
     document.addEventListener("keydown", (ev) => {
       this.lastInput = performance.now();
+      if (ev.key === "F1" && this.p) { ev.preventDefault(); this.help(); return; }
       if (["INPUT", "TEXTAREA", "SELECT"].includes(ev.target.tagName)) return;
       if ($("#dialog").open) return;
       this.keys.add(ev.key);
@@ -350,7 +360,7 @@ export class Game {
           : document.querySelector("#new-profile input").focus(),
       );
       this.e.button("BtnSiHelp", "Sign-in help", () =>
-        this.voice("VocSiSignInBox"),
+        this.signinHelp(),
       );
       this.e.button("BtnSiExit", "Options", () => this.signinOptions());
       this.e.text("my scene", 320, 137, {
@@ -498,10 +508,13 @@ export class Game {
       ["BtnZzPostIt", this.ui.brief ? "Job brief" : "To-do list", () => this.ui.brief ? this.ui.brief() : this.todo()],
       ["BtnZzWallet", `Wallet: $${this.p.money}`, () => this.wallet()],
     ])
-      e.button(n, label, fn);
+      if (n === "BtnZzPhone" && (this.week.PHONE_CALLS || []).some((_, i) => this.progress.done.length >= this.week.PHONE_CALLS_TRIGGER_TASK[i] && !this.progress.heardCalls?.includes(i)))
+        e.draw(n, "Ring", { action: fn, label, time: e.clock });
+      else e.button(n, label, fn);
     e.text(`$${this.p.money}`, 140, 571, {size: 17, align: "center", color: "#2a4735", bold: true});
   }
   async go(scene, options = {}) {
+    this.e.canvas.style.cursor = "default";
     this.ui.brief = null;
     this.close();
     this.pointer = null;
@@ -672,6 +685,7 @@ export class Game {
   }
 
   async street(area = 3) {
+    this.sound.stopVoice(); this.actorTalking = null;
     this.ui.brief = null;
     this.close();
     this.designCleanup?.();
@@ -694,7 +708,8 @@ export class Game {
       .filter((a) => a.ACTOR !== this.doll.DOLL_SP)
       .map((a, i) => ({
         ...a,
-        x: 400 + i * 530,
+        x: a.STARTX,
+        readyAt: this.e.clock + a.DELAY + Math.random() * a.DELAYDX,
         dir: a.ENDX > a.STARTX ? 1 : -1,
         paused: false,
       }));
@@ -715,15 +730,18 @@ export class Game {
       gain: 0.25,
     });
     this.currentRender = (t, dt) => {
+      const cursorX = this.pointerPosition?.x ?? 400;
+      const cursorSide = cursorX < this.p.x - (this.cameraX || 0) ? "L" : "R";
+      this.e.canvas.style.cursor = this.e.cursor(cursorX < 40 || cursorX > 760 ? `AniStBigArrow${cursorSide}` : `AniStSmallArrow${cursorSide}`, "Highlight");
       if (this.keys.has("ArrowLeft"))
         this.target = Math.max(50, this.p.x - 130);
       if (this.keys.has("ArrowRight"))
         this.target = Math.min(world.WORLDWIDTH - 50, this.p.x + 130);
       const distance = this.target - this.p.x,
         moving = Math.abs(distance) > 2;
-      if (moving)
+      if (moving && !$("#dialog").open)
         this.p.x +=
-          Math.sign(distance) * Math.min(Math.abs(distance), 185 * dt);
+          Math.sign(distance) * Math.min(Math.abs(distance), (this.debugWalkSpeed || this.doll.SPEED) * dt);
       const cam = Math.max(0, Math.min(world.WORLDWIDTH - 800, this.p.x - 400));
       this.cameraX = cam;
       for (const [i, it] of items.entries()) {
@@ -740,7 +758,7 @@ export class Game {
           time: extra ? t - extra.start : it.TYPE === 6 ? t : 0,
           alpha: extra?.fly ? 0 : 1,
           action:
-            it.SPRITE.startsWith("Ani") && !it.SPRITE.includes("Sidewalk")
+            it.TYPE === 6 && it.SPRITE.startsWith("Ani")
               ? () => this.incidental(it, area, i)
               : undefined,
           label: this.itemLabel(it.SPRITE),
@@ -800,9 +818,26 @@ export class Game {
         );
       }
       for (const a of actors) {
-        if (!a.paused) a.x += a.dir * a.RATE * 0.7 * dt;
-        if (a.x > world.WORLDWIDTH + 120) a.x = -100;
-        if (a.x < -120) a.x = world.WORLDWIDTH + 100;
+        if (t < a.readyAt) continue;
+        const modalOpen = $("#dialog").open;
+        if (!a.paused && !modalOpen) a.x += a.dir * a.RATE * dt;
+        if ((a.dir > 0 && a.x >= a.ENDX) || (a.dir < 0 && a.x <= a.ENDX)) {
+          a.x = a.STARTX;
+          a.readyAt = t + a.DELAY + Math.random() * a.DELAYDX;
+          a.greeted = a.chatted = a.saidBye = false;
+          continue;
+        }
+        const proximity = Math.abs(a.x - this.p.x), trigger = this.d("DctActorTrigger");
+        const voiceFree = !this.actorTalking && (!this.sound.voice || this.sound.voice.ended);
+        if (!modalOpen && voiceFree && !a.paused) {
+          if (!a.greeted && proximity <= trigger.GREET_DISTANCE) {
+            a.greeted = true; this.chat(a, "greet");
+          } else if (a.greeted && !a.chatted && proximity <= trigger.CHAT_DISTANCE && /Barbie|Chelsea|Madison/.test(a.ACTOR)) {
+            a.chatted = true; this.chat(a, "chat");
+          } else if (a.greeted && !a.saidBye && proximity > trigger.GREET_DISTANCE) {
+            a.saidBye = true; this.chat(a, "bye");
+          }
+        }
         this.e.draw(
           a.ACTOR,
           a.paused
@@ -819,13 +854,22 @@ export class Game {
             action: () => this.chat(a),
             label: `Talk to ${this.actorName(a.ACTOR)}`,
             id: a.ACTOR,
+            cursor: /Boy/.test(a.ACTOR) ? this.e.cursor("AniStCurHeart", "Highlight") : "pointer",
           },
         );
       }
+      if (moving) {
+        this.streetFacing = distance > 0 ? "RIGHT" : "LEFT";
+        this.streetIdle = null;
+      } else if (!this.streetIdle || t >= this.streetIdle.until) {
+        const choices = this.r("DctDollIdle"), idle = choices[Math.floor(Math.random() * choices.length)];
+        const fx = idle[this.streetFacing || "CENTER"], effect = this.e.effect(this.doll.DOLL_SP, fx);
+        this.streetIdle = { fx, start: t, until: t + Math.max(1000, effect.frames.length * effect.delay) };
+      }
       this.e.draw(
         this.doll.DOLL_SP,
-        moving ? (distance > 0 ? "WalkRt" : "WalkLt") : "FzIdle01",
-        { dx: this.p.x - cam, dy: 530, time: t },
+        moving ? (distance > 0 ? "WalkRt" : "WalkLt") : this.streetIdle.fx,
+        { dx: this.p.x - cam, dy: 530, time: moving ? t : t - this.streetIdle.start },
       );
     };
     this.pointer = (x, y) => {
@@ -883,10 +927,8 @@ export class Game {
   incidental(it, area, i) {
     if (/Misc(Girl|Guy)/.test(it.SPRITE))
       return this.chat({ ACTOR: it.SPRITE });
-    const effects = Object.keys(this.data.sprites[it.SPRITE]?.effects || {}),
-      fx =
-        effects.find((f) => /click|fly|anim|action/i.test(f)) ||
-        effects[Math.floor(Math.random() * effects.length)];
+    const effects = this.data.sprites[it.SPRITE]?.effects || {},
+      fx = effects.Play ? "Play" : effects.Anim ? "Anim" : effects.Idle ? "Idle" : "Still";
     this.animations.set(`${area}:${i}`, {
       fx,
       start: this.e.clock,
@@ -897,8 +939,7 @@ export class Game {
       this.voice("SndZzSfx", `Bird${pad(1 + Math.floor(Math.random() * 3))}`, {
         channel: "effect",
       });
-    else if (/Newspaper/.test(it.SPRITE)) this.zine();
-    else this.voice("SndStSfx");
+    else if (effects[fx]?.sound) this.voice(it.SPRITE, fx, { channel: "effect" });
   }
   actorName(n) {
     return (
@@ -1073,34 +1114,16 @@ export class Game {
       this.btn(names[scene], () => this.go(scene), p);
   }
   help(idle = false) {
-    const scene = this.scene,
-      pre = this.pre === "Che" ? "Chel" : this.pre;
-    const config = {
-      ScAcAccess: ["AcGame", "VocAcStoreKeeperVO"],
-      ScMuMakeUp: ["MuGame", "VocMuStoreKeeperVO"],
-      ScGtGift: ["Gt", "AniGtStoreKeeperVO"],
-      ScFdFood: ["Fd", "AniFdStoreKeeperVO"],
-      ScCsCDShop: ["CsGame", `AniCs${this.character}VO`],
-      ScCdClothesDes: ["Cd", "VocCdVO"],
-      ScWdWinDress: ["Wd", "VocWdVO"],
-      ScMmMusMix: ["Mm", "VocMmJezVO"],
-      ScBaBarApt: ["Ba", `VocBa${pre}VO`],
-      ScStStreet: ["StStreet", this.doll.STREET_VO],
-    }[scene];
-    if (config) {
-      const key =
-          scene === "ScStStreet"
-            ? `DctSt${idle ? "Idle" : "Help"}Street`
-            : `Dct${config[0]}${idle ? "Idle" : "Help"}`,
-        entries = this.r(key),
-        row = entries[Math.floor(Math.random() * entries.length)];
-      if (row?.FX) this.voice(config[1], row.FX);
+    const context = helpContext(this, idle);
+    this.lastHelpContext = context?.[0];
+    if (context) {
+      const [key, voice] = context, entries = this.r(key);
+      const available = entries.filter(r => r.FX !== this.lastHelpClip);
+      const pool = available.length ? available : entries;
+      const row = pool[Math.floor(Math.random() * pool.length)];
+      if (row?.FX) { this.lastHelpClip = row.FX; this.voice(voice, row.FX); }
     }
-    if (!idle)
-      this.modal(
-        "A little help",
-        `<p>${esc(this.ui.help || "Click a door to visit a shop, or use the map to take the subway. Your phone and to-do list hold your weekend clues. Try the creative jobs when you need money.")}</p>`,
-      );
+    if (!idle && !$("#dialog").open) this.modal("A little help", `<p>${esc(this.ui.help || "Use the map, phone, and to-do list to plan your weekend.")}</p>`);
   }
 
   async imageData(url) {

@@ -70,50 +70,22 @@ Check an item only after implementation and a focused verification. This list is
 - [x] Publish to a dedicated GitHub repository + GitHub Pages.
 - [x] Verify the live shareable URL.
 
-## Remaining original-game fidelity — audit, 5 September 2026
+## Original-game fidelity — implementation pass, 5 September 2026
 
-The checked activity list above is functional coverage, not a completed parity
-checklist. These gaps are evidenced by recovered definitions and the current
-JavaScript. Exact native timing and hidden behavior still need comparison with
-the original running game; asset names alone do not establish an Easter egg.
+- [x] Proximity pedestrian greetings/conversations/goodbyes and speech completion.
+- [x] Authored street movement, actor schedules, and idle variations.
+- [x] Walking, door, heart, and creative-tool cursors.
+- [x] Context-sensitive help/idle dictionaries and phone voice sources.
+- [x] Authored sign-in movies, ordered voices, interruption, and Help/idle flashes.
+- [x] Authored incidental animations; remove invented static-prop responses.
+- [x] Original puzzle source/answer tiles, phone list controls, and call indicator.
+- [x] Search the disc and web for hidden behavior; restore the verified Control+DEBUG mode and documented shortcuts.
 
-- [ ] **Pedestrian encounters:** use `DctActorTrigger.GREET_DISTANCE` and
-  `CHAT_DISTANCE`, character greetings and goodbye lists, and the original
-  encounter sequence. Current conversations require clicks and release a
-  pedestrian after a fixed timer. Character-specific greeting selection and
-  avoiding immediate repeats are fixed, but that is only part of the system.
-- [ ] **Street movement and idles:** honor actor start positions, delays and
-  delay variation from `DctActorStreet*`; use `DctDollIdle` variations and the
-  doll's authored speed. Current actors start at synthetic positions, wrap at
-  the world edge, and the player uses a fixed speed and `FzIdle01` when stopped.
-- [ ] **Other original cursors:** walking/edge arrows, heart hover, and creative
-  tool cursor artwork are recovered but not comprehensively connected. The
-  original `AniStSmallArrowIn` door cursor is now connected.
-- [ ] **Context-sensitive help and idle speech:** select the authored phone,
-  map, park, held-item, bought-item and creative-tool help/idle dictionaries.
-  `Game.help()` currently selects broad scene-level lists, which can refer to
-  controls or states that are not currently shown.
-- [ ] **Sign-in choreography:** restore the authored voice/animation wait and
-  interruption sequences, including the delayed flashing Help button in
-  `DctSiMainIntroSeq`. The current sign-in is a simplified functional screen.
-- [ ] **Small street interactions:** replace generic incidental-effect
-  selection with verified object-specific sequences and sounds. Current
-  `incidental()` selects effects by name or randomly and uses a generic street
-  sound for many objects. Clickability alone does not establish parity.
-- [ ] **Remaining interface behavior:** reproduce the original letter-slot
-  interaction (`DctZineParams.LETTERWIDTH` and puzzle masks), phone controls,
-  and dialog transitions. Jumbles currently use whole-word browser inputs;
-  several utility screens still use adapted controls. Read-only native dialog
-  text now renders on the canvas with bounded wrapping.
-- [ ] **Easter eggs and original bugs:** perform an original-runtime comparison
-  and record reproducible triggers before claiming coverage. No verified
-  Easter-egg inventory currently exists. `DctMapSpotsDebug` and `DEBUG_ON`
-  fields are development metadata, not evidence of player-accessible secrets.
-
-Deliberate differences: the weekend-four store lookup error is corrected;
-the broken sign-in deletion highlight is not reproduced; save export/import
-and browser downloads/printing replace platform-specific behavior. The absent
-Zine photograph reference remains unresolved on the supplied disc.
+See [FIDELITY.md](FIDELITY.md) for sources, verification, shortcut details, and
+limits. These checks cover the recovered behaviors implemented in this pass.
+They do not establish exhaustive native-runtime parity or claim that every
+internal debug branch has been understood. Native-desktop testing was stopped
+at Benson's request; static DLL analysis supplied the hidden-mode evidence.
 
 ## Known source quirks (recovery details)
 

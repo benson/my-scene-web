@@ -368,6 +368,7 @@ export function installCreative(g) {
     wrap.addEventListener("pointerup", up);
     wrap.addEventListener("pointercancel", up);
     g.designCleanup = () => {
+      wrap.style.cursor = "default";
       wrap.removeEventListener("pointermove", move);
       wrap.removeEventListener("pointerup", up);
       wrap.removeEventListener("pointercancel", up);
@@ -377,6 +378,7 @@ export function installCreative(g) {
       if (drag) wrap.setPointerCapture(ev.pointerId);
     };
     g.currentRender = () => {
+      wrap.style.cursor = state.move ? "move" : e.cursor(state.erase ? "AniWdEraserCur" : state.tool ? (state.tab === "Fabrics" ? "AniCdSwatchCur" : state.tool.sprite) : null, "Still");
       e.background(g.background(scene));
       e.ctx.drawImage(layer, 0, 0);
       const tabs = window ? { Clothes: "AniWdTab02", "Letters & stamps": "AniWdTab01", Trims: "AniWdTab03" }

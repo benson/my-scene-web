@@ -2,7 +2,7 @@ import { rows, pad, esc, plain } from "./engine.mjs";
 
 export function installExtras(g) {
   const e = g.e;
-  g.movie = (name, done) => {
+  g.movie = (name, done, options = {}) => {
     const map = {
       intro: "VidStGameIntro",
       "subway-bar": "SubwayTranBar",
@@ -18,19 +18,19 @@ export function installExtras(g) {
     video.controls = true;
     video.playsInline = true;
     video.autoplay = true;
-    video.muted = g.sound.muted;
+    video.muted = g.sound.muted || g.sound.context?.state !== "running";
     overlay.append(video);
     let ended = false;
-    const finish = () => {
+    const finish = (skipped = false) => {
       if (ended) return;
       ended = true;
       video.pause();
       overlay.hidden = true;
       overlay.replaceChildren();
-      done?.();
+      if (skipped && options.onSkip) options.onSkip(); else done?.();
     };
-    g.btn("Skip / close", finish, overlay, "video-close");
-    video.onended = finish;
+    g.btn("Skip / close", () => finish(true), overlay, "video-close");
+    video.onended = () => finish();
     video.onerror = () => {
       g.text("This movie could not load. You can carry on playing.");
       finish();

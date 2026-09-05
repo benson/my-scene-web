@@ -692,6 +692,8 @@ header, #quick, #panel { display: none; }
 .native-text.canvas-text { color: transparent !important; overflow: hidden; text-shadow: none; }
 #dialog-body button.native-text { padding: 0; font-family: Arial, sans-serif; }
 #dialog-body input.native-text { font-family: Arial, sans-serif; line-height: 1.16; }
+#dialog-body input.jumble-letter { text-align: center; font-weight: bold; border: 0; touch-action: none; cursor: grab; }
+#dialog-body input.jumble-letter[readonly] { cursor: default; color: #5c678a; }
 button.native-text { line-height: 1.16; }
 #dialog-body .phone-row { display: block; width: 100%; min-height: 23px; font-size: inherit; padding: 2px 0; }
 .show-controls #panel, .load-error #panel { display: block; position: fixed; z-index: 25; right: 0; top: 0; width: min(340px, 90vw); max-height: 100svh; overflow: auto; padding: 20px; }
