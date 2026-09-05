@@ -42,6 +42,7 @@ export function installFidelity(g) {
     g.cancelMovie?.(); startupPlaying = false;
   };
   const flashes = new Map();
+  g.cancelSigninSequence = () => { ++sequenceToken; g.sound.stopVoice(); flashes.clear(); };
   const wait = source => !source || source.ended ? Promise.resolve() : new Promise(resolve => source.addEventListener("ended", resolve, { once: true }));
   const flash = (name, fx) => {
     const effect = g.e.effect(name, fx);

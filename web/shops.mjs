@@ -4,7 +4,7 @@ export function installShops(g) {
   const e = g.e;
   function controls(title, scene, copy) {
     g.ui.help = copy;
-    const p = g.panel(title, `<p>${esc(copy)}</p>`, "Shopping · $10");
+    const p = g.panel(title, `<p>${esc(copy)}</p>`, `Shopping · $${scene.startsWith("ScClClothes") ? 40 : 10}`);
     const ts = g.taskFor(scene);
     for (const t of ts) {
       const n = document.createElement("p");
@@ -378,7 +378,7 @@ export function installShops(g) {
       );
       const a = g.group(p, "row");
       g.btn("Model this look", model, a);
-      g.btn("Buy · $10 each", buy, a, "primary");
+      g.btn("Buy · $40 each", buy, a, "primary");
       g.grid(
         items.map((i) => ({
           sprite: i.SPRITE,

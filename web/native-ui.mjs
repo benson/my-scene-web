@@ -10,6 +10,7 @@ export function installNativeUI(g) {
   dialog.prepend(canvas, hits);
   const e = new Engine(g.data, canvas, hits);
   e.cache = g.e.cache; e.pending = g.e.pending;
+  e.cues = g.e.cues = new Map();
   let render = () => {};
   let textFields = [];
   e.render = (t) => {
@@ -110,6 +111,8 @@ export function installNativeUI(g) {
     const w = g.week, n = g.progress.done.length;
     const messages = (w.PHONE_MSG_TEXT_LONG || []).map((text, i) => ({ text, i, title: w.PHONE_MSG_TEXT[i], trigger: w.PHONE_MSG_TRIGGER_TASK?.[i] || 0 })).filter(m => n >= m.trigger);
     const calls = (w.PHONE_CALLS || []).map((fx, i) => ({ fx, i, title: w.PHONE_CALLS_TEXT[i], image: w.PHONE_CALLS_IMAGE[i], trigger: w.PHONE_CALLS_TRIGGER_TASK[i] })).filter(c => n >= c.trigger);
+    if (g.p.week === 1 && (g.p.tutorial === "ringing" || g.progress.heardCalls?.includes("intro")))
+      calls.unshift({fx:"VocZzWeek01Call01",i:"intro",title:"Westley",image:"AniZzPicMads"});
     if (tab === null) {
       const incoming = calls.findIndex(c => !g.progress.heardCalls?.includes(c.i));
       tab = incoming < 0 ? "tasks" : "calls";
@@ -326,6 +329,9 @@ export function installNativeUI(g) {
       e.button(param.ARROWLT,"Previous album page",()=>changePage(-1));
       e.button(param.ARROWRT,"Next album page",()=>changePage(1));
       e.button(param.CLOSE_SP,"Close scrapbook",()=>g.close());
+      e.button(param.PRINT_SP,"Print scrapbook page",()=>g.printImage(canvas.toDataURL("image/png"), "My Scene scrapbook"));
+      e.button(param.SAVE_SP,"Save scrapbook page",()=>canvas.toBlob(blob=>g.download(blob,"my-scene-scrapbook.png","image/png"),"image/png"));
+      e.button(param.HELP,"Scrapbook help",()=>g.help());
       ink(e,"My camera",80,557,115,24,()=>g.scrapbook("camera",week),{size:15});
       ink(e,"Boys",222,557,65,24,()=>g.scrapbook("boys",week),{size:15});
       if (tab === "about") ["Bar","Chel","Mad"].forEach((pre,i)=>ink(e,{Bar:"Barbie",Chel:"Chelsea",Mad:"Westley"}[pre],355+i*107,520,100,28,()=>g.scrapbook("about",week,0,pre),{size:17}));

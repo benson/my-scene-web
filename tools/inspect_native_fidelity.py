@@ -32,6 +32,9 @@ for label, start, end in [
     ('Character, speed, Zine and quiz shortcuts', 0x10043008, 0x100431a6),
     ('Weekend shortcuts', 0x100431cb, 0x10043393),
     ('Separate puzzle answer positions', 0x100029da, 0x10002a58),
+    ('Wallet reset to 40', 0x10012870, 0x10012890),
+    ('Weekend advance resets wallet', 0x1000f010, 0x1000f035),
+    ('Clothing purchase gate overrides cost table', 0x10036d60, 0x10036da0),
 ]:
     offset = pe.get_offset_from_rva(start - base)
     print('\n' + label)

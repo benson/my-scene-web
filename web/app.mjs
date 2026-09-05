@@ -4,6 +4,8 @@ import { installCreative } from "./creative.mjs";
 import { installExtras } from "./extras.mjs";
 import { installNativeUI } from "./native-ui.mjs";
 import { helpContext, installFidelity } from "./fidelity.mjs";
+import { installSignIn } from "./signin.mjs";
+import { installStory } from "./story.mjs";
 
 export const names = {
   ScBaBarApt: "Apartment",
@@ -132,6 +134,12 @@ export class Game {
         ? name.replace("VocCl", "AniCl").replace("VO", "Talk01")
         : name;
       const source = await this.sound.play(resolved, fx, opts);
+      const cues = this.data.sprites[resolved]?.effects[fx]?.properties.CUELIST || [];
+      for (let i = 0; source && i < cues.length; i += 3) {
+        const cue = String(cues[i+2]).match(/^(.+)_(Highlight|Flash|Down)_(\d+)_(\w+)$/);
+        if (cue && this.data.sprites[cue[1]]?.effects[cue[2]])
+          this.e.cues?.set(cue[1], {source,fx:cue[2],start:source.context.currentTime + cues[i+1]/1000,duration:+cue[3]/1000});
+      }
       if (source && this.data.sprites[resolved]?.effects[fx]?.image)
         this.speech = { name: resolved, fx, at: this.e.clock };
       return source;
@@ -273,7 +281,9 @@ export class Game {
     installCreative(this);
     installExtras(this);
     installNativeUI(this);
+    installSignIn(this);
     installFidelity(this);
+    installStory(this);
     $("#dialog-close").onclick = () => this.close();
     $("#sound").onclick = () => {
       this.sound.mute(!this.sound.muted);
@@ -471,15 +481,21 @@ export class Game {
     this.btn("Credits", () => this.credits(), more);
   }
   async load(profile, isNew = false) {
+    this.cancelStory?.();
+    this.designCleanup?.(); this.musicCleanup?.();
     $("#signin-name").hidden = true;
     this.p = structuredClone(profile);
     this.header();
     this.quick();
     this.save();
     if (isNew) {
-      await this.apartment();
-      this.movie("intro", () => this.weekIntro());
-    } else await this.go(this.p.location || "ScBaBarApt", { resume: true });
+      await this.street(4);
+      this.movie("intro", () => this.beginTutorial());
+    } else {
+      await this.go(this.p.location || "ScBaBarApt", { resume: true });
+      if (this.p.recapPending) this.finishWeekend();
+      else this.resumeTutorial();
+    }
   }
   quick() {
     const q = $("#quick");
@@ -504,11 +520,11 @@ export class Game {
       ["BtnZzExit", "Leave", () => this.scene === "ScStStreet" ? this.options() : this.street(this.p.area)],
       ["BtnZzHelp", "Help", () => this.help()],
       ["BtnZzMap", "City map", () => this.map()],
-      ["BtnZzPhone", "Phone", () => this.phone()],
+      [`BtnZzPhone${this.pre === "Che" ? "Chel" : this.pre}`, "Phone", () => this.phone()],
       ["BtnZzPostIt", this.ui.brief ? "Job brief" : "To-do list", () => this.ui.brief ? this.ui.brief() : this.todo()],
       ["BtnZzWallet", `Wallet: $${this.p.money}`, () => this.wallet()],
     ])
-      if (n === "BtnZzPhone" && (this.week.PHONE_CALLS || []).some((_, i) => this.progress.done.length >= this.week.PHONE_CALLS_TRIGGER_TASK[i] && !this.progress.heardCalls?.includes(i)))
+      if (n.startsWith("BtnZzPhone") && (this.p.tutorial === "ringing" || (this.week.PHONE_CALLS || []).some((_, i) => this.progress.done.length >= this.week.PHONE_CALLS_TRIGGER_TASK[i] && !this.progress.heardCalls?.includes(i))))
         e.draw(n, "Ring", { action: fn, label, time: e.clock });
       else e.button(n, label, fn);
     e.text(`$${this.p.money}`, 140, 571, {size: 17, align: "center", color: "#2a4735", bold: true});
@@ -1090,11 +1106,11 @@ export class Game {
   }
   async purchase(scene, item, taskIndex) {
     const cost =
-      this.r("DctStoreCost").find((r) => r.SCENE === scene)?.COST || 10;
+      scene.startsWith("ScClClothes") ? 40 : this.r("DctStoreCost").find((r) => r.SCENE === scene)?.COST || 10;
     const key = scene + ":" + item;
     if (!this.progress.bought.includes(key)) {
       if (this.p.money < cost) {
-        this.wallet("A creative job pays $40 — enough for four purchases.");
+        this.wallet("A creative job pays $40. Clothing costs $40 per item; other purchases cost $10.");
         return false;
       }
       this.p.money -= cost;
@@ -1108,7 +1124,7 @@ export class Game {
   wallet(message = "") {
     const p = this.modal(
       `Your wallet: $${this.p.money}`,
-      `<p>${esc(message || "Earn $40 for each completed design or music job. Shopping costs $10 per item.")}</p>`,
+      `<p>${esc(message || "Earn $40 for each completed design or music job. Clothing costs $40 per item; other purchases cost $10. Each weekend starts with $40.")}</p>`,
     );
     for (const scene of ["ScCdClothesDes", "ScWdWinDress", "ScMmMusMix"].filter(
       (s) => this.canEnter(s),

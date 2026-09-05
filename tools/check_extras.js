@@ -11,9 +11,13 @@ async (page) => {
         .click();
   };
   await page.reload();
-  await page
-    .getByRole("button", { name: "QA · Weekend 12", exact: true })
-    .click();
+  await page.waitForFunction(() => window.myScene && document.querySelector("#loading").hidden);
+  await page.evaluate(async () => {
+    myScene.cancelMovie?.(); document.body.classList.add("show-controls");
+    const profile = (await myScene.saves.all()).find(p => p.completedWeeks?.length === 12);
+    if (!profile) throw new Error("Run the campaign check first");
+    await myScene.load(profile);
+  });
   await page.waitForFunction(
     () => myScene.p && document.querySelector("#loading").hidden,
   );
@@ -235,7 +239,7 @@ async (page) => {
     ),
     "Original credits missing",
   );
-  await close();
+  await page.getByRole("button",{name:"Close credits",exact:true}).click();
   await page.evaluate(() => {
     myScene.p.week = 1;
     myScene.go("ScMmMusMix");

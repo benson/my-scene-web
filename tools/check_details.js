@@ -19,9 +19,13 @@ async (page) => {
     await page.mouse.click(pt.x, pt.y);
   };
   await page.reload();
-  await page
-    .getByRole("button", { name: "QA · Weekend 12", exact: true })
-    .click();
+  await page.waitForFunction(() => window.myScene && document.querySelector("#loading").hidden);
+  await page.evaluate(async () => {
+    myScene.cancelMovie?.(); document.body.classList.add("show-controls");
+    const profile = (await myScene.saves.all()).find(p => p.completedWeeks?.length === 12);
+    if (!profile) throw new Error("Run the campaign check first");
+    await myScene.load(profile);
+  });
   await page.waitForFunction(
     () => myScene.p && document.querySelector("#loading").hidden,
   );
@@ -114,11 +118,8 @@ async (page) => {
     "Undo failed",
   );
   await button("Done · check my work").click();
-  assert(
-    await page.getByRole("heading", { name: "Fabulous work!" }).isVisible(),
-    "Valid window did not pass",
-  );
-  await page.getByRole("button", { name: "Close dialog", exact: true }).click();
+  await page.waitForFunction(() => myScene.scene === "ScStStreet");
+  await button("Walk right →").waitFor();
   await page.evaluate(() => scrollTo(0, 0));
   await page.screenshot({ path: ".local/window.png" });
   assert(
@@ -176,11 +177,8 @@ async (page) => {
   await page.evaluate(() => scrollTo(0, 0));
   await page.screenshot({ path: ".local/design.png" });
   await button("Done · check my work").click();
-  assert(
-    await page.getByRole("heading", { name: "Fabulous work!" }).isVisible(),
-    "Valid fashion design failed",
-  );
-  await page.getByRole("button", { name: "Close dialog", exact: true }).click();
+  await page.waitForFunction(() => myScene.scene === "ScStStreet");
+  await button("Walk right →").waitFor();
   await enter("ScMmMusMix");
   await button("▶ Play").click();
   await page.waitForFunction(() => myScene.sound.sources.length === 4);
@@ -193,10 +191,17 @@ async (page) => {
     "Wrong mix feedback absent",
   );
   await button("■ Stop").click();
+  const answers = await page.evaluate(() => {
+    const g = myScene, d = g.d(g.week.MUSIC_MIX[g.activity("ScMmMusMix",{}).brief]), n = d.TEMPLATE.length;
+    const rows = Array.from({length:d.FORMS.length/n},(_,i)=>Object.fromEntries(d.TEMPLATE.map((k,j)=>[k,d.FORMS[i*n+j]])));
+    return [1,2,3,4].map(k=>rows.findIndex(r=>r[`CORRECT${k}`]));
+  });
+  for (let i=0;i<4;i++) await p.locator("select").nth(i).selectOption(String(answers[i]));
+  await button("Done · check my mix").click();
   await button("● Record").click();
+  await button("● Recording · stop").waitFor();
   await page.waitForFunction(() => myScene.sound.sources.length === 4);
   await button("Pad 1").click();
-  await p.locator("select").nth(1).selectOption("0");
   await button("Pad 9").click();
   await button("■ Stop").click();
   const recording = await page.evaluate(
@@ -204,8 +209,8 @@ async (page) => {
   );
   assert(
     recording.events.some((e) => e.pad) &&
-      recording.events.filter((e) => e.tracks).length > 1,
-    "Recording did not preserve pads and changes",
+      recording.events.some((e) => e.tracks),
+    "Recording did not preserve pads and backing tracks",
   );
   await button("Play recording").click();
   const audioDownload = page.waitForEvent("download");
@@ -235,10 +240,11 @@ async (page) => {
   );
   await page.evaluate(() => myScene.flush());
   await page.reload();
-  await page
-    .getByRole("button", { name: "Details QA · Weekend 1", exact: true })
-    .first()
-    .click();
+  await page.waitForFunction(() => window.myScene && document.querySelector("#loading").hidden);
+  await page.evaluate(async () => {
+    myScene.cancelMovie?.();
+    await myScene.load((await myScene.saves.all()).filter(p=>p.name==="Details QA").sort((a,b)=>b.updated-a.updated)[0]);
+  });
   await page.waitForFunction(
     () => myScene.p && document.querySelector("#loading").hidden,
   );

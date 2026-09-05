@@ -458,24 +458,11 @@ export function installExtras(g) {
   };
   g.nextWeekend = async () => {
     if (g.p.week === 12) {
-      const p = g.modal(
-        "What a scene!",
-        "<p>Twelve weekends of friends, fashion, and city adventures. All of your memories are waiting in your scrapbook.</p>",
-      );
-      g.btn("Open my scrapbook", () => g.scrapbook(), p, "primary");
-      g.btn(
-        "Keep exploring",
-        () => {
-          g.close();
-          g.apartment();
-        },
-        p,
-      );
-      g.btn("Save my game", () => g.exportSave(), p);
-      return;
+      g.save();
+      return g.credits(true);
     }
     g.p.week++;
-    g.p.money += 20;
+    g.p.money = 40;
     g.p.area = g.doll.APART_STREET || 1;
     g.p.x = 400;
     g.save();

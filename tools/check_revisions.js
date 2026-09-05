@@ -4,7 +4,11 @@ async (page) => {
   const assert = (ok, message) => { if (!ok) throw new Error(message); };
   const button = (name) => page.locator("#panel").getByRole("button", { name, exact: true });
   await page.reload();
-  await page.getByRole("button", { name: "Details QA · Weekend 1", exact: true }).first().click();
+  await page.waitForFunction(() => window.myScene && document.querySelector("#loading").hidden);
+  await page.evaluate(async () => {
+    myScene.cancelMovie?.(); document.body.classList.add("show-controls");
+    await myScene.load((await myScene.saves.all()).filter(p=>p.name==="Details QA").sort((a,b)=>b.updated-a.updated)[0]);
+  });
   await page.waitForFunction(() => myScene.p && document.querySelector("#loading").hidden);
   await page.evaluate(async () => {
     const g = myScene;

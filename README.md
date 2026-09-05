@@ -45,6 +45,12 @@ playwright-cli --session myscene run-code $Check
 
 Run `check_details.js`, `check_extras.js`, and `check_revisions.js` the same way, in that order. These scripts exercise user data; use a disposable test browser profile.
 
+The later fidelity checks are `check_interface.js`, `check_story.js`, and
+`check_story_audio.js`. They create their own fixtures and cover video sound,
+profile selection, the opening tutorial, corrected prices, narrated recaps,
+scrapbook page controls, staged music recording, and credits. See the
+[footage comparison and fixes](research/FOOTAGE-REVIEW.md) for evidence and limits.
+
 ## Asset recovery
 
 The original ISO and extracted Windows files are kept out of Git and the deployed site. For a rebuild, extract the supplied disc into `.local/disc/` (containing `MyScene/Resource/`), install Python Pillow and FFmpeg, then run:

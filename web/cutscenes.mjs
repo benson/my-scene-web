@@ -12,7 +12,7 @@ export function installCutscenes(g) {
     video.controls = g.movieControls;
     video.playsInline = true;
     video.autoplay = true;
-    video.muted = g.sound.muted || g.sound.context?.state !== "running";
+    video.muted = g.sound.muted;
     video.setAttribute("aria-label", "Game cutscene");
     let ended = false, timer;
     const listeners = new AbortController();

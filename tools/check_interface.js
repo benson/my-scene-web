@@ -39,6 +39,16 @@ async page => {
   await page.evaluate(() => { myScene.close(); myScene.movie("intro"); });
   assert(await page.evaluate(() => document.querySelector("video").controls), "Options enables playback controls");
   await page.keyboard.press("Escape");
+  await page.evaluate(async () => {
+    myScene.sound.mute(false);
+    await myScene.sound.context?.suspend();
+    myScene.movie("intro");
+  });
+  assert(await page.evaluate(() => !document.querySelector("video").muted), "Videos stay unmuted even before game audio is activated");
+  await page.keyboard.press("Escape");
+  await page.evaluate(async () => { await myScene.sound.activate(); myScene.sound.mute(true); myScene.movie("intro"); });
+  assert(await page.evaluate(() => document.querySelector("video").muted), "Videos respect explicit mute");
+  await page.keyboard.press("Escape");
   await page.evaluate(async () => { myScene.movieControls = false; await myScene.street(1); myScene.phone(); });
   const labels = ["To-do list", "Messages", "Close phone"];
   const buttons = [];

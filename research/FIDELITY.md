@@ -104,8 +104,8 @@ Implemented those phone layouts with recovered sprites/text geometry, automatic
 unheard-call selection, and a replay action. The browser-only call-history list
 is retained under Options, outside the original phone footer.
 
-Newly identified gap: the opening guided street/phone tutorial is not reproduced
-by our apartment-first new-game flow. The sampled footage does not establish
+The opening guided street/phone tutorial gap identified here was subsequently
+fixed; see [FOOTAGE-REVIEW.md](FOOTAGE-REVIEW.md). The sampled footage does not establish
 the precise native walking-click cutoff. This was a targeted comparison, not a
 review of the entire 2h52m recording. Future reference QA should use footage,
 static disc analysis or an isolated emulator, never desktop control without a

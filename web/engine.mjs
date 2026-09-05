@@ -105,6 +105,12 @@ export class Engine {
     return { x: l, y: t, w: r - l, h: b - t };
   }
   draw(name, fx = "Still", o = {}) {
+    const cue = this.cues?.get(name);
+    if (cue) {
+      const elapsed = cue.source.context.currentTime - cue.start;
+      if (cue.source.ended || elapsed > cue.duration) this.cues.delete(name);
+      else if (elapsed >= 0) fx = cue.fx;
+    }
     const f = this.effect(name, fx);
     if (!f?.image) return null;
     const im = this.cache.get(f.image);
@@ -166,6 +172,7 @@ export class Engine {
     y,
     {
       size = 18,
+      family = "Trebuchet MS, Arial",
       color = "#512449",
       align = "left",
       maxWidth = 700,
@@ -175,7 +182,7 @@ export class Engine {
   ) {
     this.ctx.save();
     this.ctx.fillStyle = color;
-    this.ctx.font = `${bold ? "bold " : ""}${size}px Trebuchet MS, Arial`;
+    this.ctx.font = `${bold ? "bold " : ""}${size}px ${family}`;
     this.ctx.textAlign = align;
     this.ctx.textBaseline = "top";
     if (singleLine) {

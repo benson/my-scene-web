@@ -72,7 +72,17 @@ Check an item only after implementation and a focused verification. This list is
 
 ## Original-game fidelity — implementation pass, 5 September 2026
 
-- [ ] Original opening guided street/phone tutorial (identified in later footage review; current new-game flow begins in the apartment).
+- [x] Original opening Parkside narration, phone tutorial, getting-around cues and introductory call.
+- [x] Original sign-in name selection, scrolling and Continue behavior.
+- [x] Music matching-to-freestyle success transition.
+- [x] Main scrapbook page Save, Print and Help controls.
+- [x] Original creative-job completion presentation instead of the added success modal.
+- [x] Distinct weekend recap and album transition instead of manual photo-viewer progression.
+
+See [FOOTAGE-REVIEW.md](FOOTAGE-REVIEW.md) for timestamps, implementation evidence,
+and the resolved native-code override of the clothing cost table.
+- [x] Clothing costs $40; other purchases cost $10; weekends reset the wallet to $40.
+- [x] Final album leads to original scrolling credits. Scroll speed remains reconstructed.
 
 - [x] Proximity pedestrian greetings/conversations/goodbyes and speech completion.
 - [x] Authored street movement, actor schedules, and idle variations.
@@ -99,7 +109,10 @@ at Benson's request; static DLL analysis supplied the hidden-mode evidence.
 - Weekend four's clothing-store lookup fields are swapped on the disc. They are normalized to match the original written clues and the stores that actually stock those clothes.
 - The Zine points to an absent `AniStZinePhoto01` sprite. Its original articles and paper artwork are present; this restoration does not invent missing original photographs.
 
-## Verification record — 5 September 2026
+## Earlier verification record — 5 September 2026
+
+These results describe the earlier implementation. The subsequent fidelity fixes
+and current focused/campaign checks are recorded in [FOOTAGE-REVIEW.md](FOOTAGE-REVIEW.md).
 
 - `tools/check_data.mjs`: all 12 weekends, 60 tasks, 24 clothing briefs, 20 window briefs, 16 music briefs, 72 quiz questions and 48 event photos; referenced asset files exist and creative validators accept solutions and reject empty work.
 - `tools/check_campaign.js`: all twelve weekends completed in the browser, including earning money, every task purchase, completion feedback, and four event pictures per weekend. Travel and answer lookup use controlled fixtures; activity controls perform the work. No browser exceptions were reported.

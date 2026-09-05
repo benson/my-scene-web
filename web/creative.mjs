@@ -1,4 +1,5 @@
 import { rows, pad, esc, plain } from "./engine.mjs";
+import { waitForVoice } from "./story.mjs";
 
 const canvas = () => {
   const c = document.createElement("canvas");
@@ -462,7 +463,9 @@ export function installCreative(g) {
       g.text("Saved to your scrapbook.");
       return item;
     }
-    function submit() {
+    let completing = false;
+    async function submit() {
+      if (completing) return;
       const problems = window
         ? validateWindow(brief, state)
         : validateClothes(brief, state, regions);
@@ -493,23 +496,18 @@ export function installCreative(g) {
         saveCreation();
       }
       g.save();
-      const p = g.modal(
-        "Fabulous work!",
-        "<p>Your design fits the brief. Your $40 payment and creation have been saved.</p>",
-      );
-      g.btn(
-        "Try the next brief",
-        () => {
-          state.brief = (state.brief + 1) % briefs.length;
-          g.save();
-          g.close();
-          design(window);
-        },
-        p,
-        "primary",
-      );
-      g.btn("Keep creating", () => g.close(), p);
-      g.btn("Back to the city", () => g.street(g.p.area), p);
+      completing = true;
+      const profile = g.p;
+      await waitForVoice(g.voice(window ? "VocWdVO" : "VocCdVO", window ? "Good" : "FeedbackGood"));
+      completing = false;
+      if (g.p === profile && g.scene === scene) {
+        state.brief = (state.brief + 1) % briefs.length;
+        state.tab = window ? "Clothes" : "Fabrics";
+        state.fills = {}; state.marks = []; state.slots = Array(6).fill(null);
+        state.undo = []; state.tool = null; state.selectedPart = 0;
+        g.save();
+        await g.street(g.p.area);
+      }
     }
     function panel() {
       g.ui.brief = () => {
@@ -720,16 +718,23 @@ export function installCreative(g) {
       recording = false,
       start = 0,
       events = [],
+      playbackSource = null,
       timer;
+    const saveRecording = () => {
+      const saved = g.p.designs.find(d => d.id === state.savedMix);
+      if (saved && state.recording) saved.recording = structuredClone(state.recording);
+      g.save();
+    };
     g.musicCleanup?.();
     g.musicCleanup = () => {
       clearTimeout(timer);
+      try { playbackSource?.stop(); } catch {}
       if (recording) {
         state.recording = {
           duration: Math.max(1, (performance.now() - start) / 1000),
           events,
         };
-        g.save();
+        saveRecording();
       }
       recording = false;
       playing = false;
@@ -737,15 +742,27 @@ export function installCreative(g) {
     };
     const tracks = () =>
       state.selections.map((choice, i) => options[choice][`KNOB${i + 1}`]);
-    const play = async () => {
+    const play = async (forRecording = false) => {
       g.sound.stopAmbient();
       if (playing) return;
+      if (forRecording !== true && state.mode === "effects" && state.recording) {
+        playbackSource = await g.playRecording(state.recording);
+        playing = true;
+        playbackSource.addEventListener("ended", () => {
+          playing = false;
+          if (g.scene === scene) panel();
+        }, {once:true});
+        panel();
+        return;
+      }
       await g.sound.mix(tracks());
       playing = true;
       start = performance.now();
       panel();
     };
     const stop = () => {
+      try { playbackSource?.stop(); } catch {}
+      playbackSource = null;
       g.sound.stopMix();
       playing = false;
       if (recording) {
@@ -755,7 +772,7 @@ export function installCreative(g) {
           duration: Math.max(1, (performance.now() - start) / 1000),
           events,
         };
-        g.save();
+        saveRecording();
         g.text("Recording saved. Play it back or export a WAV file.");
       }
       panel();
@@ -774,7 +791,7 @@ export function installCreative(g) {
       panel();
     };
     const stab = (item) => {
-      state.mode = "effects";
+      if (state.mode !== "effects") return;
       g.voice(item.SND, undefined, { channel: "effect", gain: 0.6 });
       if (recording)
         events.push({
@@ -783,10 +800,11 @@ export function installCreative(g) {
         });
     };
     const record = async () => {
+      if (state.mode !== "effects") return;
       if (recording) return stop();
       g.sound.stopMix();
       playing = false;
-      await play();
+      await play(true);
       recording = true;
       state.mode = "effects";
       start = performance.now();
@@ -797,6 +815,12 @@ export function installCreative(g) {
       panel();
     };
     const submit = () => {
+      if (state.mode === "effects") {
+        stop();
+        state.brief = (state.brief + 1) % briefs.length;
+        state.mode = "mix"; state.recording = null; state.savedMix = null;
+        g.save(); g.street(g.p.area); return;
+      }
       const correct = validateMusic(brief, state.selections);
       if (!correct.every(Boolean)) {
         g.voice("VocMmJezVO", "Wrong02");
@@ -814,8 +838,9 @@ export function installCreative(g) {
         g.p.money += 40;
         g.progress.jobs[briefs[state.brief]] =
           (g.progress.jobs[briefs[state.brief]] || 0) + 1;
+        state.savedMix = crypto.randomUUID();
         g.p.designs.push({
-          id: crypto.randomUUID(),
+          id: state.savedMix,
           type: "music",
           caption: `My mix · Weekend ${g.p.week}, brief ${state.brief + 1}`,
           week: g.p.week,
@@ -826,8 +851,12 @@ export function installCreative(g) {
         });
       }
       g.save();
-      g.voice("VocMmJezVO", "Correct01");
-      g.text("That’s the mix! $40 paid. Your music is in the music player.");
+      state.mode = "effects";
+      const profile = g.p;
+      waitForVoice(g.voice("VocMmJezVO", "Correct01")).then(() => {
+        if (g.p === profile && g.scene === scene && state.mode === "effects") g.voice("VocMmJezVO", "Pt02MixIntro");
+      });
+      g.save();
       panel();
     };
     await g.prepare([
@@ -876,11 +905,10 @@ export function installCreative(g) {
         ["BtnMmPlay", "Play mix", play],
         ["BtnMmStop", "Stop mix", stop],
         ["BtnMmRecord", "Record mix", record],
-        ["BtnMmDone", "Check mix", submit],
+        ["BtnMmDone", effects ? "Finish recording" : "Check mix", submit],
       ])
-        e.button(name, label, fn);
-      g.ink(effects ? "instruments" : "effects", 205, 26, 125, 35, () => { state.mode = effects ? "mix" : "effects"; panel(); }, {size: 18});
-      g.ink("listen to CD", 355, 26, 144, 35, () => g.voice(brief.WAVE, undefined, {channel: "sample"}), {size: 18});
+        if (name !== "BtnMmRecord" || effects) e.button(name, label, fn);
+      if (!effects) e.button(params.SAMPLE_PLAY_BTN, "Listen to reference", () => g.voice(brief.WAVE, undefined, {channel:"sample"}));
       e.hit("reference-video", "Watch reference", {x: 662, y: 100, w: 120, h: 300}, () => g.movie(brief.SMACKER));
     };
 
@@ -893,7 +921,7 @@ export function installCreative(g) {
           g.btn("Play recording", () => g.playRecording(state.recording), p);
           g.btn("Export WAV", () => g.exportRecording(state.recording), p);
         }
-        g.btn("Next brief", () => {stop(); state.brief = (state.brief + 1) % briefs.length; g.close(); music();}, p);
+        g.btn("Next brief", () => {stop(); state.brief = (state.brief + 1) % briefs.length; state.mode = "mix"; state.recording = null; state.savedMix = null; g.save(); g.close(); music();}, p);
       };
       const p = g.panel(
         "Making Trax",
@@ -909,31 +937,15 @@ export function installCreative(g) {
           () => {
             stop();
             state.brief = i;
+            state.mode = "mix";
+            state.recording = null;
+            state.savedMix = null;
             g.save();
             music();
           },
           jobs,
           i === state.brief ? "selected" : "",
         ),
-      );
-      const modes = g.group(p, "tabs");
-      g.btn(
-        "Match instruments",
-        () => {
-          state.mode = "mix";
-          panel();
-        },
-        modes,
-        state.mode !== "effects" ? "selected" : "",
-      );
-      g.btn(
-        "Effect pads",
-        () => {
-          state.mode = "effects";
-          panel();
-        },
-        modes,
-        state.mode === "effects" ? "selected" : "",
       );
       const refs = g.group(p, "row");
       g.btn(
@@ -942,7 +954,7 @@ export function installCreative(g) {
         refs,
       );
       g.btn("Watch reference", () => g.movie(brief.SMACKER), refs);
-      for (let i = 0; i < 4; i++) {
+      for (let i = 0; state.mode !== "effects" && i < 4; i++) {
         const label = document.createElement("label");
         label.className = "field spaced";
         label.textContent = labels[i];
@@ -966,14 +978,14 @@ export function installCreative(g) {
       const transport = g.group(p, "row spaced");
       g.btn(playing ? "Playing…" : "▶ Play", play, transport);
       g.btn("■ Stop", stop, transport);
-      g.btn(
+      if (state.mode === "effects") g.btn(
         recording ? "● Recording · stop" : "● Record",
         record,
         transport,
         recording ? "selected" : "",
       );
       const pads = g.group(p, "grid spaced");
-      for (const [i, item] of staff.entries())
+      for (const [i, item] of (state.mode === "effects" ? staff : []).entries())
         g.btn(`Pad ${i + 1}`, () => stab(item), pads);
       if (state.recording) {
         const rec = g.group(p, "row spaced");
@@ -981,7 +993,7 @@ export function installCreative(g) {
         g.btn("Export WAV", () => g.exportRecording(state.recording), rec);
       }
       const a = g.group(p);
-      g.btn("Done · check my mix", submit, a, "primary");
+      g.btn(state.mode === "effects" ? "Done · finish recording" : "Done · check my mix", submit, a, "primary");
       g.btn(
         "Back outside",
         () => {
@@ -1043,6 +1055,7 @@ export function installCreative(g) {
     s.start();
     g.sound.voice = s;
     g.text("Playing your recorded mix.");
+    return s;
   };
   g.exportRecording = async (recording) => {
     g.text("Preparing your WAV file…");

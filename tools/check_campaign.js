@@ -20,13 +20,17 @@ async (page) => {
       complete: myScene.complete,
     }));
   const reports = [];
+  // This campaign check exercises transitions; narration duration is covered separately.
+  await page.evaluate(() => { document.body.classList.add("show-controls"); window.campaignVoice = myScene.voice; myScene.voice = async () => undefined; });
   for (let weekend = (await ready()).week; weekend <= 12; weekend++) {
     const start = await ready();
     check(
       start.week === weekend,
       `Expected weekend ${weekend}, got ${start.week}`,
     );
-    if (start.money < (5 - start.done) * 10) {
+    const budget = await page.evaluate(() => myScene.tasks.reduce((sum,t,i) => sum + (myScene.progress.done.includes(i) ? 0 : t.SCENE.startsWith("ScClClothes") ? 40 : 10), 0));
+    while ((await ready()).money < budget) {
+      const beforeJob = await ready();
       const job = await page.evaluate(() =>
         ["ScMmMusMix", "ScCdClothesDes", "ScWdWinDress"].find((s) =>
           myScene.canEnter(s),
@@ -51,6 +55,8 @@ async (page) => {
         for (let i = 0; i < 4; i++)
           await panel.locator("select").nth(i).selectOption(String(answers[i]));
         await button("Done · check my mix").click();
+        await button("Done · finish recording").click();
+        await button("Walk right →").waitFor();
       } else if (job === "ScCdClothesDes") {
         const solution = await page.evaluate(() => {
           const g = myScene,
@@ -90,15 +96,8 @@ async (page) => {
             await button("Place decoration in center").click();
           }
         await button("Done · check my work").click();
-        check(
-          await page
-            .getByRole("heading", { name: "Fabulous work!" })
-            .isVisible(),
-          "Clothing job failed",
-        );
-        await page
-          .getByRole("button", { name: "Close dialog", exact: true })
-          .click();
+        await page.waitForFunction(() => myScene.scene === "ScStStreet");
+        await button("Walk right →").waitFor();
       } else {
         const answer = await page.evaluate(() => {
           const g = myScene,
@@ -129,19 +128,12 @@ async (page) => {
             await button("Place decoration in center").click();
           }
         await button("Done · check my work").click();
-        check(
-          await page
-            .getByRole("heading", { name: "Fabulous work!" })
-            .isVisible(),
-          "Window job failed",
-        );
-        await page
-          .getByRole("button", { name: "Close dialog", exact: true })
-          .click();
+        await page.waitForFunction(() => myScene.scene === "ScStStreet");
+        await button("Walk right →").waitFor();
       }
       const earned = await ready();
       check(
-        earned.money === start.money + 40,
+        earned.money === beforeJob.money + 40,
         `Weekend ${weekend}: job did not pay $40`,
       );
     }
@@ -187,7 +179,7 @@ async (page) => {
         }, task.SCENE);
         await button(correct).click();
         await button("Model this look").click();
-        await button("Buy · $10 each").click();
+        await button("Buy · $40 each").click();
       } else if (task.SCENE === "ScGtGift" || task.SCENE === "ScFdFood") {
         const food = task.SCENE === "ScFdFood",
           answers = await page.evaluate(
@@ -233,8 +225,8 @@ async (page) => {
         exact: true,
       })
       .click();
-    for (let photo = 0; photo < 4; photo++)
-      await page.getByRole("button", { name: "Next →", exact: true }).click();
+    await page.waitForFunction(() => myScene.recapAlbum === myScene.p.week);
+    await page.getByRole("button", {name:"Close scrapbook",exact:true}).click();
     await page.waitForFunction(
       (w) => myScene.p.week === Math.min(12, w + 1),
       weekend,
@@ -246,7 +238,7 @@ async (page) => {
         .click();
   }
   check(failures.length === 0, "Browser errors: " + failures.join("; "));
-  await page.evaluate(() => myScene.flush());
+  await page.evaluate(() => { myScene.voice = window.campaignVoice; return myScene.flush(); });
   return {
     reports,
     errors: failures,
