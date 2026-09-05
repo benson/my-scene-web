@@ -106,40 +106,49 @@ export function installNativeUI(g) {
       closeButton();
     });
   };
-  g.phone = (tab = "tasks", selected = null) => {
+  g.phone = (tab = null, selected = null) => {
     const w = g.week, n = g.progress.done.length;
     const messages = (w.PHONE_MSG_TEXT_LONG || []).map((text, i) => ({ text, i, title: w.PHONE_MSG_TEXT[i], trigger: w.PHONE_MSG_TRIGGER_TASK?.[i] || 0 })).filter(m => n >= m.trigger);
     const calls = (w.PHONE_CALLS || []).map((fx, i) => ({ fx, i, title: w.PHONE_CALLS_TEXT[i], image: w.PHONE_CALLS_IMAGE[i], trigger: w.PHONE_CALLS_TRIGGER_TASK[i] })).filter(c => n >= c.trigger);
+    if (tab === null) {
+      const incoming = calls.findIndex(c => !g.progress.heardCalls?.includes(c.i));
+      tab = incoming < 0 ? "tasks" : "calls";
+      if (incoming >= 0) selected = incoming;
+    }
     const phone = "AniZzCellPhone" + (g.pre === "Che" ? "Chel" : g.pre);
-    const title = { tasks: "To-do", messages: "Messages", calls: "Calls" }[tab];
+    const title = { tasks: "Shopping List", messages: "Messages", calls: selected === null ? "Calls" : "Incoming Call" }[tab];
+    const items = tab === "tasks" ? g.tasks.map(t => ({ title: plain(t.SHORT_TXT) })) : tab === "messages" ? messages : calls;
     open("Your phone", () => {
       e.draw(phone);
-      if (selected !== null) e.draw("AniZzDisplayScreen");
-      e.text(title, 400, 190, { size: 19, align: "center", color: "#192299" });
-      e.hit("phone-back", "Back to phone list", { x: 330, y: 188, w: 144, h: 28 }, () => g.phone(tab));
-      // Keep the original icon pixels, but give each a separate screen slot.
-      // The recovered frame positions overlap the Calls and Close rectangles.
+      if (selected !== null && tab !== "calls") e.draw("AniZzDisplayScreen");
+      // Footage confirms three controls. BtnZzCellPhone is not a fourth tab.
       [["BtnZzTask", "To-do list", "tasks"], ["BtnZzMessage", "Messages", "messages"],
-        ["BtnZzCellPhone", "Calls", "calls"], ["BtnZzExitPhone", "Close phone", null]].forEach(([sprite, label, target], i) => {
+        ["BtnZzExitPhone", "Close phone", null]].forEach(([sprite, label, target]) => {
         const fx = e.hover === sprite ? "Highlight" : target === tab ? "Down" : "Up";
-        const b = e.bounds(sprite, fx), x = 330 + i * 36;
-        e.draw(sprite, fx, { dx: x + (36 - b.w) / 2 - b.x });
-        e.hit(sprite, label, { x, y: 342, w: 36, h: 36 }, () => target ? g.phone(target) : g.close());
+        e.draw(sprite, fx, { action: () => target ? g.phone(target) : g.close(), label });
       });
       if (tab === "calls" && selected !== null && calls[selected]?.image)
-        e.draw(calls[selected].image, undefined, { fit: [350, 248, 100, 92] });
+        e.draw(calls[selected].image);
+      if (selected === null) items.forEach((item, i) => {
+        const sprite = `AniZzTaskbar${pad(i + 1)}`;
+        e.draw(sprite, tab === "tasks" && g.progress.done.includes(i) ? "Done" : e.hover === sprite ? "Highlight" : "Still",
+          {action: () => g.phone(tab, i), label: plain(item.title)});
+      });
+      else if (tab !== "calls") {
+        e.hit("phone-collapse", "Back to phone list", {x:330,y:218,w:16,h:29}, () => g.phone(tab));
+      } else e.hit("replay-call", "Replay call", {x:330,y:248,w:144,h:95}, () => g.say(calls[selected].fx));
     });
+    textSprite("TxtZzTaskTitle", title);
     if (selected !== null) {
       const text = tab === "tasks" ? g.tasks[selected].EXPANDED : tab === "messages" ? messages[selected]?.text : calls[selected]?.title;
-      const el = field(text, 345, 224, 124, tab === "calls" ? 26 : 119, tab === "calls" ? 12 : 14);
+      const el = textSprite(tab === "calls" ? "TxtZzTaskCallerID" : "TxtZzTaskExpand", text);
       el.tabIndex = 0;
       if (tab === "calls") { g.say(calls[selected].fx); (g.progress.heardCalls ||= []); if (!g.progress.heardCalls.includes(calls[selected].i)) g.progress.heardCalls.push(calls[selected].i); g.save(); }
       if (tab === "messages" && w.PHONE_MSG_VO?.[messages[selected]?.i]) g.say(w.PHONE_MSG_VO[messages[selected].i]);
     } else {
-      const items = tab === "tasks" ? g.tasks.map((t, i) => ({ title: (g.progress.done.includes(i) ? "✓ " : "") + plain(t.SHORT_TXT) })) : tab === "messages" ? messages : calls;
       items.forEach((item, i) => {
-        const row = textSprite(`TxtZzTaskShort${pad(i + 1)}`, item.title, "button");
-        row.onclick = () => g.phone(tab, i);
+        const row = textSprite(`TxtZzTaskShort${pad(i + 1)}`, item.title);
+        row.style.pointerEvents = "none";
       });
       if (!items.length) field(tab === "calls" ? "No new calls yet." : "No new messages yet.", 346, 225, 124, 124, 14);
     }
@@ -382,6 +391,7 @@ export function installNativeUI(g) {
   const movieOption = refresh => g.btn(`Video playback controls: ${g.movieControls ? "shown" : "hidden"}`, () => { g.movieControls = !g.movieControls; refresh(); }, body);
   g.options = () => {
     oldOptions();
+    g.btn("Replay phone calls", () => g.phone("calls"), body);
     movieOption(() => g.options());
     g.btn(g.sound.muted ? "Sound on" : "Sound off", () => { document.querySelector("#sound").click(); g.options(); }, body);
     g.btn("Full screen", () => { g.close(); document.querySelector("#fullscreen").click(); }, body);

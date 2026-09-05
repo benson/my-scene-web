@@ -80,11 +80,36 @@ Removed the port's generic white mouse-hover rectangles; keyboard focus remains
 visible. Walking arrows now use the same pavement region as walking clicks.
 The original native vertical cutoff has not been established.
 
-Phone icons retain their original dimensions. Their horizontal positions use
-four equal slots to avoid the recovered Calls/Close rectangle overlap. This is
-a usability adjustment, not a verified reproduction of native runtime placement.
+The earlier four-slot phone adjustment is superseded by the footage comparison
+below. Phone buttons now use their authored coordinates and dimensions.
 `tools/check_interface.js` checks playback, skipping/completion, autoplay recovery,
 the playback-control option, phone targets and pavement cursor behavior.
+
+### Gameplay footage comparison
+
+Reference: Daelyria's [2003 CD-ROM longplay](https://www.youtube.com/watch?v=KLf24_7mpmA).
+Inspected selected frames/sequences in a muted background browser, without
+launching the original executable or controlling the desktop:
+
+- [1:38–1:54](https://www.youtube.com/watch?v=KLf24_7mpmA&t=98s): Shopping List heading,
+  expandable arrow rows, and exactly three footer icons: bag, envelope, close.
+- [2:17–2:22](https://www.youtube.com/watch?v=KLf24_7mpmA&t=137s): Incoming Call heading,
+  centered caller name, portrait filling the display, same three footer icons.
+- [7:07–7:22](https://www.youtube.com/watch?v=KLf24_7mpmA&t=427s): message rows expand
+  into a single note with a downward collapse arrow; no fourth Calls tab.
+- [1:01:55](https://www.youtube.com/watch?v=KLf24_7mpmA&t=3715s): later shopping list
+  corroborates the same three-icon layout.
+
+Implemented those phone layouts with recovered sprites/text geometry, automatic
+unheard-call selection, and a replay action. The browser-only call-history list
+is retained under Options, outside the original phone footer.
+
+Newly identified gap: the opening guided street/phone tutorial is not reproduced
+by our apartment-first new-game flow. The sampled footage does not establish
+the precise native walking-click cutoff. This was a targeted comparison, not a
+review of the entire 2h52m recording. Future reference QA should use footage,
+static disc analysis or an isolated emulator, never desktop control without a
+new explicit request from Benson.
 
 - `tools/check_fidelity.js`: authored actor scheduling and speed, proximity
   encounter phases, real tile dragging, all 28 puzzles through letter input,

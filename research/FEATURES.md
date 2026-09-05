@@ -72,6 +72,8 @@ Check an item only after implementation and a focused verification. This list is
 
 ## Original-game fidelity — implementation pass, 5 September 2026
 
+- [ ] Original opening guided street/phone tutorial (identified in later footage review; current new-game flow begins in the apartment).
+
 - [x] Proximity pedestrian greetings/conversations/goodbyes and speech completion.
 - [x] Authored street movement, actor schedules, and idle variations.
 - [x] Walking, door, heart, and creative-tool cursors.
