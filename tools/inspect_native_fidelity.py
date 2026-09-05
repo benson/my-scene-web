@@ -21,7 +21,9 @@ print('SHA256', hashlib.sha256(data).hexdigest())
 print('Image base', hex(base))
 
 for address in [0x1006baf0, 0x1006bad8, 0x1006e310, 0x1006bac4,
-                0x1006daf0, 0x1006dae0, 0x1006dad0, 0x1006dac0]:
+                0x1006daf0, 0x1006dae0, 0x1006dad0, 0x1006dac0,
+                0x1006ba8c, 0x1006ba80, 0x1006ba74,
+                0x1006c9b4, 0x1006deac, 0x1006b308]:
     offset = pe.get_offset_from_rva(address - base)
     print(hex(address), data[offset:data.index(b'\0', offset)].decode('ascii'))
 
@@ -35,6 +37,10 @@ for label, start, end in [
     ('Wallet reset to 40', 0x10012870, 0x10012890),
     ('Weekend advance resets wallet', 0x1000f010, 0x1000f035),
     ('Clothing purchase gate overrides cost table', 0x10036d60, 0x10036da0),
+    ('Quiz score accumulation and thresholds 5 and 9', 0x10006462, 0x100064ba),
+    ('Clothes designer ReturnIntro branch', 0x10024b9b, 0x10024bbf),
+    ('Window dresser RtnIntroWork branch', 0x10047bb4, 0x10047bee),
+    ('Gift ANSWERS loaded into three candidate boxes', 0x1003c582, 0x1003c5ea),
 ]:
     offset = pe.get_offset_from_rva(start - base)
     print('\n' + label)

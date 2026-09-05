@@ -1,0 +1,5124 @@
+{
+  "next": 13,
+  "observations": [
+    {
+      "week": 1,
+      "scene": "ScClClothesDt",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 1,
+          "scene": "ScClClothesDt",
+          "name": "AniClBarbieTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3405"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 1,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 1,
+      "scene": "ScClClothesUe",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 1,
+          "scene": "ScClClothesUe",
+          "name": "AniClBarbieTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3470"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 1,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 1,
+      "scene": "ScClClothesVil",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 1,
+          "scene": "ScClClothesVil",
+          "name": "AniClBarbieTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3481"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 1,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 1,
+      "scene": "ScAcAccess",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 1,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 1,
+      "scene": "ScMuMakeUp",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 1,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 1,
+      "scene": "ScGtGift",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 1,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 1,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 1,
+      "scene": "ScFdFood",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 1,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 1,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 1,
+      "scene": "ScCsCDShop",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 1,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 1,
+      "scene": "ScCdClothesDes",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 1,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 1,
+      "scene": "ScWdWinDress",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 1,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 1
+    },
+    {
+      "week": 1,
+      "scene": "ScMmMusMix",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 1,
+          "scene": "ScMmMusMix",
+          "name": "VocMmJezVO",
+          "fx": "Pt01Intro",
+          "channel": "voice",
+          "key": "MyScene:5038"
+        }
+      ],
+      "entryAmbient": [],
+      "title": "Making Trax",
+      "briefCount": 2
+    },
+    {
+      "week": 1,
+      "scene": "ScBaBarApt",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 1,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 1,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    },
+    {
+      "week": 2,
+      "scene": "ScClClothesDt",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 2,
+          "scene": "ScClClothesDt",
+          "name": "AniClChelseaTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3491"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 2,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 2,
+      "scene": "ScClClothesUe",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 2,
+          "scene": "ScClClothesUe",
+          "name": "AniClChelseaTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3552"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 2,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 2,
+      "scene": "ScClClothesVil",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 2,
+          "scene": "ScClClothesVil",
+          "name": "AniClChelseaTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3563"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 2,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 2,
+      "scene": "ScAcAccess",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 2,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 2,
+      "scene": "ScMuMakeUp",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 2,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 2,
+      "scene": "ScGtGift",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 2,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro05",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 2,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 2,
+      "scene": "ScFdFood",
+      "character": "Chelsea",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 2,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 2,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 2,
+      "scene": "ScCsCDShop",
+      "character": "Chelsea",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 2,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 2,
+      "scene": "ScCdClothesDes",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 2,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 2,
+      "scene": "ScWdWinDress",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 2,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 2
+    },
+    {
+      "week": 2,
+      "scene": "ScBaBarApt",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 2,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 2,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    },
+    {
+      "week": 3,
+      "scene": "ScClClothesDt",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 3,
+          "scene": "ScClClothesDt",
+          "name": "AniClMadisonTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3573"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 3,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 3,
+      "scene": "ScClClothesUe",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 3,
+          "scene": "ScClClothesUe",
+          "name": "AniClMadisonTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3636"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 3,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 3,
+      "scene": "ScClClothesVil",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 3,
+          "scene": "ScClClothesVil",
+          "name": "AniClMadisonTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3647"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 3,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 3,
+      "scene": "ScAcAccess",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 3,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 3,
+      "scene": "ScMuMakeUp",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 3,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 3,
+      "scene": "ScGtGift",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 3,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro05",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 3,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 3,
+      "scene": "ScFdFood",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 3,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 3,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 3,
+      "scene": "ScCsCDShop",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 3,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 3,
+      "scene": "ScCdClothesDes",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 3,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 3,
+      "scene": "ScWdWinDress",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 3,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 2
+    },
+    {
+      "week": 3,
+      "scene": "ScMmMusMix",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 3,
+          "scene": "ScMmMusMix",
+          "name": "VocMmJezVO",
+          "fx": "Pt01Intro",
+          "channel": "voice",
+          "key": "MyScene:5038"
+        }
+      ],
+      "entryAmbient": [],
+      "title": "Making Trax",
+      "briefCount": 2
+    },
+    {
+      "week": 3,
+      "scene": "ScBaBarApt",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 3,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 3,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    },
+    {
+      "week": 4,
+      "scene": "ScClClothesDt",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 4,
+          "scene": "ScClClothesDt",
+          "name": "AniClBarbieTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3405"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 4,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 4,
+      "scene": "ScClClothesUe",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 4,
+          "scene": "ScClClothesUe",
+          "name": "AniClBarbieTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3470"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 4,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 4,
+      "scene": "ScClClothesVil",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 4,
+          "scene": "ScClClothesVil",
+          "name": "AniClBarbieTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3481"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 4,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 4,
+      "scene": "ScAcAccess",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 4,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 4,
+      "scene": "ScMuMakeUp",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 4,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 4,
+      "scene": "ScGtGift",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 4,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 4,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 4,
+      "scene": "ScFdFood",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 4,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 4,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 4,
+      "scene": "ScCsCDShop",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 4,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 4,
+      "scene": "ScCdClothesDes",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 4,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 4,
+      "scene": "ScWdWinDress",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 4,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 1
+    },
+    {
+      "week": 4,
+      "scene": "ScMmMusMix",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 4,
+          "scene": "ScMmMusMix",
+          "name": "VocMmJezVO",
+          "fx": "Pt01Intro",
+          "channel": "voice",
+          "key": "MyScene:5038"
+        }
+      ],
+      "entryAmbient": [],
+      "title": "Making Trax",
+      "briefCount": 2
+    },
+    {
+      "week": 4,
+      "scene": "ScBaBarApt",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 4,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 4,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    },
+    {
+      "week": 5,
+      "scene": "ScClClothesDt",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 5,
+          "scene": "ScClClothesDt",
+          "name": "AniClChelseaTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3491"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 5,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 5,
+      "scene": "ScClClothesUe",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 5,
+          "scene": "ScClClothesUe",
+          "name": "AniClChelseaTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3552"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 5,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 5,
+      "scene": "ScClClothesVil",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 5,
+          "scene": "ScClClothesVil",
+          "name": "AniClChelseaTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3563"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 5,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 5,
+      "scene": "ScAcAccess",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 5,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 5,
+      "scene": "ScMuMakeUp",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 5,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 5,
+      "scene": "ScGtGift",
+      "character": "Chelsea",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 5,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 5,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 5,
+      "scene": "ScFdFood",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 5,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro01",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 5,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 5,
+      "scene": "ScCsCDShop",
+      "character": "Chelsea",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 5,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 5,
+      "scene": "ScCdClothesDes",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 5,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 5,
+      "scene": "ScWdWinDress",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 5,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 2
+    },
+    {
+      "week": 5,
+      "scene": "ScMmMusMix",
+      "character": "Chelsea",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 5,
+          "scene": "ScMmMusMix",
+          "name": "VocMmJezVO",
+          "fx": "Pt01Intro",
+          "channel": "voice",
+          "key": "MyScene:5038"
+        }
+      ],
+      "entryAmbient": [],
+      "title": "Making Trax",
+      "briefCount": 0
+    },
+    {
+      "week": 5,
+      "scene": "ScBaBarApt",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 5,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 5,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    },
+    {
+      "week": 6,
+      "scene": "ScClClothesDt",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 6,
+          "scene": "ScClClothesDt",
+          "name": "AniClMadisonTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3573"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 6,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 6,
+      "scene": "ScClClothesUe",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 6,
+          "scene": "ScClClothesUe",
+          "name": "AniClMadisonTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3636"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 6,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 6,
+      "scene": "ScClClothesVil",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 6,
+          "scene": "ScClClothesVil",
+          "name": "AniClMadisonTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3647"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 6,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 6,
+      "scene": "ScAcAccess",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 6,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 6,
+      "scene": "ScMuMakeUp",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 6,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 6,
+      "scene": "ScGtGift",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 6,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro04",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 6,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 6,
+      "scene": "ScFdFood",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 6,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 6,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 6,
+      "scene": "ScCsCDShop",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 6,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 6,
+      "scene": "ScCdClothesDes",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 6,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 6,
+      "scene": "ScWdWinDress",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 6,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 2
+    },
+    {
+      "week": 6,
+      "scene": "ScMmMusMix",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 6,
+          "scene": "ScMmMusMix",
+          "name": "VocMmJezVO",
+          "fx": "Pt01Intro",
+          "channel": "voice",
+          "key": "MyScene:5038"
+        }
+      ],
+      "entryAmbient": [],
+      "title": "Making Trax",
+      "briefCount": 2
+    },
+    {
+      "week": 6,
+      "scene": "ScBaBarApt",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 6,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 6,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    },
+    {
+      "week": 7,
+      "scene": "ScClClothesDt",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 7,
+          "scene": "ScClClothesDt",
+          "name": "AniClBarbieTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3405"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 7,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 7,
+      "scene": "ScClClothesUe",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 7,
+          "scene": "ScClClothesUe",
+          "name": "AniClBarbieTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3470"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 7,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 7,
+      "scene": "ScClClothesVil",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 7,
+          "scene": "ScClClothesVil",
+          "name": "AniClBarbieTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3481"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 7,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 7,
+      "scene": "ScAcAccess",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 7,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 7,
+      "scene": "ScMuMakeUp",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 7,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 7,
+      "scene": "ScGtGift",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 7,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 7,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 7,
+      "scene": "ScFdFood",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 7,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 7,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 7,
+      "scene": "ScCsCDShop",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 7,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 7,
+      "scene": "ScCdClothesDes",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 7,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 7,
+      "scene": "ScWdWinDress",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 7,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 1
+    },
+    {
+      "week": 7,
+      "scene": "ScMmMusMix",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 7,
+          "scene": "ScMmMusMix",
+          "name": "VocMmJezVO",
+          "fx": "Pt01Intro",
+          "channel": "voice",
+          "key": "MyScene:5038"
+        }
+      ],
+      "entryAmbient": [],
+      "title": "Making Trax",
+      "briefCount": 2
+    },
+    {
+      "week": 7,
+      "scene": "ScBaBarApt",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 7,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 7,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    },
+    {
+      "week": 8,
+      "scene": "ScClClothesDt",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 8,
+          "scene": "ScClClothesDt",
+          "name": "AniClChelseaTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3491"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 8,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 8,
+      "scene": "ScClClothesUe",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 8,
+          "scene": "ScClClothesUe",
+          "name": "AniClChelseaTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3552"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 8,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 8,
+      "scene": "ScClClothesVil",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 8,
+          "scene": "ScClClothesVil",
+          "name": "AniClChelseaTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3563"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 8,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 8,
+      "scene": "ScAcAccess",
+      "character": "Chelsea",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 8,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 8,
+      "scene": "ScMuMakeUp",
+      "character": "Chelsea",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 8,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 8,
+      "scene": "ScGtGift",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 8,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro04",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 8,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 8,
+      "scene": "ScFdFood",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 8,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 8,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 8,
+      "scene": "ScCsCDShop",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 8,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 8,
+      "scene": "ScCdClothesDes",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 8,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 8,
+      "scene": "ScWdWinDress",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 8,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 2
+    },
+    {
+      "week": 8,
+      "scene": "ScMmMusMix",
+      "character": "Chelsea",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 8,
+          "scene": "ScMmMusMix",
+          "name": "VocMmJezVO",
+          "fx": "Pt01Intro",
+          "channel": "voice",
+          "key": "MyScene:5038"
+        }
+      ],
+      "entryAmbient": [],
+      "title": "Making Trax",
+      "briefCount": 0
+    },
+    {
+      "week": 8,
+      "scene": "ScBaBarApt",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 8,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 8,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    },
+    {
+      "week": 9,
+      "scene": "ScClClothesDt",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 9,
+          "scene": "ScClClothesDt",
+          "name": "AniClMadisonTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3573"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 9,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 9,
+      "scene": "ScClClothesUe",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 9,
+          "scene": "ScClClothesUe",
+          "name": "AniClMadisonTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3636"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 9,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 9,
+      "scene": "ScClClothesVil",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 9,
+          "scene": "ScClClothesVil",
+          "name": "AniClMadisonTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3647"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 9,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 9,
+      "scene": "ScAcAccess",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 9,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 9,
+      "scene": "ScMuMakeUp",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 9,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 9,
+      "scene": "ScGtGift",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 9,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 9,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 9,
+      "scene": "ScFdFood",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 9,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro01",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 9,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 9,
+      "scene": "ScCsCDShop",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 9,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 9,
+      "scene": "ScCdClothesDes",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 9,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 9,
+      "scene": "ScWdWinDress",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 9,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 2
+    },
+    {
+      "week": 9,
+      "scene": "ScMmMusMix",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 9,
+          "scene": "ScMmMusMix",
+          "name": "VocMmJezVO",
+          "fx": "Pt01Intro",
+          "channel": "voice",
+          "key": "MyScene:5038"
+        }
+      ],
+      "entryAmbient": [],
+      "title": "Making Trax",
+      "briefCount": 2
+    },
+    {
+      "week": 9,
+      "scene": "ScBaBarApt",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 9,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 9,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    },
+    {
+      "week": 10,
+      "scene": "ScClClothesDt",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 10,
+          "scene": "ScClClothesDt",
+          "name": "AniClBarbieTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3405"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 10,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 10,
+      "scene": "ScClClothesUe",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 10,
+          "scene": "ScClClothesUe",
+          "name": "AniClBarbieTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3470"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 10,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 10,
+      "scene": "ScClClothesVil",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 10,
+          "scene": "ScClClothesVil",
+          "name": "AniClBarbieTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3481"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 10,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 10,
+      "scene": "ScAcAccess",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 10,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 10,
+      "scene": "ScMuMakeUp",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 10,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 10,
+      "scene": "ScGtGift",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 10,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro01",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 10,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 10,
+      "scene": "ScFdFood",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 10,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 10,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 10,
+      "scene": "ScCsCDShop",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 10,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 10,
+      "scene": "ScCdClothesDes",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 10,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 10,
+      "scene": "ScWdWinDress",
+      "character": "Barbie",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 10,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 1
+    },
+    {
+      "week": 10,
+      "scene": "ScMmMusMix",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 10,
+          "scene": "ScMmMusMix",
+          "name": "VocMmJezVO",
+          "fx": "Pt01Intro",
+          "channel": "voice",
+          "key": "MyScene:5038"
+        }
+      ],
+      "entryAmbient": [],
+      "title": "Making Trax",
+      "briefCount": 2
+    },
+    {
+      "week": 10,
+      "scene": "ScBaBarApt",
+      "character": "Barbie",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 10,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 10,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    },
+    {
+      "week": 11,
+      "scene": "ScClClothesDt",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 11,
+          "scene": "ScClClothesDt",
+          "name": "AniClChelseaTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3491"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 11,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 11,
+      "scene": "ScClClothesUe",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 11,
+          "scene": "ScClClothesUe",
+          "name": "AniClChelseaTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3552"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 11,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 11,
+      "scene": "ScClClothesVil",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 11,
+          "scene": "ScClClothesVil",
+          "name": "AniClChelseaTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3563"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 11,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 11,
+      "scene": "ScAcAccess",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 11,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 11,
+      "scene": "ScMuMakeUp",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 11,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 11,
+      "scene": "ScGtGift",
+      "character": "Chelsea",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 11,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 11,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 11,
+      "scene": "ScFdFood",
+      "character": "Chelsea",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 11,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 11,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 11,
+      "scene": "ScCsCDShop",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 11,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 11,
+      "scene": "ScCdClothesDes",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 11,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 11,
+      "scene": "ScWdWinDress",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 11,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 2
+    },
+    {
+      "week": 11,
+      "scene": "ScMmMusMix",
+      "character": "Chelsea",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 11,
+          "scene": "ScMmMusMix",
+          "name": "VocMmJezVO",
+          "fx": "Pt01Intro",
+          "channel": "voice",
+          "key": "MyScene:5038"
+        }
+      ],
+      "entryAmbient": [],
+      "title": "Making Trax",
+      "briefCount": 0
+    },
+    {
+      "week": 11,
+      "scene": "ScBaBarApt",
+      "character": "Chelsea",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 11,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 11,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    },
+    {
+      "week": 12,
+      "scene": "ScClClothesDt",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 12,
+          "scene": "ScClClothesDt",
+          "name": "AniClMadisonTalk01",
+          "fx": "DigsIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3573"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 12,
+          "scene": "ScClClothesDt",
+          "name": "SndClAmbientDowntown",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3387"
+        }
+      ],
+      "title": "Digs",
+      "briefCount": 0
+    },
+    {
+      "week": 12,
+      "scene": "ScClClothesUe",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 12,
+          "scene": "ScClClothesUe",
+          "name": "AniClMadisonTalk01",
+          "fx": "PlatIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3636"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 12,
+          "scene": "ScClClothesUe",
+          "name": "SndClAmbientUpperEast",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3388"
+        }
+      ],
+      "title": "Très Chic",
+      "briefCount": 0
+    },
+    {
+      "week": 12,
+      "scene": "ScClClothesVil",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 12,
+          "scene": "ScClClothesVil",
+          "name": "AniClMadisonTalk01",
+          "fx": "UrbanIntroCom",
+          "channel": "voice",
+          "key": "MyScene:3647"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 12,
+          "scene": "ScClClothesVil",
+          "name": "SndClAmbientVillage",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:3389"
+        }
+      ],
+      "title": "Urban Threads",
+      "briefCount": 0
+    },
+    {
+      "week": 12,
+      "scene": "ScAcAccess",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 12,
+          "scene": "ScAcAccess",
+          "name": "SndAcAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:21"
+        }
+      ],
+      "title": "Angel Accessories",
+      "briefCount": 0
+    },
+    {
+      "week": 12,
+      "scene": "ScMuMakeUp",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 12,
+          "scene": "ScMuMakeUp",
+          "name": "SndMuAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:5297"
+        }
+      ],
+      "title": "The Glamour Shop",
+      "briefCount": 0
+    },
+    {
+      "week": 12,
+      "scene": "ScGtGift",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [
+        {
+          "week": 12,
+          "scene": "ScGtGift",
+          "name": "AniGtStoreKeeperVO",
+          "fx": "DgGtBarPt01Intro02",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 12,
+          "scene": "ScGtGift",
+          "name": "SndGtAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4692"
+        }
+      ],
+      "title": "Tiff’s",
+      "briefCount": 0
+    },
+    {
+      "week": 12,
+      "scene": "ScFdFood",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 12,
+          "scene": "ScFdFood",
+          "name": "AniFdStoreKeeperVO",
+          "fx": "DgFdBarPt01Intro01",
+          "channel": "voice",
+          "key": null
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 12,
+          "scene": "ScFdFood",
+          "name": "SndFdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:4440"
+        }
+      ],
+      "title": "Village Depot",
+      "briefCount": 0
+    },
+    {
+      "week": 12,
+      "scene": "ScCsCDShop",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 12,
+          "scene": "ScCsCDShop",
+          "name": "SndCsAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": null
+        }
+      ],
+      "title": "CD Store",
+      "briefCount": 0
+    },
+    {
+      "week": 12,
+      "scene": "ScCdClothesDes",
+      "character": "Madison",
+      "open": false,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 12,
+          "scene": "ScCdClothesDes",
+          "name": "SndCdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:1050"
+        }
+      ],
+      "title": "The Design Lab",
+      "briefCount": 2
+    },
+    {
+      "week": 12,
+      "scene": "ScWdWinDress",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [],
+      "entryAmbient": [
+        {
+          "week": 12,
+          "scene": "ScWdWinDress",
+          "name": "SndWdAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:6405"
+        }
+      ],
+      "title": "Glassy Fashions",
+      "briefCount": 2
+    },
+    {
+      "week": 12,
+      "scene": "ScMmMusMix",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 12,
+          "scene": "ScMmMusMix",
+          "name": "VocMmJezVO",
+          "fx": "Pt01Intro",
+          "channel": "voice",
+          "key": "MyScene:5038"
+        }
+      ],
+      "entryAmbient": [],
+      "title": "Making Trax",
+      "briefCount": 2
+    },
+    {
+      "week": 12,
+      "scene": "ScBaBarApt",
+      "character": "Madison",
+      "open": true,
+      "entryVoice": [
+        {
+          "week": 12,
+          "scene": "ScBaBarApt",
+          "name": "VocBaBarVO",
+          "fx": "AptIntroBar",
+          "channel": "voice",
+          "key": "MyScene:941"
+        }
+      ],
+      "entryAmbient": [
+        {
+          "week": 12,
+          "scene": "ScBaBarApt",
+          "name": "SndBaAmbient",
+          "fx": null,
+          "channel": "ambient",
+          "key": "MyScene:936"
+        }
+      ],
+      "title": "Barbie’s apartment",
+      "briefCount": 0
+    }
+  ],
+  "sounds": [
+    {
+      "week": 1,
+      "scene": "ScStStreet",
+      "name": "SndStParkAmbience",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene_HD:1828"
+    },
+    {
+      "week": 1,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 1,
+      "scene": "ScClClothesDt",
+      "name": "AniClBarbieTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3405"
+    },
+    {
+      "week": 1,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 1,
+      "scene": "ScClClothesUe",
+      "name": "AniClBarbieTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3470"
+    },
+    {
+      "week": 1,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 1,
+      "scene": "ScClClothesVil",
+      "name": "AniClBarbieTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3481"
+    },
+    {
+      "week": 1,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 1,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 1,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 1,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 1,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 1,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 1,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 1,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 1,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 1,
+      "scene": "ScMmMusMix",
+      "name": "VocMmJezVO",
+      "fx": "Pt01Intro",
+      "channel": "voice",
+      "key": "MyScene:5038"
+    },
+    {
+      "week": 1,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 1,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    },
+    {
+      "week": 2,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 2,
+      "scene": "ScClClothesDt",
+      "name": "AniClChelseaTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3491"
+    },
+    {
+      "week": 2,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 2,
+      "scene": "ScClClothesUe",
+      "name": "AniClChelseaTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3552"
+    },
+    {
+      "week": 2,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 2,
+      "scene": "ScClClothesVil",
+      "name": "AniClChelseaTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3563"
+    },
+    {
+      "week": 2,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 2,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 2,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 2,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro05",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 2,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 2,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 2,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 2,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 2,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 2,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 2,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    },
+    {
+      "week": 3,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 3,
+      "scene": "ScClClothesDt",
+      "name": "AniClMadisonTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3573"
+    },
+    {
+      "week": 3,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 3,
+      "scene": "ScClClothesUe",
+      "name": "AniClMadisonTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3636"
+    },
+    {
+      "week": 3,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 3,
+      "scene": "ScClClothesVil",
+      "name": "AniClMadisonTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3647"
+    },
+    {
+      "week": 3,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 3,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 3,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 3,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro05",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 3,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 3,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 3,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 3,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 3,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 3,
+      "scene": "ScMmMusMix",
+      "name": "VocMmJezVO",
+      "fx": "Pt01Intro",
+      "channel": "voice",
+      "key": "MyScene:5038"
+    },
+    {
+      "week": 3,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 3,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    },
+    {
+      "week": 3,
+      "scene": "ScBaBarApt",
+      "name": "VocBaMadVO",
+      "fx": "Scrapbook",
+      "channel": "voice",
+      "key": "MyScene:989"
+    },
+    {
+      "week": 4,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 4,
+      "scene": "ScClClothesDt",
+      "name": "AniClBarbieTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3405"
+    },
+    {
+      "week": 4,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 4,
+      "scene": "ScClClothesUe",
+      "name": "AniClBarbieTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3470"
+    },
+    {
+      "week": 4,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 4,
+      "scene": "ScClClothesVil",
+      "name": "AniClBarbieTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3481"
+    },
+    {
+      "week": 4,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 4,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 4,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 4,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 4,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 4,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 4,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 4,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 4,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 4,
+      "scene": "ScMmMusMix",
+      "name": "VocMmJezVO",
+      "fx": "Pt01Intro",
+      "channel": "voice",
+      "key": "MyScene:5038"
+    },
+    {
+      "week": 4,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 4,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    },
+    {
+      "week": 5,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 5,
+      "scene": "ScClClothesDt",
+      "name": "AniClChelseaTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3491"
+    },
+    {
+      "week": 5,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 5,
+      "scene": "ScClClothesUe",
+      "name": "AniClChelseaTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3552"
+    },
+    {
+      "week": 5,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 5,
+      "scene": "ScClClothesVil",
+      "name": "AniClChelseaTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3563"
+    },
+    {
+      "week": 5,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 5,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 5,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 5,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 5,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 5,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro01",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 5,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 5,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 5,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 5,
+      "scene": "ScMmMusMix",
+      "name": "VocMmJezVO",
+      "fx": "Pt01Intro",
+      "channel": "voice",
+      "key": "MyScene:5038"
+    },
+    {
+      "week": 5,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 5,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    },
+    {
+      "week": 6,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 6,
+      "scene": "ScClClothesDt",
+      "name": "AniClMadisonTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3573"
+    },
+    {
+      "week": 6,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 6,
+      "scene": "ScClClothesUe",
+      "name": "AniClMadisonTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3636"
+    },
+    {
+      "week": 6,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 6,
+      "scene": "ScClClothesVil",
+      "name": "AniClMadisonTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3647"
+    },
+    {
+      "week": 6,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 6,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 6,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 6,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro04",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 6,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 6,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 6,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 6,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 6,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 6,
+      "scene": "ScMmMusMix",
+      "name": "VocMmJezVO",
+      "fx": "Pt01Intro",
+      "channel": "voice",
+      "key": "MyScene:5038"
+    },
+    {
+      "week": 6,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 6,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    },
+    {
+      "week": 7,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 7,
+      "scene": "ScClClothesDt",
+      "name": "AniClBarbieTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3405"
+    },
+    {
+      "week": 7,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 7,
+      "scene": "ScClClothesUe",
+      "name": "AniClBarbieTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3470"
+    },
+    {
+      "week": 7,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 7,
+      "scene": "ScClClothesVil",
+      "name": "AniClBarbieTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3481"
+    },
+    {
+      "week": 7,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 7,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 7,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 7,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 7,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 7,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 7,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 7,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 7,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 7,
+      "scene": "ScMmMusMix",
+      "name": "VocMmJezVO",
+      "fx": "Pt01Intro",
+      "channel": "voice",
+      "key": "MyScene:5038"
+    },
+    {
+      "week": 7,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 7,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    },
+    {
+      "week": 8,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 8,
+      "scene": "ScClClothesDt",
+      "name": "AniClChelseaTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3491"
+    },
+    {
+      "week": 8,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 8,
+      "scene": "ScClClothesUe",
+      "name": "AniClChelseaTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3552"
+    },
+    {
+      "week": 8,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 8,
+      "scene": "ScClClothesVil",
+      "name": "AniClChelseaTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3563"
+    },
+    {
+      "week": 8,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 8,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 8,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 8,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro04",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 8,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 8,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 8,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 8,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 8,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 8,
+      "scene": "ScMmMusMix",
+      "name": "VocMmJezVO",
+      "fx": "Pt01Intro",
+      "channel": "voice",
+      "key": "MyScene:5038"
+    },
+    {
+      "week": 8,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 8,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    },
+    {
+      "week": 9,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 9,
+      "scene": "ScClClothesDt",
+      "name": "AniClMadisonTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3573"
+    },
+    {
+      "week": 9,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 9,
+      "scene": "ScClClothesUe",
+      "name": "AniClMadisonTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3636"
+    },
+    {
+      "week": 9,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 9,
+      "scene": "ScClClothesVil",
+      "name": "AniClMadisonTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3647"
+    },
+    {
+      "week": 9,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 9,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 9,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 9,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 9,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 9,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro01",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 9,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 9,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 9,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 9,
+      "scene": "ScMmMusMix",
+      "name": "VocMmJezVO",
+      "fx": "Pt01Intro",
+      "channel": "voice",
+      "key": "MyScene:5038"
+    },
+    {
+      "week": 9,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 9,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    },
+    {
+      "week": 9,
+      "scene": "ScBaBarApt",
+      "name": "VocBaMadVO",
+      "fx": "ClickStereo",
+      "channel": "voice",
+      "key": "MyScene:984"
+    },
+    {
+      "week": 10,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 10,
+      "scene": "ScClClothesDt",
+      "name": "AniClBarbieTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3405"
+    },
+    {
+      "week": 10,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 10,
+      "scene": "ScClClothesUe",
+      "name": "AniClBarbieTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3470"
+    },
+    {
+      "week": 10,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 10,
+      "scene": "ScClClothesVil",
+      "name": "AniClBarbieTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3481"
+    },
+    {
+      "week": 10,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 10,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 10,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 10,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro01",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 10,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 10,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 10,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 10,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 10,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 10,
+      "scene": "ScMmMusMix",
+      "name": "VocMmJezVO",
+      "fx": "Pt01Intro",
+      "channel": "voice",
+      "key": "MyScene:5038"
+    },
+    {
+      "week": 10,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 10,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    },
+    {
+      "week": 11,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 11,
+      "scene": "ScClClothesDt",
+      "name": "AniClChelseaTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3491"
+    },
+    {
+      "week": 11,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 11,
+      "scene": "ScClClothesUe",
+      "name": "AniClChelseaTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3552"
+    },
+    {
+      "week": 11,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 11,
+      "scene": "ScClClothesVil",
+      "name": "AniClChelseaTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3563"
+    },
+    {
+      "week": 11,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 11,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 11,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 11,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 11,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 11,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 11,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 11,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 11,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 11,
+      "scene": "ScMmMusMix",
+      "name": "VocMmJezVO",
+      "fx": "Pt01Intro",
+      "channel": "voice",
+      "key": "MyScene:5038"
+    },
+    {
+      "week": 11,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 11,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    },
+    {
+      "week": 12,
+      "scene": "ScClClothesDt",
+      "name": "SndClAmbientDowntown",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3387"
+    },
+    {
+      "week": 12,
+      "scene": "ScClClothesDt",
+      "name": "AniClMadisonTalk01",
+      "fx": "DigsIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3573"
+    },
+    {
+      "week": 12,
+      "scene": "ScClClothesUe",
+      "name": "SndClAmbientUpperEast",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3388"
+    },
+    {
+      "week": 12,
+      "scene": "ScClClothesUe",
+      "name": "AniClMadisonTalk01",
+      "fx": "PlatIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3636"
+    },
+    {
+      "week": 12,
+      "scene": "ScClClothesVil",
+      "name": "SndClAmbientVillage",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:3389"
+    },
+    {
+      "week": 12,
+      "scene": "ScClClothesVil",
+      "name": "AniClMadisonTalk01",
+      "fx": "UrbanIntroCom",
+      "channel": "voice",
+      "key": "MyScene:3647"
+    },
+    {
+      "week": 12,
+      "scene": "ScAcAccess",
+      "name": "SndAcAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:21"
+    },
+    {
+      "week": 12,
+      "scene": "ScMuMakeUp",
+      "name": "SndMuAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:5297"
+    },
+    {
+      "week": 12,
+      "scene": "ScGtGift",
+      "name": "SndGtAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4692"
+    },
+    {
+      "week": 12,
+      "scene": "ScGtGift",
+      "name": "AniGtStoreKeeperVO",
+      "fx": "DgGtBarPt01Intro02",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 12,
+      "scene": "ScFdFood",
+      "name": "SndFdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:4440"
+    },
+    {
+      "week": 12,
+      "scene": "ScFdFood",
+      "name": "AniFdStoreKeeperVO",
+      "fx": "DgFdBarPt01Intro01",
+      "channel": "voice",
+      "key": null
+    },
+    {
+      "week": 12,
+      "scene": "ScCsCDShop",
+      "name": "SndCsAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": null
+    },
+    {
+      "week": 12,
+      "scene": "ScCdClothesDes",
+      "name": "SndCdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:1050"
+    },
+    {
+      "week": 12,
+      "scene": "ScWdWinDress",
+      "name": "SndWdAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:6405"
+    },
+    {
+      "week": 12,
+      "scene": "ScMmMusMix",
+      "name": "VocMmJezVO",
+      "fx": "Pt01Intro",
+      "channel": "voice",
+      "key": "MyScene:5038"
+    },
+    {
+      "week": 12,
+      "scene": "ScBaBarApt",
+      "name": "SndBaAmbient",
+      "fx": null,
+      "channel": "ambient",
+      "key": "MyScene:936"
+    },
+    {
+      "week": 12,
+      "scene": "ScBaBarApt",
+      "name": "VocBaBarVO",
+      "fx": "AptIntroBar",
+      "channel": "voice",
+      "key": "MyScene:941"
+    }
+  ],
+  "exceptions": [
+    {
+      "week": 2,
+      "scene": "ScMmMusMix",
+      "message": "Cannot read properties of undefined (reading '0')",
+      "nativeEntryAllowedAtZero": false
+    }
+  ]
+}

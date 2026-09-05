@@ -4,6 +4,22 @@ The target is the complete set of activities and small interactions from the sup
 
 Check an item only after implementation and a focused verification. This list is the acceptance checklist, not a promise of exact timing or pixel-for-pixel behavior.
 
+## Current 1:1 audit — open work
+
+[PARITY-AUDIT.md](PARITY-AUDIT.md) supersedes broad fidelity assumptions in the
+earlier checks below. It records 18 confirmed differences against `23c220d`,
+the evidence and acceptance criteria for each, and unresolved native questions.
+Passing the campaign under the port's current rules does not prove original-game
+parity. These groups remain open:
+
+- [ ] Native gift/food candidate selection, three-question limit and rejection flow (01–03).
+- [ ] Native clothing four-chance state machine (04).
+- [ ] Clothes/window design and music first/return/completion voice sequences (05–07).
+- [ ] First Zine and scrapbook entry/tab guidance (08–09).
+- [ ] Gift/food, accessories/makeup and CD-shop automatic dialogue and CD ambience (10–13).
+- [ ] Music/apartment Help, meaningful audio cues, insufficient-money flow and original shop layout (14–18).
+- [ ] Resolve the separate native questions before claiming exhaustive parity.
+
 ## Recovery
 
 - [x] Inspect both supplied disc images and select My Scene.
@@ -87,7 +103,7 @@ and the resolved native-code override of the clothing cost table.
 - [x] Proximity pedestrian greetings/conversations/goodbyes and speech completion.
 - [x] Authored street movement, actor schedules, and idle variations.
 - [x] Walking, door, heart, and creative-tool cursors.
-- [x] Context-sensitive help/idle dictionaries and phone voice sources.
+- [ ] Exact context-sensitive help/idle routing. Base dictionaries and phone sources are implemented; music stage and visited-apartment routing remain incorrect (parity audit 14–15).
 - [x] Authored sign-in movies, ordered voices, interruption, and Help/idle flashes.
 - [x] Authored incidental animations; remove invented static-prop responses.
 - [x] Original puzzle source/answer tiles, phone list controls, and call indicator.
