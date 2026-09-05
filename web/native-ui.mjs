@@ -11,7 +11,20 @@ export function installNativeUI(g) {
   const e = new Engine(g.data, canvas, hits);
   e.cache = g.e.cache; e.pending = g.e.pending;
   let render = () => {};
-  e.render = (t) => { if (dialog.open) render(t); };
+  let textFields = [];
+  e.render = (t) => {
+    if (!dialog.open) return;
+    render(t);
+    for (const f of textFields) {
+      // Phone lists contain real controls; their children own the text.
+      const painted = !f.el.childElementCount && f.el.tagName !== "INPUT";
+      f.el.classList.toggle("canvas-text", painted);
+      if (painted) f.layout = e.textBox(f.el.textContent, f.x, f.y, f.w, f.h, {
+        size: f.size, family: f.el.style.fontFamily || "Arial", color: f.el.style.color || "#233c79",
+        bold: f.el.style.fontWeight === "bold", align: f.el.style.textAlign || "left", vertical: f.vertical,
+      });
+    }
+  };
   const position = (element, x, y, w, h, size = 16) => {
     Object.assign(element.style, { position: "absolute", left: `${x / 8}%`, top: `${y / 6}%`, width: `${w / 8}%`, height: `${h / 6}%`, fontSize: `${size / 8}cqw` });
     return element;
@@ -23,7 +36,9 @@ export function installNativeUI(g) {
   };
   const field = (text, x, y, w, h, size = 16, tag = "div") => {
     const el = document.createElement(tag); el.className = "native-text";
-    el.textContent = plain(text); position(el, x, y, w, h, size); body.append(el); return el;
+    el.textContent = plain(text); position(el, x, y, w, h, size); body.append(el);
+    textFields.push({ el, x, y, w, h, size });
+    return el;
   };
   const textSprite = (name, text, tag = "div") => {
     const p = g.data.sprites[name].properties;
@@ -32,17 +47,18 @@ export function installNativeUI(g) {
     if (p.COLOR) el.style.color = `rgb(${p.COLOR.join(",")})`;
     if (p.FONTSTYLE?.includes("BOLD")) el.style.fontWeight = "bold";
     if (p.ALIGNMENT?.includes("CENTER")) el.style.textAlign = "center";
+    if (p.ALIGNMENT?.includes("MIDDLE")) textFields.at(-1).vertical = "middle";
     return el;
   };
   const open = (title, draw, mode = "native") => {
-    body.replaceChildren(); dialog.dataset.mode = mode;
+    body.replaceChildren(); textFields = []; dialog.dataset.mode = mode;
     dialog.setAttribute("aria-label", title); render = draw;
     hits.replaceChildren(); e.buttons.clear();
     if (!dialog.open) dialog.showModal();
     return body;
   };
   const closeButton = (sprite = "BtnZzPostItClose", options = {}) => e.button(sprite, "Close dialog", () => g.close(), options);
-  g.native = { e, open, field, textSprite, position, ink, closeButton };
+  g.native = { e, open, field, textSprite, position, ink, closeButton, get textFields() { return textFields; } };
   g.ink = (...args) => ink(g.e, ...args);
   g.modal = (title, html = "") => {
     open(title, () => {
@@ -127,11 +143,11 @@ export function installNativeUI(g) {
       e.text(String(week), 400, 506, { size: 18, align: "center" });
     });
     textSprite("TxtStZineBody", w.ZINE_TEXT).tabIndex = 0;
-    textSprite("TxtStPuzzleTitle", w.PUZZLE_TITLE);
+    field(w.PUZZLE_TITLE, 234, 280, 356, 33, 14).style.color = "rgb(25, 34, 153)";
     for (let i = 0; i < w.PUZZLE_WORD.length / 3; i++) {
       const [scramble, answer, mask] = w.PUZZLE_WORD.slice(i * 3, i * 3 + 3), y = [315, 385, 448][i];
-      field(`${plain(w.PUZZLE_STR[i])} ${scramble}`, 235, y, 350, 25, 14);
-      const input = field("", 235, y + 28, 320, 24, 17, "input");
+      field(`${plain(w.PUZZLE_STR[i])} ${scramble}`, 235, y, 355, 33, 14);
+      const input = field("", 235, y + 34, 355, 21, 14, "input");
       input.setAttribute("aria-label", `Word jumble ${i + 1}`);
       input.value = answers[i] || ""; input.maxLength = answer.length + 5; input.autocomplete = "off";
       input.placeholder = [...answer].map((c, j) => mask[j] === "1" ? c : "_").join(" ");
@@ -233,12 +249,24 @@ export function installNativeUI(g) {
       if (!visible.length) field(tab === "photos" ? "Your weekend photos will go here. Finish your plans and enjoy the event!" : tab === "boys" ? "Say hello to the boys around the city to collect their pictures." : "Your saved creations will go here.",110,55,230,145,18);
     }
   };
+  const lastDialogue = new Map();
+  const dialogue = (key, choices) => {
+    const available = choices.filter(fx => fx !== lastDialogue.get(key));
+    const pool = available.length ? available : choices;
+    const fx = pool[Math.floor(Math.random() * pool.length)];
+    lastDialogue.set(key, fx);
+    return fx;
+  };
   g.chat = actor => {
     actor.paused = true;
     const n = actor.ACTOR, isGirl = /Barbie|Chelsea|Madison/.test(n), target = {AniStBarbie:"Bar",AniStChelsea:"Chel",AniStMadison:"Mad"}[n];
-    g.voice("VocStGreetVO", isGirl ? `${target}Greet01` : "MiscCharaGreeting13");
+    const triggers = g.d("DctActorTrigger");
+    const choices = isGirl
+      ? [1, 2].map(i => `GenChat${g.pre === "Che" ? "Chel" : g.pre}${target}${pad(i)}`)
+      : triggers[`${n}_GREET`] || triggers.NON_MYSCENE_GREET;
+    // One voice request per click: a second request cancels the first on this channel.
+    g.voice("VocStGreetVO", dialogue(n, choices));
     if (!/Boy/.test(n)) {
-      g.voice("VocStGreetVO",isGirl ? `GenChat${g.pre === "Che" ? "Chel" : g.pre}${target}${pad(1 + Math.floor(Math.random()*2))}` : "Chat1");
       setTimeout(()=>{actor.paused=false;},6500); return;
     }
     open(g.actorName(n),()=>{

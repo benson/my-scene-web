@@ -204,6 +204,42 @@ export class Engine {
     this.ctx.restore();
     return cy + size * 1.3;
   }
+  // Lay out text in game pixels, then scale it together with the artwork.
+  // Preserve paragraph breaks and fit the complete text within its sprite box.
+  textBox(text, x, y, w, h, { size = 16, family = "Arial", color = "#233c79", bold = false, align = "left", vertical = "top" } = {}) {
+    const c = this.ctx;
+    c.save();
+    const wrap = () => {
+      const lines = [];
+      for (const paragraph of plain(text).split(/\r?\n/)) {
+        let line = "";
+        for (const word of paragraph.split(/\s+/).filter(Boolean)) {
+          const candidate = line ? `${line} ${word}` : word;
+          if (line && c.measureText(candidate).width > w) { lines.push(line); line = ""; }
+          for (const char of (line ? ` ${word}` : word)) {
+            if (line && c.measureText(line + char).width > w) { lines.push(line); line = ""; }
+            line += char;
+          }
+        }
+        lines.push(line);
+      }
+      return lines;
+    };
+    let lines, lineHeight;
+    do {
+      c.font = `${bold ? "bold " : ""}${size}px "${family}", Arial, sans-serif`;
+      lines = wrap(); lineHeight = size * 1.16;
+      if (lines.length * lineHeight <= h || size <= 1) break;
+      size -= .25;
+    } while (true);
+    c.beginPath(); c.rect(x, y, w, h); c.clip();
+    c.fillStyle = color; c.textBaseline = "top"; c.textAlign = align;
+    const tx = x + (align === "center" ? w / 2 : align === "right" ? w : 0);
+    const ty = y + (vertical === "middle" ? (h - lines.length * lineHeight) / 2 : 0);
+    lines.forEach((line, i) => c.fillText(line, tx, ty + i * lineHeight));
+    c.restore();
+    return { size, lines: lines.length, height: lines.length * lineHeight, boxHeight: h };
+  }
   panel(x, y, w, h, fill = "#fff7e6ef") {
     const c = this.ctx;
     c.fillStyle = fill;

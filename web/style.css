@@ -689,6 +689,9 @@ header, #quick, #panel { display: none; }
 #dialog[data-mode="note"] #dialog-body button { display: block; margin: .25em 0; }
 #dialog-body input, #dialog-body select { border: 0; border-bottom: 1px solid #233c7966; border-radius: 0; box-shadow: none; padding: 0; background: transparent; color: inherit; }
 .native-text { margin: 0; padding: 0; overflow: auto; white-space: pre-line; line-height: 1.16; font-family: Arial, sans-serif; }
+.native-text.canvas-text { color: transparent !important; overflow: hidden; text-shadow: none; }
+#dialog-body button.native-text { padding: 0; font-family: Arial, sans-serif; }
+#dialog-body input.native-text { font-family: Arial, sans-serif; line-height: 1.16; }
 button.native-text { line-height: 1.16; }
 #dialog-body .phone-row { display: block; width: 100%; min-height: 23px; font-size: inherit; padding: 2px 0; }
 .show-controls #panel, .load-error #panel { display: block; position: fixed; z-index: 25; right: 0; top: 0; width: min(340px, 90vw); max-height: 100svh; overflow: auto; padding: 20px; }
